@@ -1,0 +1,44 @@
+{
+  "project_info": {
+    "project_number": "27469627018",
+    "firebase_url": "https://visiteguideecegep-f394b.firebaseio.com",
+    "project_id": "visiteguideecegep-f394b",
+    "storage_bucket": "visiteguideecegep-f394b.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:27469627018:android:170c7cb53ac65748",
+        "android_client_info": {
+          "package_name": "com.example.visiteguideecegep"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "27469627018-lqosfg0a86ah32ocu7c9vebpoc7h2f7r.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.visiteguideecegep",
+            "certificate_hash": "468bc76a74a9f49f6e491605f6a3bea00ed5c1f6"
+          }
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAFslh8UoJEACN5ueWMTlpTmFoneOMohgg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "27469627018-cuaf68eh3sbdgs7585vvkp8qgaidjcie.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
