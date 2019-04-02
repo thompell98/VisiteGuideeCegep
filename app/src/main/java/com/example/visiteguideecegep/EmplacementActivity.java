@@ -10,6 +10,9 @@ import android.support.v7.app.AppCompatActivity;
         import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import com.github.chrisbanes.photoview.PhotoView;
 
 
 public class EmplacementActivity extends AppCompatActivity {
@@ -18,17 +21,15 @@ public class EmplacementActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.emplacement_activity);
+        Intent i=getIntent();
+        PhotoView plan = findViewById(R.id.photo_view);
+        plan.setImageResource(R.drawable.caf);
+        PhotoView pin =findViewById(R.id.photo_viewpin);
+       if (i.getStringExtra("allo").equals("caf")) {
 
-//int imageRessource=getResources().getIdentifier()
-//imageView.setImageResource(ima);
-        // imageView = new ImageView(this);
-TextView textView =findViewById(R.id.textView2);
-//textView.setText(ScanActivity.emp);
-      //  if (ScanActivity.emp == "caf") {
-            ImageView imageView = findViewById(R.id.imageView2);
-            imageView.setImageResource(R.drawable.ping);
+        pin.setImageResource(R.drawable.pin);
 
-       // }
+        }
     }
 }
 

@@ -8,12 +8,18 @@ import android.widget.TextView;
 import android.widget.Button;
 public class CameraActivity extends AppCompatActivity {
     public static TextView textViewResult;
+    TextView textView;
     Button scan_button;
+    String allo;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.camera_activity);
         textViewResult=findViewById(R.id.textView_codebar);
+        textView=findViewById(R.id.textview_test);
+        Intent i=getIntent();
+    //    textView.setText( i.getStringExtra("allo"));
+     //   textView.setText(ScanActivity.emp);
         setListener();
     }
 

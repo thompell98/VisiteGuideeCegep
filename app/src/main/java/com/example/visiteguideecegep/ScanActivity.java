@@ -1,5 +1,6 @@
 package com.example.visiteguideecegep;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -13,7 +14,7 @@ public class ScanActivity extends AppCompatActivity implements ZXingScannerView.
     private static final int REQUEST_CAMERA = 1;
     private ZXingScannerView mScannerView;
     TextView textView;
-    public static String emp;
+    public static String Text;
     ZXingScannerView scannerView;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,8 +31,11 @@ public class ScanActivity extends AppCompatActivity implements ZXingScannerView.
 
 
         CameraActivity.textViewResult.setText(result.getText());
-        emp=result.getText();
-        onBackPressed();
+     //   emp=result.getText();
+        Intent intente =new Intent(ScanActivity.this,EmplacementActivity.class);
+        intente.putExtra("allo",result.getText());
+        startActivity(intente);
+       // onBackPressed();
     }
 
     @Override
