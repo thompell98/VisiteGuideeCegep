@@ -1,6 +1,7 @@
 package com.example.visiteguideecegep;
 
 import android.os.Bundle;
+import android.provider.DocumentsContract;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -75,7 +76,7 @@ public class ConnexionBD extends AppCompatActivity
             @Override
             public void onFailure(@NonNull Exception e)
             {
-                Toast.makeText(getApplicationContext(), "This is my Toast message!", Toast.LENGTH_LONG).show();
+                Toast.makeText(getApplicationContext(), "Erreur", Toast.LENGTH_LONG).show();
             }
         });
     }
@@ -97,10 +98,9 @@ public class ConnexionBD extends AppCompatActivity
                         {
                             for (QueryDocumentSnapshot document : task.getResult())
                             {
-
-                                    textViewNumero.setText(document.get("numero").toString());
-                                    textViewNom.setText(document.get("nom").toString());
-                                    textViewEtage.setText(document.get("Etage").toString());
+                                textViewNumero.setText(document.get("numero").toString());
+                                textViewNom.setText(document.get("nom").toString());
+                                textViewEtage.setText(document.get("Etage").toString());
                             }
                         }
                         else
@@ -108,8 +108,6 @@ public class ConnexionBD extends AppCompatActivity
                                 Toast.makeText(getApplicationContext(), task.getException().toString(), Toast.LENGTH_LONG).show();
                         }
                     }
-
                 });
-
     }
 }
