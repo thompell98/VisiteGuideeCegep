@@ -20,10 +20,16 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void setListener() {
-        findViewById(R.id.button_goToScan).setOnClickListener(new View.OnClickListener() {
+        findViewById(R.id.button_gotoscan).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 redirectionCamera();
+            }
+        });
+        findViewById(R.id.button_db).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                redirectionDb();
             }
         });
     }
@@ -32,5 +38,9 @@ private void redirectionCamera()
     Intent sendUserToSignUpOrLogin=new Intent(this, CameraActivity.class);
     startActivity(sendUserToSignUpOrLogin);
 }
-
+    private void redirectionDb()
+    {
+        Intent sendUserToSignUpOrLogin=new Intent(this, ConnexionBD.class);
+        startActivity(sendUserToSignUpOrLogin);
+    }
 }

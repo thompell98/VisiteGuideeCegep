@@ -87,7 +87,7 @@ public class ConnexionBD extends AppCompatActivity
         textViewNom = (TextView) findViewById(R.id.textViewNom);
         textViewEtage = (TextView) findViewById(R.id.textViewEtage);
         db.collection("Locaux")
-                .whereEqualTo("numero", numeroLocal)
+                .whereEqualTo("Numero", numeroLocal)
                 .get()
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>()
                 {
@@ -98,8 +98,8 @@ public class ConnexionBD extends AppCompatActivity
                         {
                             for (QueryDocumentSnapshot document : task.getResult())
                             {
-                                textViewNumero.setText(document.get("numero").toString());
-                                textViewNom.setText(document.get("nom").toString());
+                                textViewNumero.setText(document.get("Numero").toString());
+                                textViewNom.setText(document.get("Nom").toString());
                                 textViewEtage.setText(document.get("Etage").toString());
                             }
                         }

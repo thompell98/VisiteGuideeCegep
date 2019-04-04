@@ -21,6 +21,14 @@
             "package_name": "com.example.visiteguideecegep",
             "certificate_hash": "468bc76a74a9f49f6e491605f6a3bea00ed5c1f6"
           }
+        },
+        {
+          "client_id": "27469627018-qusniqrsmpf9dtaafjqfhkhfrsvgq3ba.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.visiteguideecegep",
+            "certificate_hash": "175b20eded618d6c85b8beff487a208dc3ec3014"
+          }
         }
       ],
       "api_key": [
