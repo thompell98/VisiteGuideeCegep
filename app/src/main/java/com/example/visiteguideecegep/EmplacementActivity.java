@@ -1,35 +1,55 @@
 package com.example.visiteguideecegep;
 
-import android.graphics.drawable.Drawable;
+import android.content.Intent;
+import android.graphics.Canvas;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
- import android.content.Intent;
-        import android.graphics.Camera;
-        import android.support.v7.app.AppCompatActivity;
-        import android.os.Bundle;
-        import android.view.View;
-import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
+import android.widget.ZoomButtonsController;
 
 import com.github.chrisbanes.photoview.PhotoView;
 
 
 public class EmplacementActivity extends AppCompatActivity {
 
+
+
+MyCanvas mycanvas;
+    // private Paint paint = new Paint();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.emplacement_activity);
-        Intent i=getIntent();
-        PhotoView plan = findViewById(R.id.photo_view);
-        plan.setImageResource(R.drawable.caf);
-        PhotoView pin =findViewById(R.id.photo_viewpin);
-       if (i.getStringExtra("allo").equals("caf")) {
+        Intent i = getIntent();
+        mycanvas=new MyCanvas(this);
+      //  mycanvas.setBackgroundColor(Color.RED);
+mycanvas.setBackgroundResource(R.drawable.caf);
+      //  TextView nom = findViewById(R.id.textView_nom);
+             //   nom.setText("Nom: " + i.getStringExtra("nom"));
 
-        pin.setImageResource(R.drawable.pin);
+        setContentView(mycanvas);
 
-        }
+      //  TextView etage = findViewById(R.id.textView_etage);
+
+       // test();
+
+  //      PhotoView plan = findViewById(R.id.photo_view);
+    //    plan.setImageResource(R.drawable.caf);
+//        PhotoView pin = findViewById(R.id.photo_viewpin);
+//
+//        pin.setImageResource(R.drawable.pin);
+//
+//
+//        //  if (i.getStringExtra("numero").equals("C-161")) {
+
+//        etage.setText("Etage: " + i.getStringExtra("etage"));
+//
+//
+//        //   }
+
     }
+
+
 }
 

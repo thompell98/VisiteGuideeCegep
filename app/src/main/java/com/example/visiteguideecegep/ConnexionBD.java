@@ -1,5 +1,6 @@
 package com.example.visiteguideecegep;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.provider.DocumentsContract;
 import android.support.annotation.NonNull;
@@ -40,6 +41,7 @@ public class ConnexionBD extends AppCompatActivity
 
     private void setListeners()
     {
+      //  getLocalDatas();
         findViewById(R.id.buttonSearch).setOnClickListener(new View.OnClickListener()
         {
             @Override
@@ -83,31 +85,25 @@ public class ConnexionBD extends AppCompatActivity
 
     private void getLocalData(String numeroLocal)
     {
-        textViewNumero = (TextView) findViewById(R.id.textViewNumero);
-        textViewNom = (TextView) findViewById(R.id.textViewNom);
-        textViewEtage = (TextView) findViewById(R.id.textViewEtage);
-        db.collection("Locaux")
-                .whereEqualTo("Numero", numeroLocal)
-                .get()
-                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>()
-                {
-                    @Override
-                    public void onComplete(@NonNull Task<QuerySnapshot> task)
-                    {
-                        if (task.isSuccessful())
-                        {
-                            for (QueryDocumentSnapshot document : task.getResult())
-                            {
-                                textViewNumero.setText(document.get("Numero").toString());
-                                textViewNom.setText(document.get("Nom").toString());
-                                textViewEtage.setText(document.get("Etage").toString());
+            db.collection("Locaux")
+                    .whereEqualTo("Numero",numeroLocal)
+                    .get()
+                    .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                        @Override
+                        public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                            if (task.isSuccessful()) {
+                                for (QueryDocumentSnapshot document : task.getResult()) {
+                                    textViewNumero.setText(document.get("Numero").toString());
+                                    textViewNom.setText(document.get("Nom").toString());
+                                    textViewEtage.setText(document.get("Etage").toString());
+
+                                }
+
+                            } else {
+                                Toast.makeText(getApplicationContext(), task.getException().toString(), Toast.LENGTH_LONG).show();
                             }
                         }
-                        else
-                            {
-                                Toast.makeText(getApplicationContext(), task.getException().toString(), Toast.LENGTH_LONG).show();
-                        }
-                    }
-                });
-    }
+                    });
+        }
+
 }
