@@ -13,7 +13,7 @@ namespace gestionAdminVisiteGuidee
 {
     public partial class Connexion : Form
     {
-        FirestoreDb db = FirestoreDb.Create("visiteguideecegep-f394b");   
+        FirestoreDb db = FirestoreDb.Create("visiteguideecegep-f394b");
 
         public Connexion()
         {
@@ -25,6 +25,13 @@ namespace gestionAdminVisiteGuidee
             String nomUtilisateur = textBoxNomUtilisateur.Text;
             String motDePasse = textBoxMotDePasse.Text;
             SeConnecter(nomUtilisateur, motDePasse);
+        }
+
+        private void GoToAccueil()
+        {
+            this.Hide();
+            Accueil form = new Accueil();
+            form.Show();
         }
 
         private async void SeConnecter(String nomUtilisateur, String motDePasse)
@@ -45,7 +52,7 @@ namespace gestionAdminVisiteGuidee
                         if (documentDictionary["Username"].ToString() == nomUtilisateur
                             && documentDictionary["Password"].ToString() == motDePasse)
                         {
-                            MessageBox.Show("Vous êtes connecté.", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                            GoToAccueil();
                         }
                         else
                         {
