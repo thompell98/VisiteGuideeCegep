@@ -55,8 +55,10 @@
             // 
             // textBoxMotDePasse
             // 
+            this.textBoxMotDePasse.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.textBoxMotDePasse.Location = new System.Drawing.Point(265, 97);
             this.textBoxMotDePasse.Name = "textBoxMotDePasse";
+            this.textBoxMotDePasse.PasswordChar = '•';
             this.textBoxMotDePasse.Size = new System.Drawing.Size(128, 20);
             this.textBoxMotDePasse.TabIndex = 2;
             // 
@@ -82,6 +84,7 @@
             // 
             // Connexion
             // 
+            this.AcceptButton = this.buttonSeConnecter;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(525, 241);

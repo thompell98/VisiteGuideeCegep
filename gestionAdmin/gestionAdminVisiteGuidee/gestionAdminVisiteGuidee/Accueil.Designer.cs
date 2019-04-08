@@ -30,6 +30,7 @@
         {
             this.buttonRechercherLocal = new System.Windows.Forms.Button();
             this.textBoxNumeroLocal = new System.Windows.Forms.TextBox();
+            this.treeViewBD = new System.Windows.Forms.TreeView();
             this.SuspendLayout();
             // 
             // buttonRechercherLocal
@@ -40,7 +41,6 @@
             this.buttonRechercherLocal.TabIndex = 0;
             this.buttonRechercherLocal.Text = "Rechercher";
             this.buttonRechercherLocal.UseVisualStyleBackColor = true;
-            this.buttonRechercherLocal.Click += new System.EventHandler(this.buttonRechercherLocal_Click);
             // 
             // textBoxNumeroLocal
             // 
@@ -49,11 +49,20 @@
             this.textBoxNumeroLocal.Size = new System.Drawing.Size(100, 20);
             this.textBoxNumeroLocal.TabIndex = 1;
             // 
+            // treeViewBD
+            // 
+            this.treeViewBD.Location = new System.Drawing.Point(30, 24);
+            this.treeViewBD.Name = "treeViewBD";
+            this.treeViewBD.Size = new System.Drawing.Size(201, 414);
+            this.treeViewBD.TabIndex = 2;
+            this.treeViewBD.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.treeViewBD_AfterSelect);
+            // 
             // Accueil
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.treeViewBD);
             this.Controls.Add(this.textBoxNumeroLocal);
             this.Controls.Add(this.buttonRechercherLocal);
             this.Name = "Accueil";
@@ -67,5 +76,6 @@
 
         private System.Windows.Forms.Button buttonRechercherLocal;
         private System.Windows.Forms.TextBox textBoxNumeroLocal;
+        private System.Windows.Forms.TreeView treeViewBD;
     }
 }

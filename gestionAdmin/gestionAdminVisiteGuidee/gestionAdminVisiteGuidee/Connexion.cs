@@ -60,9 +60,9 @@ namespace gestionAdminVisiteGuidee
                         }
                     }
                 }
-                catch (Exception)
+                catch (Exception e)
                 {
-                    MessageBox.Show("Impossible de se connecter à la base de données. Veuillez vérifier votre connexion internet.", "Erreur", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    MessageBox.Show(e.ToString(), "Erreur", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 }
             }
         }

@@ -305,3 +305,4 @@ C:\Users\Thomas\AndroidStudioProjects\VisiteGuideeCegep\gestionAdmin\gestionAdmi
 C:\Users\Thomas\AndroidStudioProjects\VisiteGuideeCegep\gestionAdmin\gestionAdminVisiteGuidee\gestionAdminVisiteGuidee\obj\Debug\gestionAdminVisiteGuidee.exe
 C:\Users\Thomas\AndroidStudioProjects\VisiteGuideeCegep\gestionAdmin\gestionAdminVisiteGuidee\gestionAdminVisiteGuidee\obj\Debug\gestionAdminVisiteGuidee.pdb
 C:\Users\Thomas\AndroidStudioProjects\VisiteGuideeCegep\gestionAdmin\gestionAdminVisiteGuidee\gestionAdminVisiteGuidee\obj\Debug\gestionAdminVisiteGuidee.Accueil.resources
+C:\Users\admin\Downloads\VisiteGuideeCegep\gestionAdmin\gestionAdminVisiteGuidee\gestionAdminVisiteGuidee\obj\Debug\gestionAdminVisiteGuidee.Accueil.resources
