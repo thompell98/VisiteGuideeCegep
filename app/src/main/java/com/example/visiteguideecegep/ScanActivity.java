@@ -61,6 +61,8 @@ public class ScanActivity extends AppCompatActivity implements ZXingScannerView.
                                         intente.putExtra("numero", document.get("Numero").toString());
                                         intente.putExtra("nom", document.get("Nom").toString());
                                         intente.putExtra("etage", document.get("Etage").toString());
+                                       // intente.putExtra("caf", "allo");
+
 
                                     }
                                     startActivity(intente);

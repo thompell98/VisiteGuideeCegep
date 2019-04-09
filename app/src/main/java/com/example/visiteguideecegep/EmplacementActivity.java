@@ -22,16 +22,20 @@ public class EmplacementActivity extends AppCompatActivity {
     ScaleGestureDetector SGD;
 MyCanvas mycanvas;
     // private Paint paint = new Paint();
-
+  String allo;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Intent i = getIntent();
-        mycanvas=new MyCanvas(this);
+     //   Intent i = getIntent();
+      //  allo=i.getStringExtra("allo");
+        allo="piscine";
+        mycanvas=new MyCanvas(this,allo);
+
       //  mycanvas.setBackgroundColor(Color.RED);
 //mycanvas.setBackgroundResource(R.drawable.caf);
 mycanvas.setBackgroundColor(Color.WHITE);
       //  TextView nom = findViewById(R.id.textView_nom);
+      //  Intent i = getIntent();
              //   nom.setText("Nom: " + i.getStringExtra("nom"));
 
         setContentView(mycanvas);
