@@ -14,6 +14,7 @@ namespace gestionAdminVisiteGuidee
     public partial class Connexion : Form
     {
         FirestoreDb db = FirestoreDb.Create("visiteguideecegep-f394b");
+        public static string prenom = "";
 
         public Connexion()
         {
@@ -52,6 +53,7 @@ namespace gestionAdminVisiteGuidee
                         if (documentDictionary["Username"].ToString() == nomUtilisateur
                             && documentDictionary["Password"].ToString() == motDePasse)
                         {
+                            prenom = documentDictionary["Prenom"].ToString();
                             GoToAccueil();
                         }
                         else

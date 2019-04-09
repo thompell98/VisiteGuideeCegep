@@ -38,7 +38,7 @@
             // buttonSeConnecter
             // 
             this.buttonSeConnecter.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.buttonSeConnecter.Location = new System.Drawing.Point(201, 166);
+            this.buttonSeConnecter.Location = new System.Drawing.Point(113, 115);
             this.buttonSeConnecter.Name = "buttonSeConnecter";
             this.buttonSeConnecter.Size = new System.Drawing.Size(128, 35);
             this.buttonSeConnecter.TabIndex = 0;
@@ -48,7 +48,7 @@
             // 
             // textBoxNomUtilisateur
             // 
-            this.textBoxNomUtilisateur.Location = new System.Drawing.Point(265, 40);
+            this.textBoxNomUtilisateur.Location = new System.Drawing.Point(176, 19);
             this.textBoxNomUtilisateur.Name = "textBoxNomUtilisateur";
             this.textBoxNomUtilisateur.Size = new System.Drawing.Size(128, 20);
             this.textBoxNomUtilisateur.TabIndex = 1;
@@ -56,7 +56,7 @@
             // textBoxMotDePasse
             // 
             this.textBoxMotDePasse.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBoxMotDePasse.Location = new System.Drawing.Point(265, 97);
+            this.textBoxMotDePasse.Location = new System.Drawing.Point(176, 76);
             this.textBoxMotDePasse.Name = "textBoxMotDePasse";
             this.textBoxMotDePasse.PasswordChar = '•';
             this.textBoxMotDePasse.Size = new System.Drawing.Size(128, 20);
@@ -66,7 +66,7 @@
             // 
             this.labelNomUtilisateur.AutoSize = true;
             this.labelNomUtilisateur.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelNomUtilisateur.Location = new System.Drawing.Point(111, 40);
+            this.labelNomUtilisateur.Location = new System.Drawing.Point(22, 19);
             this.labelNomUtilisateur.Name = "labelNomUtilisateur";
             this.labelNomUtilisateur.Size = new System.Drawing.Size(148, 20);
             this.labelNomUtilisateur.TabIndex = 3;
@@ -76,7 +76,7 @@
             // 
             this.labelMotDePasse.AutoSize = true;
             this.labelMotDePasse.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelMotDePasse.Location = new System.Drawing.Point(137, 97);
+            this.labelMotDePasse.Location = new System.Drawing.Point(48, 76);
             this.labelMotDePasse.Name = "labelMotDePasse";
             this.labelMotDePasse.Size = new System.Drawing.Size(122, 20);
             this.labelMotDePasse.TabIndex = 4;
@@ -87,7 +87,7 @@
             this.AcceptButton = this.buttonSeConnecter;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(525, 241);
+            this.ClientSize = new System.Drawing.Size(335, 165);
             this.Controls.Add(this.labelMotDePasse);
             this.Controls.Add(this.labelNomUtilisateur);
             this.Controls.Add(this.textBoxMotDePasse);
