@@ -15,14 +15,129 @@ namespace gestionAdminVisiteGuidee
 {
     public partial class GestionFichiers : Form
     {
+        string bucketName = "visiteguideecegep-f394b.appspot.com";
+        string numeroDuLocal = Modifier.numero;
+
         public GestionFichiers()
         {
             InitializeComponent();
+            LireFichiersFirestore(numeroDuLocal);
         }
 
-        private void buttonImporter_Click(object sender, EventArgs e)
+        private void AjouterFichierCache(string path, string nomDuFichier)
         {
-            string filePath = "";
+            CreerDossierCacheExiste();
+            string sourceFile = System.IO.Path.Combine(path, nomDuFichier);
+            string destFile = System.IO.Path.Combine("C:\\imagesCache", nomDuFichier);
+            System.IO.File.Copy(sourceFile, destFile, true);
+        }
+
+        private void UploaderFichierFirestore(string path, string nomDuFichier)
+        {
+            string objectName = null;
+            var storage = StorageClient.Create();
+            using (var f = File.OpenRead(path + "\\" + nomDuFichier))
+            {
+                objectName = objectName ?? Path.GetFileName(path + "\\" + nomDuFichier);
+                storage.UploadObject(bucketName, numeroDuLocal + "/" + objectName, null, f);
+            }     
+        }
+
+        private void LireFichiersFirestore(string numeroLocal)
+        {
+            var client = StorageClient.Create();
+            StorageClient storageClient = StorageClient.Create();
+            foreach (var obj in client.ListObjects(bucketName, numeroLocal))
+            {
+                if (obj.Name != numeroLocal + "/")
+                {
+                    listBoxFichiersLocal.Items.Add(obj.Name);
+                }
+            }
+        }
+
+        private void AfficherImage(string nomDuFichier)
+        {
+            string path = "C:\\imagesCache";
+            if (!File.Exists(path + "\\" + nomDuFichier))
+            {
+                TelechargerFichierFirestore(path, nomDuFichier);
+            }
+            if (!string.IsNullOrEmpty(path))
+            {
+                Image img;
+                using (var bmpTemp = new Bitmap(path + "\\" + nomDuFichier))
+                {
+                    img = new Bitmap(bmpTemp);
+                }
+                pictureBoxPreview.Image = img;
+            }
+        }
+
+        private void CreerDossierCacheExiste()
+        {
+            string pathCache = "C:\\imagesCache";
+            if (!System.IO.Directory.Exists(pathCache))
+            {
+                System.IO.Directory.CreateDirectory(pathCache);
+            }
+        }
+
+        private void TelechargerFichierFirestore(string path, string imageSelectionnee)
+        {
+            CreerDossierCacheExiste();
+            var client = StorageClient.Create();
+            using (var stream = File.OpenWrite(path + "\\" + imageSelectionnee))
+            {
+                client.DownloadObject(bucketName, numeroDuLocal + "/" + imageSelectionnee, stream);
+            }
+        }
+
+        private void listBoxFichiersLocal_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (listBoxFichiersLocal.SelectedItem != null)
+            {
+                string nomDuFichier = listBoxFichiersLocal.SelectedItem.ToString();
+                if (nomDuFichier.StartsWith(numeroDuLocal + "/"))
+                { 
+                    nomDuFichier = nomDuFichier.ToString().Remove(0, 6);
+                }
+                AfficherImage(nomDuFichier);
+            }
+        }
+
+        private void SupprimerImageCache(string nomDuFichierSelectionne)
+        {
+            string path = "C:\\imagesCache\\" + nomDuFichierSelectionne;
+            pictureBoxPreview.Image = null;
+            File.Delete(path);
+        }
+
+        private void SupprimerImageFirestore(string nomDuFichier)
+        {
+            var storage = StorageClient.Create();
+            storage.DeleteObject(bucketName, numeroDuLocal + "/" + nomDuFichier);
+        }
+
+        private void buttonSupprimer_Click(object sender, EventArgs e)
+        {
+            if (listBoxFichiersLocal.Items.Count > 0)
+            {
+                string nomDuFichierSelectionne = listBoxFichiersLocal.SelectedItem.ToString();
+                if (nomDuFichierSelectionne.StartsWith(numeroDuLocal + "/"))
+                {
+                    nomDuFichierSelectionne = nomDuFichierSelectionne.Remove(0, 6);
+                }
+                SupprimerImageCache(nomDuFichierSelectionne);
+                SupprimerImageFirestore(nomDuFichierSelectionne);
+                listBoxFichiersLocal.Items.Remove(listBoxFichiersLocal.SelectedItem);
+            }
+        }
+
+        private void buttonAjouter_Click(object sender, EventArgs e)
+        {
+            string nomDuFichier = "";
+            string path = "";
             string fileContent = "";
             try
             {
@@ -34,15 +149,19 @@ namespace gestionAdminVisiteGuidee
                     openFileDialog.RestoreDirectory = true;
                     if (openFileDialog.ShowDialog() == DialogResult.OK)
                     {
-                        filePath = openFileDialog.FileName;            
+                        path = openFileDialog.FileName;
+                        path = Path.GetDirectoryName(path);
+                        nomDuFichier = openFileDialog.SafeFileName;
                         var fileStream = openFileDialog.OpenFile();
                         using (StreamReader reader = new StreamReader(fileStream))
                         {
                             fileContent = reader.ReadToEnd();
                         }
+                        AjouterFichierCache(path, nomDuFichier);
+                        UploaderFichierFirestore(path, nomDuFichier);
+                        listBoxFichiersLocal.Items.Add(nomDuFichier);
                     }
                 }
-                listBoxFichiersLocal.Items.Add(filePath);
             }
             catch (Exception ex)
             {
@@ -50,30 +169,9 @@ namespace gestionAdminVisiteGuidee
             }
         }
 
-        private void readFiles()
+        private void buttonGererFichiers_Click(object sender, EventArgs e)
         {
-            var client = StorageClient.Create();
-            var bucketName = "visiteguideecegep-f394b.appspot.com";
-            StorageClient storageClient = StorageClient.Create();
-            foreach (var obj in client.ListObjects(bucketName, ""))
-            {
-                Console.WriteLine(obj.Name);
-            }
-        }
 
-        private void listBoxFichiersLocal_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            var imageSelectionnee = listBoxFichiersLocal.SelectedItem.ToString();
-            if (!string.IsNullOrEmpty(imageSelectionnee))
-            {
-                pictureBoxPreview.Image = Image.FromFile(imageSelectionnee);
-            }
-            
-        }
-
-        private void button1_Click(object sender, EventArgs e)
-        {
-            readFiles();
         }
     }
 }

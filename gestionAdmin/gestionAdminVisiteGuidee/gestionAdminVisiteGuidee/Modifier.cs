@@ -16,6 +16,7 @@ namespace gestionAdminVisiteGuidee
         FirestoreDb db = FirestoreDb.Create("visiteguideecegep-f394b");
         string[] lesAiles = new string[] { "A", "B", "C", "D", "E", "G", "N" };
         WaitPlease form = new WaitPlease();
+        public static string numero = "";
 
         public Modifier()
         {
@@ -31,6 +32,13 @@ namespace gestionAdminVisiteGuidee
         private void EnleverLoadingScreen()
         {
             form.Hide();
+        }
+
+        private void Return()
+        {
+            this.Hide();
+            Accueil form = new Accueil();
+            form.Show();
         }
 
         private void SynchroniserTreeView()
@@ -115,11 +123,6 @@ namespace gestionAdminVisiteGuidee
             return leLocal;
         }
 
-        private void buttonGererFichiers_Click(object sender, EventArgs e)
-        {
-            OuvrirFormGestionFichiers();
-        }
-
         private void OuvrirFormGestionFichiers()
         {
             if (textBoxNumero.Text == "")
@@ -128,10 +131,21 @@ namespace gestionAdminVisiteGuidee
             }
             else
             {
+                numero = textBoxNumero.Text;
                 this.Hide();
                 GestionFichiers form = new GestionFichiers();
                 form.Show();
             }
+        }
+
+        private void buttonGererFichiers_Click(object sender, EventArgs e)
+        {
+            OuvrirFormGestionFichiers();
+        }
+
+        private void pictureBox1_Click(object sender, EventArgs e)
+        {
+            Return();
         }
     }
 }

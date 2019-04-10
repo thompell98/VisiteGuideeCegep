@@ -28,20 +28,27 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Modifier));
             this.treeViewBD = new System.Windows.Forms.TreeView();
             this.textBoxNom = new System.Windows.Forms.TextBox();
             this.textBoxDescription = new System.Windows.Forms.TextBox();
             this.labelNom = new System.Windows.Forms.Label();
             this.labelDescription = new System.Windows.Forms.Label();
-            this.buttonModifier = new System.Windows.Forms.Button();
             this.labelNumero = new System.Windows.Forms.Label();
             this.textBoxNumero = new System.Windows.Forms.TextBox();
-            this.buttonGererFichiers = new System.Windows.Forms.Button();
+            this.shapeContainer1 = new Microsoft.VisualBasic.PowerPacks.ShapeContainer();
+            this.buttonGererFichiers = new Microsoft.VisualBasic.PowerPacks.RectangleShape();
+            this.labelGererFichiers = new System.Windows.Forms.Label();
+            this.labelModifier = new System.Windows.Forms.Label();
+            this.rectangleShape1 = new Microsoft.VisualBasic.PowerPacks.RectangleShape();
+            this.rectangleShape2 = new Microsoft.VisualBasic.PowerPacks.RectangleShape();
+            this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
             // treeViewBD
             // 
-            this.treeViewBD.Location = new System.Drawing.Point(36, 12);
+            this.treeViewBD.Location = new System.Drawing.Point(71, 12);
             this.treeViewBD.Name = "treeViewBD";
             this.treeViewBD.Size = new System.Drawing.Size(185, 426);
             this.treeViewBD.TabIndex = 0;
@@ -80,15 +87,6 @@
             this.labelDescription.TabIndex = 5;
             this.labelDescription.Text = "Description:";
             // 
-            // buttonModifier
-            // 
-            this.buttonModifier.Location = new System.Drawing.Point(417, 415);
-            this.buttonModifier.Name = "buttonModifier";
-            this.buttonModifier.Size = new System.Drawing.Size(75, 23);
-            this.buttonModifier.TabIndex = 7;
-            this.buttonModifier.Text = "Modifier";
-            this.buttonModifier.UseVisualStyleBackColor = true;
-            // 
             // labelNumero
             // 
             this.labelNumero.AutoSize = true;
@@ -106,32 +104,105 @@
             this.textBoxNumero.Size = new System.Drawing.Size(100, 20);
             this.textBoxNumero.TabIndex = 9;
             // 
+            // shapeContainer1
+            // 
+            this.shapeContainer1.Location = new System.Drawing.Point(0, 0);
+            this.shapeContainer1.Margin = new System.Windows.Forms.Padding(0);
+            this.shapeContainer1.Name = "shapeContainer1";
+            this.shapeContainer1.Shapes.AddRange(new Microsoft.VisualBasic.PowerPacks.Shape[] {
+            this.rectangleShape2,
+            this.rectangleShape1,
+            this.buttonGererFichiers});
+            this.shapeContainer1.Size = new System.Drawing.Size(597, 450);
+            this.shapeContainer1.TabIndex = 11;
+            this.shapeContainer1.TabStop = false;
+            // 
             // buttonGererFichiers
             // 
-            this.buttonGererFichiers.Location = new System.Drawing.Point(384, 270);
+            this.buttonGererFichiers.BackColor = System.Drawing.SystemColors.ActiveCaption;
+            this.buttonGererFichiers.BackStyle = Microsoft.VisualBasic.PowerPacks.BackStyle.Opaque;
+            this.buttonGererFichiers.BorderColor = System.Drawing.SystemColors.ActiveCaption;
+            this.buttonGererFichiers.CornerRadius = 5;
+            this.buttonGererFichiers.Location = new System.Drawing.Point(404, 258);
             this.buttonGererFichiers.Name = "buttonGererFichiers";
-            this.buttonGererFichiers.Size = new System.Drawing.Size(135, 23);
-            this.buttonGererFichiers.TabIndex = 10;
-            this.buttonGererFichiers.Text = "Gérer les fichiers du local";
-            this.buttonGererFichiers.UseVisualStyleBackColor = true;
+            this.buttonGererFichiers.Size = new System.Drawing.Size(110, 32);
             this.buttonGererFichiers.Click += new System.EventHandler(this.buttonGererFichiers_Click);
+            // 
+            // labelGererFichiers
+            // 
+            this.labelGererFichiers.AutoSize = true;
+            this.labelGererFichiers.BackColor = System.Drawing.SystemColors.ActiveCaption;
+            this.labelGererFichiers.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelGererFichiers.Location = new System.Drawing.Point(410, 267);
+            this.labelGererFichiers.Name = "labelGererFichiers";
+            this.labelGererFichiers.Size = new System.Drawing.Size(103, 13);
+            this.labelGererFichiers.TabIndex = 12;
+            this.labelGererFichiers.Text = "Gérer les fichiers";
+            // 
+            // labelModifier
+            // 
+            this.labelModifier.AutoSize = true;
+            this.labelModifier.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(0)))));
+            this.labelModifier.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelModifier.Location = new System.Drawing.Point(434, 311);
+            this.labelModifier.Name = "labelModifier";
+            this.labelModifier.Size = new System.Drawing.Size(52, 13);
+            this.labelModifier.TabIndex = 13;
+            this.labelModifier.Text = "Modifier";
+            // 
+            // rectangleShape1
+            // 
+            this.rectangleShape1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(0)))));
+            this.rectangleShape1.BackStyle = Microsoft.VisualBasic.PowerPacks.BackStyle.Opaque;
+            this.rectangleShape1.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(0)))));
+            this.rectangleShape1.CornerRadius = 5;
+            this.rectangleShape1.Location = new System.Drawing.Point(405, 301);
+            this.rectangleShape1.Name = "rectangleShape1";
+            this.rectangleShape1.Size = new System.Drawing.Size(110, 32);
+            this.rectangleShape1.Click += new System.EventHandler(this.buttonGererFichiers_Click);
+            // 
+            // rectangleShape2
+            // 
+            this.rectangleShape2.BackColor = System.Drawing.SystemColors.ActiveCaption;
+            this.rectangleShape2.BackStyle = Microsoft.VisualBasic.PowerPacks.BackStyle.Opaque;
+            this.rectangleShape2.BorderColor = System.Drawing.SystemColors.ActiveCaption;
+            this.rectangleShape2.CornerRadius = 5;
+            this.rectangleShape2.Location = new System.Drawing.Point(10, 13);
+            this.rectangleShape2.Name = "rectangleShape2";
+            this.rectangleShape2.Size = new System.Drawing.Size(38, 40);
+            this.rectangleShape2.Click += new System.EventHandler(this.buttonGererFichiers_Click);
+            // 
+            // pictureBox1
+            // 
+            this.pictureBox1.BackColor = System.Drawing.SystemColors.ActiveCaption;
+            this.pictureBox1.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox1.Image")));
+            this.pictureBox1.Location = new System.Drawing.Point(12, 15);
+            this.pictureBox1.Name = "pictureBox1";
+            this.pictureBox1.Size = new System.Drawing.Size(35, 36);
+            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pictureBox1.TabIndex = 14;
+            this.pictureBox1.TabStop = false;
+            this.pictureBox1.Click += new System.EventHandler(this.pictureBox1_Click);
             // 
             // Modifier
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(666, 450);
-            this.Controls.Add(this.buttonGererFichiers);
+            this.ClientSize = new System.Drawing.Size(597, 450);
+            this.Controls.Add(this.pictureBox1);
+            this.Controls.Add(this.labelModifier);
+            this.Controls.Add(this.labelGererFichiers);
             this.Controls.Add(this.textBoxNumero);
             this.Controls.Add(this.labelNumero);
-            this.Controls.Add(this.buttonModifier);
             this.Controls.Add(this.labelDescription);
             this.Controls.Add(this.labelNom);
             this.Controls.Add(this.textBoxDescription);
             this.Controls.Add(this.textBoxNom);
             this.Controls.Add(this.treeViewBD);
+            this.Controls.Add(this.shapeContainer1);
             this.Name = "Modifier";
             this.Text = "Modifier";
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -144,9 +215,14 @@
         private System.Windows.Forms.TextBox textBoxDescription;
         private System.Windows.Forms.Label labelNom;
         private System.Windows.Forms.Label labelDescription;
-        private System.Windows.Forms.Button buttonModifier;
         private System.Windows.Forms.Label labelNumero;
         private System.Windows.Forms.TextBox textBoxNumero;
-        private System.Windows.Forms.Button buttonGererFichiers;
+        private Microsoft.VisualBasic.PowerPacks.ShapeContainer shapeContainer1;
+        private Microsoft.VisualBasic.PowerPacks.RectangleShape buttonGererFichiers;
+        private System.Windows.Forms.Label labelGererFichiers;
+        private System.Windows.Forms.Label labelModifier;
+        private Microsoft.VisualBasic.PowerPacks.RectangleShape rectangleShape1;
+        private Microsoft.VisualBasic.PowerPacks.RectangleShape rectangleShape2;
+        private System.Windows.Forms.PictureBox pictureBox1;
     }
 }
