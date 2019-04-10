@@ -40,7 +40,7 @@ public class MyCanvas extends View {
 //    float ammountY;
 //    private int mActivePointerId = INVALID_POINTER_ID;
     private static final float MINIMUM_SCALE_FACTOR = 1.0f;
-    private static final float MAXIMUM_SCALE_FACTOR = 5.0f;
+    private static final float MAXIMUM_SCALE_FACTOR = 4.0f;
     //   private Picture mPicture;
     private Paint mPaint;
     private ScaleGestureDetector mScaleDetector;
@@ -74,7 +74,7 @@ public class MyCanvas extends View {
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
         String text = "fdsd";
-        Toast.makeText(getContext(), aa, Toast.LENGTH_SHORT).show();
+      //  Toast.makeText(getContext(), aa, Toast.LENGTH_SHORT).show();
         TextPaint textPaint = new TextPaint();
         textPaint.setAntiAlias(true);
         textPaint.setTextSize(16 * getResources().getDisplayMetrics().density);
@@ -103,12 +103,12 @@ public class MyCanvas extends View {
 
 
         //   nom.setText("Nom: " + i.getStringExtra("nom"));
-        if (aa.equals("caf")) {
-            canvas.drawBitmap(bmm, null, new Rect(400, 600, 500, 700), paint);
-        }
-        if (aa.equals("piscine")) {
-            canvas.drawBitmap(bmm, null, new Rect(100, 1300, 200, 1400), paint);
-        }
+//        if (aa.equals("caf")) {
+//            canvas.drawBitmap(bmm, null, new Rect(400, 600, 500, 700), paint);
+//        }
+//        if (aa.equals("piscine")) {
+//            canvas.drawBitmap(bmm, null, new Rect(100, 1300, 200, 1400), paint);
+//        }
         //   canvas.drawBitmap(bmp,null, new Rect(0,0,800,800),null);
 
         canvas.restore();
@@ -186,7 +186,7 @@ public class MyCanvas extends View {
     }
 
     private void init(@NonNull Context context) {
-        bm = BitmapFactory.decodeResource(getResources(), R.drawable.caf);
+        bm = BitmapFactory.decodeResource(getResources(), R.drawable.test7);
         bmm = BitmapFactory.decodeResource(getResources(), R.drawable.pin);
         //   SGD = new ScaleGestureDetector(context, new ScalesListener());
 //        mTextPaint = new TextPaint();
