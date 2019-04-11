@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Matrix;
+import android.graphics.Rect;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MotionEvent;
@@ -22,14 +23,16 @@ public class EmplacementActivity extends AppCompatActivity {
     ScaleGestureDetector SGD;
 MyCanvas mycanvas;
     // private Paint paint = new Paint();
-  String allo;
+  String Nom_emplacement;
+  Rect coordonnées;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
      //   Intent i = getIntent();
       //  allo=i.getStringExtra("allo");
-        allo="piscine";
-        mycanvas=new MyCanvas(this,allo);
+        coordonnées=new Rect(3,14,16,5);
+        Nom_emplacement="caf";
+        mycanvas=new MyCanvas(this,Nom_emplacement,coordonnées);
 
       //  mycanvas.setBackgroundColor(Color.RED);
 //mycanvas.setBackgroundResource(R.drawable.caf);

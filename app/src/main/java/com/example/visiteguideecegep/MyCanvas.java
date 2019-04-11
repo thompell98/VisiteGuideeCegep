@@ -61,9 +61,11 @@ public class MyCanvas extends View {
     TextPaint mTextPaint;
     // StaticLayout mStaticLayout;
     String aa;
+    Rect cordee;
 
-    public MyCanvas(Context context, String emp) {
+    public MyCanvas(Context context, String emp, Rect corde) {
         super(context);
+        cordee = corde;
         aa = emp;
         init(context);
 
@@ -74,7 +76,7 @@ public class MyCanvas extends View {
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
         String text = "fdsd";
-      //  Toast.makeText(getContext(), aa, Toast.LENGTH_SHORT).show();
+        //  Toast.makeText(getContext(), aa, Toast.LENGTH_SHORT).show();
         TextPaint textPaint = new TextPaint();
         textPaint.setAntiAlias(true);
         textPaint.setTextSize(16 * getResources().getDisplayMetrics().density);
@@ -100,12 +102,13 @@ public class MyCanvas extends View {
         canvas.drawBitmap(bm, null, dest, paint);
         //canvas.drawText("dsgjsdklgh",25, 25, paint);
         myStaticLayout.draw(canvas);
-
-
-        //   nom.setText("Nom: " + i.getStringExtra("nom"));
-//        if (aa.equals("caf")) {
-//            canvas.drawBitmap(bmm, null, new Rect(400, 600, 500, 700), paint);
-//        }
+        int heightt = getHeight() / 20;
+        int widthh = getWidth() / 20;
+        //  etBounds(x-width/2, y-height/2, x+width/2, y+height/2) where
+        //    nom.setText("Nom: " + i.getStringExtra("nom"));
+        if (aa.equals("caf")) {
+            canvas.drawBitmap(bmm, null, new Rect(getLeft() + widthh *cordee.left, getTop() + heightt * cordee.top, getRight() - widthh * cordee.right, getBottom() - heightt * cordee.bottom), paint);
+        }
 //        if (aa.equals("piscine")) {
 //            canvas.drawBitmap(bmm, null, new Rect(100, 1300, 200, 1400), paint);
 //        }
@@ -186,7 +189,7 @@ public class MyCanvas extends View {
     }
 
     private void init(@NonNull Context context) {
-        bm = BitmapFactory.decodeResource(getResources(), R.drawable.test7);
+        bm = BitmapFactory.decodeResource(getResources(), R.drawable.etage1bon);
         bmm = BitmapFactory.decodeResource(getResources(), R.drawable.pin);
         //   SGD = new ScaleGestureDetector(context, new ScalesListener());
 //        mTextPaint = new TextPaint();
