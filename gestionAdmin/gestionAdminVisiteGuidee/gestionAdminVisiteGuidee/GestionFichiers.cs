@@ -28,7 +28,7 @@ namespace gestionAdminVisiteGuidee
         {
             CreerDossierCacheExiste();
             string sourceFile = System.IO.Path.Combine(path, nomDuFichier);
-            string destFile = System.IO.Path.Combine("C:\\imagesCache", nomDuFichier);
+            string destFile = System.IO.Path.Combine("C:\\fichiersCache", nomDuFichier);
             System.IO.File.Copy(sourceFile, destFile, true);
         }
 
@@ -58,38 +58,47 @@ namespace gestionAdminVisiteGuidee
 
         private void AfficherImage(string nomDuFichier)
         {
-            string path = "C:\\imagesCache";
-            if (!File.Exists(path + "\\" + nomDuFichier))
+            mediaPlayer.Visible = false;
+            mediaPlayer.Ctlcontrols.stop();
+            pictureBoxPreview.Visible = true;
+            if (!File.Exists("C:\\fichiersCache\\" + nomDuFichier))
             {
-                TelechargerFichierFirestore(path, nomDuFichier);
+                TelechargerFichierFirestore("C:\\fichiersCache", nomDuFichier);
             }
-            if (!string.IsNullOrEmpty(path))
+            Image img;
+            using (var bmpTemp = new Bitmap("C:\\fichiersCache\\" + nomDuFichier))
             {
-                Image img;
-                using (var bmpTemp = new Bitmap(path + "\\" + nomDuFichier))
-                {
-                    img = new Bitmap(bmpTemp);
-                }
-                pictureBoxPreview.Image = img;
+                img = new Bitmap(bmpTemp);
             }
+            pictureBoxPreview.Image = img;
+        }
+
+        private void AfficherVideo(string nomDuFichier)
+        {
+            pictureBoxPreview.Visible = false;
+            mediaPlayer.Visible = true;
+            if (!File.Exists("C:\\fichiersCache\\" + nomDuFichier))
+            {
+                TelechargerFichierFirestore("C:\\fichiersCache", nomDuFichier);
+            }
+            mediaPlayer.URL = "C:\\fichiersCache\\" + nomDuFichier;
         }
 
         private void CreerDossierCacheExiste()
         {
-            string pathCache = "C:\\imagesCache";
-            if (!System.IO.Directory.Exists(pathCache))
+            if (!System.IO.Directory.Exists("C:\\fichiersCache"))
             {
-                System.IO.Directory.CreateDirectory(pathCache);
+                System.IO.Directory.CreateDirectory("C:\\fichiersCache");
             }
         }
 
-        private void TelechargerFichierFirestore(string path, string imageSelectionnee)
+        private void TelechargerFichierFirestore(string path, string fichierSelectionnee)
         {
             CreerDossierCacheExiste();
             var client = StorageClient.Create();
-            using (var stream = File.OpenWrite(path + "\\" + imageSelectionnee))
+            using (var stream = File.OpenWrite(path + "\\" + fichierSelectionnee))
             {
-                client.DownloadObject(bucketName, numeroDuLocal + "/" + imageSelectionnee, stream);
+                client.DownloadObject(bucketName, numeroDuLocal + "/" + fichierSelectionnee, stream);
             }
         }
 
@@ -102,18 +111,26 @@ namespace gestionAdminVisiteGuidee
                 { 
                     nomDuFichier = nomDuFichier.ToString().Remove(0, 6);
                 }
-                AfficherImage(nomDuFichier);
+                if (nomDuFichier.EndsWith(".bmp") || nomDuFichier.EndsWith(".jpg") || nomDuFichier.EndsWith(".png"))
+                {
+                    AfficherImage(nomDuFichier);
+                }
+                else if (nomDuFichier.EndsWith(".mp4") || nomDuFichier.EndsWith(".mp3"))
+                {
+                    AfficherVideo(nomDuFichier);
+                }
             }
         }
 
-        private void SupprimerImageCache(string nomDuFichierSelectionne)
+        private void SupprimerFichierCache(string nomDuFichierSelectionne)
         {
-            string path = "C:\\imagesCache\\" + nomDuFichierSelectionne;
+            string path = "C:\\fichiersCache\\" + nomDuFichierSelectionne;
             pictureBoxPreview.Image = null;
+            mediaPlayer.URL = null;
             File.Delete(path);
         }
 
-        private void SupprimerImageFirestore(string nomDuFichier)
+        private void SupprimerFichierFirestore(string nomDuFichier)
         {
             var storage = StorageClient.Create();
             storage.DeleteObject(bucketName, numeroDuLocal + "/" + nomDuFichier);
@@ -128,8 +145,8 @@ namespace gestionAdminVisiteGuidee
                 {
                     nomDuFichierSelectionne = nomDuFichierSelectionne.Remove(0, 6);
                 }
-                SupprimerImageCache(nomDuFichierSelectionne);
-                SupprimerImageFirestore(nomDuFichierSelectionne);
+                SupprimerFichierCache(nomDuFichierSelectionne);
+                SupprimerFichierFirestore(nomDuFichierSelectionne);
                 listBoxFichiersLocal.Items.Remove(listBoxFichiersLocal.SelectedItem);
             }
         }
@@ -139,39 +156,39 @@ namespace gestionAdminVisiteGuidee
             string nomDuFichier = "";
             string path = "";
             string fileContent = "";
-            try
+            using (OpenFileDialog openFileDialog = new OpenFileDialog())
             {
-                using (OpenFileDialog openFileDialog = new OpenFileDialog())
+                openFileDialog.InitialDirectory = "c:\\";
+                openFileDialog.Filter = "Images/Videos/Audio (*.bmp;*.png;*.jpg;*.mp4;*.mp3)|*.bmp;*.png;*.jpg;*.mp4;*.mp3";
+                openFileDialog.FilterIndex = 2;
+                openFileDialog.RestoreDirectory = true;
+                if (openFileDialog.ShowDialog() == DialogResult.OK)
                 {
-                    openFileDialog.InitialDirectory = "c:\\";
-                    openFileDialog.Filter = "txt files (*.txt)|*.txt|All files (*.*)|*.*";
-                    openFileDialog.FilterIndex = 2;
-                    openFileDialog.RestoreDirectory = true;
-                    if (openFileDialog.ShowDialog() == DialogResult.OK)
+                    path = openFileDialog.FileName;
+                    path = Path.GetDirectoryName(path);
+                    nomDuFichier = openFileDialog.SafeFileName;
+                    var fileStream = openFileDialog.OpenFile();
+                    using (StreamReader reader = new StreamReader(fileStream))
                     {
-                        path = openFileDialog.FileName;
-                        path = Path.GetDirectoryName(path);
-                        nomDuFichier = openFileDialog.SafeFileName;
-                        var fileStream = openFileDialog.OpenFile();
-                        using (StreamReader reader = new StreamReader(fileStream))
-                        {
-                            fileContent = reader.ReadToEnd();
-                        }
-                        AjouterFichierCache(path, nomDuFichier);
-                        UploaderFichierFirestore(path, nomDuFichier);
-                        listBoxFichiersLocal.Items.Add(nomDuFichier);
+                        fileContent = reader.ReadToEnd();
                     }
+                    AjouterFichierCache(path, nomDuFichier);
+                    UploaderFichierFirestore(path, nomDuFichier);
+                    listBoxFichiersLocal.Items.Add(nomDuFichier);
                 }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show("Il y a une erreur: " + ex.Message + " " + ex.Source);
             }
         }
 
-        private void buttonGererFichiers_Click(object sender, EventArgs e)
+        private void buttonRetour_Click(object sender, EventArgs e)
         {
+            Retourner();         
+        }
 
+        private void Retourner()
+        {
+            this.Hide();
+            Modifier formModifier = Modifier.formModifier;
+            formModifier.Visible = true;
         }
     }
 }

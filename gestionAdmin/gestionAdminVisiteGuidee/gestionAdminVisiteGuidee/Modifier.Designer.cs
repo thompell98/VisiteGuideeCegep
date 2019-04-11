@@ -37,13 +37,13 @@
             this.labelNumero = new System.Windows.Forms.Label();
             this.textBoxNumero = new System.Windows.Forms.TextBox();
             this.shapeContainer1 = new Microsoft.VisualBasic.PowerPacks.ShapeContainer();
+            this.rectangleShape2 = new Microsoft.VisualBasic.PowerPacks.RectangleShape();
+            this.buttonModifier = new Microsoft.VisualBasic.PowerPacks.RectangleShape();
             this.buttonGererFichiers = new Microsoft.VisualBasic.PowerPacks.RectangleShape();
             this.labelGererFichiers = new System.Windows.Forms.Label();
             this.labelModifier = new System.Windows.Forms.Label();
-            this.rectangleShape1 = new Microsoft.VisualBasic.PowerPacks.RectangleShape();
-            this.rectangleShape2 = new Microsoft.VisualBasic.PowerPacks.RectangleShape();
-            this.pictureBox1 = new System.Windows.Forms.PictureBox();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
+            this.buttonRetour = new System.Windows.Forms.PictureBox();
+            ((System.ComponentModel.ISupportInitialize)(this.buttonRetour)).BeginInit();
             this.SuspendLayout();
             // 
             // treeViewBD
@@ -111,11 +111,33 @@
             this.shapeContainer1.Name = "shapeContainer1";
             this.shapeContainer1.Shapes.AddRange(new Microsoft.VisualBasic.PowerPacks.Shape[] {
             this.rectangleShape2,
-            this.rectangleShape1,
+            this.buttonModifier,
             this.buttonGererFichiers});
             this.shapeContainer1.Size = new System.Drawing.Size(597, 450);
             this.shapeContainer1.TabIndex = 11;
             this.shapeContainer1.TabStop = false;
+            // 
+            // rectangleShape2
+            // 
+            this.rectangleShape2.BackColor = System.Drawing.SystemColors.ActiveCaption;
+            this.rectangleShape2.BackStyle = Microsoft.VisualBasic.PowerPacks.BackStyle.Opaque;
+            this.rectangleShape2.BorderColor = System.Drawing.SystemColors.ActiveCaption;
+            this.rectangleShape2.CornerRadius = 5;
+            this.rectangleShape2.Location = new System.Drawing.Point(10, 13);
+            this.rectangleShape2.Name = "rectangleShape2";
+            this.rectangleShape2.Size = new System.Drawing.Size(38, 40);
+            this.rectangleShape2.Click += new System.EventHandler(this.buttonGererFichiers_Click);
+            // 
+            // buttonModifier
+            // 
+            this.buttonModifier.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(0)))));
+            this.buttonModifier.BackStyle = Microsoft.VisualBasic.PowerPacks.BackStyle.Opaque;
+            this.buttonModifier.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(0)))));
+            this.buttonModifier.CornerRadius = 5;
+            this.buttonModifier.Location = new System.Drawing.Point(405, 301);
+            this.buttonModifier.Name = "buttonModifier";
+            this.buttonModifier.Size = new System.Drawing.Size(110, 32);
+            this.buttonModifier.Click += new System.EventHandler(this.buttonModifier_Click);
             // 
             // buttonGererFichiers
             // 
@@ -138,6 +160,7 @@
             this.labelGererFichiers.Size = new System.Drawing.Size(103, 13);
             this.labelGererFichiers.TabIndex = 12;
             this.labelGererFichiers.Text = "Gérer les fichiers";
+            this.labelGererFichiers.Click += new System.EventHandler(this.buttonGererFichiers_Click);
             // 
             // labelModifier
             // 
@@ -149,47 +172,26 @@
             this.labelModifier.Size = new System.Drawing.Size(52, 13);
             this.labelModifier.TabIndex = 13;
             this.labelModifier.Text = "Modifier";
+            this.labelModifier.Click += new System.EventHandler(this.buttonModifier_Click);
             // 
-            // rectangleShape1
+            // buttonRetour
             // 
-            this.rectangleShape1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(0)))));
-            this.rectangleShape1.BackStyle = Microsoft.VisualBasic.PowerPacks.BackStyle.Opaque;
-            this.rectangleShape1.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(0)))));
-            this.rectangleShape1.CornerRadius = 5;
-            this.rectangleShape1.Location = new System.Drawing.Point(405, 301);
-            this.rectangleShape1.Name = "rectangleShape1";
-            this.rectangleShape1.Size = new System.Drawing.Size(110, 32);
-            this.rectangleShape1.Click += new System.EventHandler(this.buttonGererFichiers_Click);
-            // 
-            // rectangleShape2
-            // 
-            this.rectangleShape2.BackColor = System.Drawing.SystemColors.ActiveCaption;
-            this.rectangleShape2.BackStyle = Microsoft.VisualBasic.PowerPacks.BackStyle.Opaque;
-            this.rectangleShape2.BorderColor = System.Drawing.SystemColors.ActiveCaption;
-            this.rectangleShape2.CornerRadius = 5;
-            this.rectangleShape2.Location = new System.Drawing.Point(10, 13);
-            this.rectangleShape2.Name = "rectangleShape2";
-            this.rectangleShape2.Size = new System.Drawing.Size(38, 40);
-            this.rectangleShape2.Click += new System.EventHandler(this.buttonGererFichiers_Click);
-            // 
-            // pictureBox1
-            // 
-            this.pictureBox1.BackColor = System.Drawing.SystemColors.ActiveCaption;
-            this.pictureBox1.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox1.Image")));
-            this.pictureBox1.Location = new System.Drawing.Point(12, 15);
-            this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(35, 36);
-            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.pictureBox1.TabIndex = 14;
-            this.pictureBox1.TabStop = false;
-            this.pictureBox1.Click += new System.EventHandler(this.pictureBox1_Click);
+            this.buttonRetour.BackColor = System.Drawing.SystemColors.ActiveCaption;
+            this.buttonRetour.Image = ((System.Drawing.Image)(resources.GetObject("buttonRetour.Image")));
+            this.buttonRetour.Location = new System.Drawing.Point(12, 15);
+            this.buttonRetour.Name = "buttonRetour";
+            this.buttonRetour.Size = new System.Drawing.Size(35, 36);
+            this.buttonRetour.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.buttonRetour.TabIndex = 14;
+            this.buttonRetour.TabStop = false;
+            this.buttonRetour.Click += new System.EventHandler(this.buttonRetour_Click);
             // 
             // Modifier
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(597, 450);
-            this.Controls.Add(this.pictureBox1);
+            this.Controls.Add(this.buttonRetour);
             this.Controls.Add(this.labelModifier);
             this.Controls.Add(this.labelGererFichiers);
             this.Controls.Add(this.textBoxNumero);
@@ -202,7 +204,7 @@
             this.Controls.Add(this.shapeContainer1);
             this.Name = "Modifier";
             this.Text = "Modifier";
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.buttonRetour)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -221,8 +223,8 @@
         private Microsoft.VisualBasic.PowerPacks.RectangleShape buttonGererFichiers;
         private System.Windows.Forms.Label labelGererFichiers;
         private System.Windows.Forms.Label labelModifier;
-        private Microsoft.VisualBasic.PowerPacks.RectangleShape rectangleShape1;
+        private Microsoft.VisualBasic.PowerPacks.RectangleShape buttonModifier;
         private Microsoft.VisualBasic.PowerPacks.RectangleShape rectangleShape2;
-        private System.Windows.Forms.PictureBox pictureBox1;
+        private System.Windows.Forms.PictureBox buttonRetour;
     }
 }
