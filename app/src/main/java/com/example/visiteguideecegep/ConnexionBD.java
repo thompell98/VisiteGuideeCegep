@@ -1,6 +1,5 @@
 package com.example.visiteguideecegep;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.provider.DocumentsContract;
 import android.support.annotation.NonNull;
@@ -22,13 +21,17 @@ import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+
 public class ConnexionBD extends AppCompatActivity
 {
     private static final String TAG = "ConnexionBD";
     FirebaseFirestore db = FirebaseFirestore.getInstance();
     TextView textViewNumero = null;
     TextView textViewNom = null;
-    TextView textViewEtage = null;
+    TextView textViewDescription = null;
     EditText editTextSearch = null;
 
     @Override
@@ -41,7 +44,6 @@ public class ConnexionBD extends AppCompatActivity
 
     private void setListeners()
     {
-      //  getLocalDatas();
         findViewById(R.id.buttonSearch).setOnClickListener(new View.OnClickListener()
         {
             @Override
@@ -58,7 +60,7 @@ public class ConnexionBD extends AppCompatActivity
     {
         textViewNumero = (TextView) findViewById(R.id.textViewNumero);
         textViewNom = (TextView) findViewById(R.id.textViewNom);
-        textViewEtage = (TextView) findViewById(R.id.textViewEtage);
+        textViewDescription = (TextView) findViewById(R.id.textViewDescription);
         DocumentReference user = db.collection("Locaux").document(documentPath);
         user.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>()
         {
@@ -68,9 +70,9 @@ public class ConnexionBD extends AppCompatActivity
                 if (task.isSuccessful())
                 {
                     DocumentSnapshot doc = task.getResult();
-                    textViewNumero.setText(doc.get("numero").toString());
-                    textViewNom.setText(doc.get("nom").toString());
-                    textViewEtage.setText(doc.get("Etage").toString());
+                    textViewNumero.setText(doc.get("Numero").toString());
+                    textViewNom.setText(doc.get("Nom").toString());
+                    textViewDescription.setText(doc.get("Description").toString());
                 }
             }
         }).addOnFailureListener(new OnFailureListener()
@@ -85,25 +87,34 @@ public class ConnexionBD extends AppCompatActivity
 
     private void getLocalData(String numeroLocal)
     {
-            db.collection("Locaux")
-                    .whereEqualTo("Numero",numeroLocal)
-                    .get()
-                    .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                        @Override
-                        public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                            if (task.isSuccessful()) {
-                                for (QueryDocumentSnapshot document : task.getResult()) {
-                                    textViewNumero.setText(document.get("Numero").toString());
-                                    textViewNom.setText(document.get("Nom").toString());
-                                    textViewEtage.setText(document.get("Etage").toString());
-
-                                }
-
-                            } else {
-                                Toast.makeText(getApplicationContext(), task.getException().toString(), Toast.LENGTH_LONG).show();
+        String etageDuLocal = "Étage " + Character.toString(numeroLocal.charAt(2));
+        String aileDuLocal = "Aile " + Character.toString(numeroLocal.charAt(0));
+        textViewNumero = (TextView) findViewById(R.id.textViewNumero);
+        textViewNom = (TextView) findViewById(R.id.textViewNom);
+        textViewDescription = (TextView) findViewById(R.id.textViewDescription);
+        db.collection("Étages").document(etageDuLocal).collection("Ailes").document(aileDuLocal).collection("Locaux")
+                .whereEqualTo("Numero", numeroLocal)
+                .get()
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>()
+                {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task)
+                    {
+                        if (task.isSuccessful())
+                        {
+                            List<String> position = new ArrayList<String>();
+                            for (QueryDocumentSnapshot document : task.getResult())
+                            {
+                                textViewNumero.setText(document.get("Numero").toString());
+                                textViewNom.setText(document.get("Nom").toString());
+                                textViewDescription.setText(document.get("Description").toString());
                             }
                         }
-                    });
-        }
-
+                        else
+                            {
+                                Toast.makeText(getApplicationContext(), task.getException().toString(), Toast.LENGTH_LONG).show();
+                        }
+                    }
+                });
+    }
 }
