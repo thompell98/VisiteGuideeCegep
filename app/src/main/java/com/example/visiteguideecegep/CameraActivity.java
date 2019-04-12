@@ -24,12 +24,7 @@ public class CameraActivity extends AppCompatActivity {
                 redirectionCamera();
             }
         });
-        findViewById(R.id.button_emplacement).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                redirectionEmplacement();
-            }
-        });
+   
     }
     private void redirectionCamera()
     {

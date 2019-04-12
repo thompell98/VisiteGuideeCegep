@@ -114,8 +114,6 @@ public class MyCanvas extends View {
     }
 
     private class MoveListener extends GestureDetector.SimpleOnGestureListener {
-
-
         @Override
         public boolean onScroll(MotionEvent e1, MotionEvent e2, float distanceX, float distanceY) {
             scrollBy((int) distanceX, (int) distanceY);
