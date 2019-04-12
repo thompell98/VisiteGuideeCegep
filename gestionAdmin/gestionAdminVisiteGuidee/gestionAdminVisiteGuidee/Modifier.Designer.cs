@@ -56,6 +56,7 @@
             // 
             // textBoxNom
             // 
+            this.textBoxNom.Enabled = false;
             this.textBoxNom.Location = new System.Drawing.Point(338, 74);
             this.textBoxNom.Name = "textBoxNom";
             this.textBoxNom.Size = new System.Drawing.Size(100, 20);
@@ -63,6 +64,7 @@
             // 
             // textBoxDescription
             // 
+            this.textBoxDescription.Enabled = false;
             this.textBoxDescription.Location = new System.Drawing.Point(338, 114);
             this.textBoxDescription.Multiline = true;
             this.textBoxDescription.Name = "textBoxDescription";

@@ -35,15 +35,15 @@
             this.shapeContainer3 = new Microsoft.VisualBasic.PowerPacks.ShapeContainer();
             this.buttonSupprimer = new Microsoft.VisualBasic.PowerPacks.RectangleShape();
             this.groupBoxAjouter = new System.Windows.Forms.GroupBox();
-            this.labelModifier = new System.Windows.Forms.Label();
+            this.labelAjouter = new System.Windows.Forms.Label();
             this.labelConfirmerMotDePasse = new System.Windows.Forms.Label();
             this.labelMotDePasse = new System.Windows.Forms.Label();
             this.labelNomUtilisateur = new System.Windows.Forms.Label();
             this.labelPrenom = new System.Windows.Forms.Label();
-            this.textBox4 = new System.Windows.Forms.TextBox();
-            this.textBox3 = new System.Windows.Forms.TextBox();
-            this.textBox2 = new System.Windows.Forms.TextBox();
-            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.textBoxConfirmerMotDePasse = new System.Windows.Forms.TextBox();
+            this.textBoxMotDePasse = new System.Windows.Forms.TextBox();
+            this.textBoxNomUtilisateur = new System.Windows.Forms.TextBox();
+            this.textBoxPrenom = new System.Windows.Forms.TextBox();
             this.shapeContainer2 = new Microsoft.VisualBasic.PowerPacks.ShapeContainer();
             this.buttonAjouter = new Microsoft.VisualBasic.PowerPacks.RectangleShape();
             this.rectangleShape2 = new Microsoft.VisualBasic.PowerPacks.RectangleShape();
@@ -60,6 +60,7 @@
             this.listBoxAdmins.Location = new System.Drawing.Point(6, 30);
             this.listBoxAdmins.Name = "listBoxAdmins";
             this.listBoxAdmins.Size = new System.Drawing.Size(260, 316);
+            this.listBoxAdmins.Sorted = true;
             this.listBoxAdmins.TabIndex = 0;
             // 
             // groupBoxSupprimer
@@ -84,6 +85,7 @@
             this.labelSupprimer.Size = new System.Drawing.Size(63, 13);
             this.labelSupprimer.TabIndex = 15;
             this.labelSupprimer.Text = "Supprimer";
+            this.labelSupprimer.Click += new System.EventHandler(this.buttonSupprimer_Click);
             // 
             // shapeContainer3
             // 
@@ -105,19 +107,19 @@
             this.buttonSupprimer.Location = new System.Drawing.Point(69, 340);
             this.buttonSupprimer.Name = "buttonSupprimer";
             this.buttonSupprimer.Size = new System.Drawing.Size(110, 32);
-            this.buttonSupprimer.Click += new System.EventHandler(this.buttonModifier_Click);
+            this.buttonSupprimer.Click += new System.EventHandler(this.buttonSupprimer_Click);
             // 
             // groupBoxAjouter
             // 
-            this.groupBoxAjouter.Controls.Add(this.labelModifier);
+            this.groupBoxAjouter.Controls.Add(this.labelAjouter);
             this.groupBoxAjouter.Controls.Add(this.labelConfirmerMotDePasse);
             this.groupBoxAjouter.Controls.Add(this.labelMotDePasse);
             this.groupBoxAjouter.Controls.Add(this.labelNomUtilisateur);
             this.groupBoxAjouter.Controls.Add(this.labelPrenom);
-            this.groupBoxAjouter.Controls.Add(this.textBox4);
-            this.groupBoxAjouter.Controls.Add(this.textBox3);
-            this.groupBoxAjouter.Controls.Add(this.textBox2);
-            this.groupBoxAjouter.Controls.Add(this.textBox1);
+            this.groupBoxAjouter.Controls.Add(this.textBoxConfirmerMotDePasse);
+            this.groupBoxAjouter.Controls.Add(this.textBoxMotDePasse);
+            this.groupBoxAjouter.Controls.Add(this.textBoxNomUtilisateur);
+            this.groupBoxAjouter.Controls.Add(this.textBoxPrenom);
             this.groupBoxAjouter.Controls.Add(this.shapeContainer2);
             this.groupBoxAjouter.Location = new System.Drawing.Point(349, 12);
             this.groupBoxAjouter.Name = "groupBoxAjouter";
@@ -126,25 +128,26 @@
             this.groupBoxAjouter.TabStop = false;
             this.groupBoxAjouter.Text = "Ajouter";
             // 
-            // labelModifier
+            // labelAjouter
             // 
-            this.labelModifier.AutoSize = true;
-            this.labelModifier.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(0)))));
-            this.labelModifier.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelModifier.Location = new System.Drawing.Point(125, 266);
-            this.labelModifier.Name = "labelModifier";
-            this.labelModifier.Size = new System.Drawing.Size(52, 13);
-            this.labelModifier.TabIndex = 14;
-            this.labelModifier.Text = "Modifier";
+            this.labelAjouter.AutoSize = true;
+            this.labelAjouter.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(0)))));
+            this.labelAjouter.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelAjouter.Location = new System.Drawing.Point(129, 266);
+            this.labelAjouter.Name = "labelAjouter";
+            this.labelAjouter.Size = new System.Drawing.Size(47, 13);
+            this.labelAjouter.TabIndex = 14;
+            this.labelAjouter.Text = "Ajouter";
+            this.labelAjouter.Click += new System.EventHandler(this.buttonAjouter_Click);
             // 
             // labelConfirmerMotDePasse
             // 
             this.labelConfirmerMotDePasse.AutoSize = true;
             this.labelConfirmerMotDePasse.Location = new System.Drawing.Point(34, 204);
             this.labelConfirmerMotDePasse.Name = "labelConfirmerMotDePasse";
-            this.labelConfirmerMotDePasse.Size = new System.Drawing.Size(117, 13);
+            this.labelConfirmerMotDePasse.Size = new System.Drawing.Size(120, 13);
             this.labelConfirmerMotDePasse.TabIndex = 8;
-            this.labelConfirmerMotDePasse.Text = "Confirmer mot de passe";
+            this.labelConfirmerMotDePasse.Text = "Confirmer mot de passe:";
             // 
             // labelMotDePasse
             // 
@@ -173,33 +176,35 @@
             this.labelPrenom.TabIndex = 5;
             this.labelPrenom.Text = "Prenom:";
             // 
-            // textBox4
+            // textBoxConfirmerMotDePasse
             // 
-            this.textBox4.Location = new System.Drawing.Point(157, 201);
-            this.textBox4.Name = "textBox4";
-            this.textBox4.Size = new System.Drawing.Size(100, 20);
-            this.textBox4.TabIndex = 3;
+            this.textBoxConfirmerMotDePasse.Location = new System.Drawing.Point(157, 201);
+            this.textBoxConfirmerMotDePasse.Name = "textBoxConfirmerMotDePasse";
+            this.textBoxConfirmerMotDePasse.PasswordChar = '•';
+            this.textBoxConfirmerMotDePasse.Size = new System.Drawing.Size(100, 20);
+            this.textBoxConfirmerMotDePasse.TabIndex = 3;
             // 
-            // textBox3
+            // textBoxMotDePasse
             // 
-            this.textBox3.Location = new System.Drawing.Point(157, 152);
-            this.textBox3.Name = "textBox3";
-            this.textBox3.Size = new System.Drawing.Size(100, 20);
-            this.textBox3.TabIndex = 2;
+            this.textBoxMotDePasse.Location = new System.Drawing.Point(157, 152);
+            this.textBoxMotDePasse.Name = "textBoxMotDePasse";
+            this.textBoxMotDePasse.PasswordChar = '•';
+            this.textBoxMotDePasse.Size = new System.Drawing.Size(100, 20);
+            this.textBoxMotDePasse.TabIndex = 2;
             // 
-            // textBox2
+            // textBoxNomUtilisateur
             // 
-            this.textBox2.Location = new System.Drawing.Point(157, 101);
-            this.textBox2.Name = "textBox2";
-            this.textBox2.Size = new System.Drawing.Size(100, 20);
-            this.textBox2.TabIndex = 1;
+            this.textBoxNomUtilisateur.Location = new System.Drawing.Point(157, 101);
+            this.textBoxNomUtilisateur.Name = "textBoxNomUtilisateur";
+            this.textBoxNomUtilisateur.Size = new System.Drawing.Size(100, 20);
+            this.textBoxNomUtilisateur.TabIndex = 1;
             // 
-            // textBox1
+            // textBoxPrenom
             // 
-            this.textBox1.Location = new System.Drawing.Point(157, 54);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(100, 20);
-            this.textBox1.TabIndex = 0;
+            this.textBoxPrenom.Location = new System.Drawing.Point(157, 54);
+            this.textBoxPrenom.Name = "textBoxPrenom";
+            this.textBoxPrenom.Size = new System.Drawing.Size(100, 20);
+            this.textBoxPrenom.TabIndex = 0;
             // 
             // shapeContainer2
             // 
@@ -221,7 +226,7 @@
             this.buttonAjouter.Location = new System.Drawing.Point(95, 240);
             this.buttonAjouter.Name = "buttonAjouter";
             this.buttonAjouter.Size = new System.Drawing.Size(110, 32);
-            this.buttonAjouter.Click += new System.EventHandler(this.buttonModifier_Click);
+            this.buttonAjouter.Click += new System.EventHandler(this.buttonAjouter_Click);
             // 
             // rectangleShape2
             // 
@@ -232,7 +237,6 @@
             this.rectangleShape2.Location = new System.Drawing.Point(5, 15);
             this.rectangleShape2.Name = "rectangleShape2";
             this.rectangleShape2.Size = new System.Drawing.Size(39, 39);
-            this.rectangleShape2.Click += new System.EventHandler(this.buttonGererFichiers_Click);
             // 
             // shapeContainer1
             // 
@@ -255,6 +259,7 @@
             this.buttonRetour.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.buttonRetour.TabIndex = 15;
             this.buttonRetour.TabStop = false;
+            this.buttonRetour.Click += new System.EventHandler(this.buttonRetour_Click);
             // 
             // GestionDesAdmins
             // 
@@ -281,10 +286,10 @@
         private System.Windows.Forms.ListBox listBoxAdmins;
         private System.Windows.Forms.GroupBox groupBoxSupprimer;
         private System.Windows.Forms.GroupBox groupBoxAjouter;
-        private System.Windows.Forms.TextBox textBox4;
-        private System.Windows.Forms.TextBox textBox3;
-        private System.Windows.Forms.TextBox textBox2;
-        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.TextBox textBoxConfirmerMotDePasse;
+        private System.Windows.Forms.TextBox textBoxMotDePasse;
+        private System.Windows.Forms.TextBox textBoxNomUtilisateur;
+        private System.Windows.Forms.TextBox textBoxPrenom;
         private Microsoft.VisualBasic.PowerPacks.ShapeContainer shapeContainer3;
         private Microsoft.VisualBasic.PowerPacks.RectangleShape buttonSupprimer;
         private System.Windows.Forms.Label labelPrenom;
@@ -294,7 +299,7 @@
         private System.Windows.Forms.Label labelMotDePasse;
         private System.Windows.Forms.Label labelNomUtilisateur;
         private System.Windows.Forms.Label labelSupprimer;
-        private System.Windows.Forms.Label labelModifier;
+        private System.Windows.Forms.Label labelAjouter;
         private Microsoft.VisualBasic.PowerPacks.RectangleShape rectangleShape2;
         private Microsoft.VisualBasic.PowerPacks.ShapeContainer shapeContainer1;
         private System.Windows.Forms.PictureBox buttonRetour;

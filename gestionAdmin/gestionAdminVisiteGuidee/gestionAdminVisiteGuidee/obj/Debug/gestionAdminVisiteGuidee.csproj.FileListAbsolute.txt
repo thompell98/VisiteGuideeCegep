@@ -480,3 +480,4 @@ D:\Downloads\VisiteGuideeCegep\gestionAdmin\gestionAdminVisiteGuidee\gestionAdmi
 D:\Downloads\VisiteGuideeCegep\gestionAdmin\gestionAdminVisiteGuidee\gestionAdminVisiteGuidee\obj\Debug\gestionAdminVisiteGuidee.exe
 D:\Downloads\VisiteGuideeCegep\gestionAdmin\gestionAdminVisiteGuidee\gestionAdminVisiteGuidee\obj\Debug\gestionAdminVisiteGuidee.pdb
 D:\Downloads\VisiteGuideeCegep\gestionAdmin\gestionAdminVisiteGuidee\gestionAdminVisiteGuidee\obj\Debug\gestionAdminVisiteGuidee.GestionDesAdmins.resources
+C:\Users\admin\Downloads\VisiteGuideeCegep\gestionAdmin\gestionAdminVisiteGuidee\gestionAdminVisiteGuidee\obj\Debug\gestionAdminVisiteGuidee.GestionDesAdmins.resources

@@ -187,6 +187,7 @@ namespace gestionAdminVisiteGuidee
         private void Retourner()
         {
             this.Hide();
+            mediaPlayer.Ctlcontrols.stop();
             Modifier formModifier = Modifier.formModifier;
             formModifier.Visible = true;
         }

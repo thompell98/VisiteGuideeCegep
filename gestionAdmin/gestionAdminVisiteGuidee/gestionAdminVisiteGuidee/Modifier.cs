@@ -85,6 +85,8 @@ namespace gestionAdminVisiteGuidee
         {
             if (e.Node.Level >= 3)
             {
+                textBoxNom.Enabled = true;
+                textBoxDescription.Enabled = true;
                 TreeNode node = treeViewBD.SelectedNode;
                 numero = treeViewBD.SelectedNode.Text;
                 string aileDuLocal = node.Parent.Text;

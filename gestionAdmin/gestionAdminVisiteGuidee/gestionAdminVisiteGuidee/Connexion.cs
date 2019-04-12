@@ -15,6 +15,7 @@ namespace gestionAdminVisiteGuidee
     {
         FirestoreDb db = FirestoreDb.Create("visiteguideecegep-f394b");
         public static string prenom = "";
+        public static string username = "";
 
         public Connexion()
         {
@@ -35,8 +36,23 @@ namespace gestionAdminVisiteGuidee
             form.Show();
         }
 
+        private bool VerifierUsernameEtPassword(DocumentSnapshot document, string nomUtilisateur, string motDePasse)
+        {
+            Dictionary<string, object> documentDictionary = null;
+            documentDictionary = document.ToDictionary();
+            if (documentDictionary["Username"].ToString() == nomUtilisateur &&
+                documentDictionary["Password"].ToString() == motDePasse)
+            {
+                prenom = documentDictionary["Prenom"].ToString();
+                username = documentDictionary["Username"].ToString();
+                return true;
+            }
+            return false;
+        }
+
         private async void SeConnecter(String nomUtilisateur, String motDePasse)
         {
+            bool connecte = false;
             if (nomUtilisateur == "" || motDePasse == "")
             {
                 MessageBox.Show("Veuillez remplir chacun des champs pour vous connecter.", "Erreur", MessageBoxButtons.OK, MessageBoxIcon.Warning);
@@ -49,17 +65,18 @@ namespace gestionAdminVisiteGuidee
                     QuerySnapshot snapshot = await usersRef.GetSnapshotAsync();
                     foreach (DocumentSnapshot document in snapshot.Documents)
                     {
-                        Dictionary<string, object> documentDictionary = document.ToDictionary();
-                        if (documentDictionary["Username"].ToString() == nomUtilisateur
-                            && documentDictionary["Password"].ToString() == motDePasse)
+                        if (connecte != true)
                         {
-                            prenom = documentDictionary["Prenom"].ToString();
-                            GoToAccueil();
+                            connecte = VerifierUsernameEtPassword(document, nomUtilisateur, motDePasse);
                         }
-                        else
-                        {
-                            MessageBox.Show("Mauvais nom d'utilisateur ou mot de passe, veuillez réessayer.", "Erreur", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                        }
+                    }
+                    if (connecte == true)
+                    {
+                        GoToAccueil();
+                    }
+                    else
+                    {
+                        MessageBox.Show("Mauvais nom d'utilisateur ou mot de passe, veuillez réessayer.", "Erreur", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     }
                 }
                 catch (Exception e)

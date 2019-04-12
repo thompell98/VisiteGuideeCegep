@@ -161,3 +161,5 @@ C:\Users\admin\Downloads\VisiteGuideeCegep\gestionAdmin\gestionAdminVisiteGuidee
 C:\Users\admin\Downloads\VisiteGuideeCegep\gestionAdmin\gestionAdminVisiteGuidee\gestionAdminVisiteGuidee\obj\Release\gestionAdminVisiteGuidee.csproj.CopyComplete
 C:\Users\admin\Downloads\VisiteGuideeCegep\gestionAdmin\gestionAdminVisiteGuidee\gestionAdminVisiteGuidee\obj\Release\gestionAdminVisiteGuidee.exe
 C:\Users\admin\Downloads\VisiteGuideeCegep\gestionAdmin\gestionAdminVisiteGuidee\gestionAdminVisiteGuidee\obj\Release\gestionAdminVisiteGuidee.pdb
+C:\Users\admin\Downloads\VisiteGuideeCegep\gestionAdmin\gestionAdminVisiteGuidee\gestionAdminVisiteGuidee\obj\Release\gestionAdminVisiteGuidee.csprojAssemblyReference.cache
+C:\Users\admin\Downloads\VisiteGuideeCegep\gestionAdmin\gestionAdminVisiteGuidee\gestionAdminVisiteGuidee\obj\Release\gestionAdminVisiteGuidee.GestionDesAdmins.resources
