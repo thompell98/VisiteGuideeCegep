@@ -90,15 +90,9 @@ namespace gestionAdminVisiteGuidee
                 string aileDuLocal = node.Parent.Text;
                 node = node.Parent;
                 string etageDuLocal = node.Parent.Text;
-                Dictionary<string, object> leLocal = ObtenirLocal(numero, aileDuLocal, etageDuLocal);
+                Dictionary<string, object> leLocal = ObtenirLocal(numero, aileDuLocal, etageDuLocal).ToDictionary();
                 AfficherLocal(leLocal);
             }
-        }
-
-        private Dictionary<string, object> ObtenirLocal(string numero, string aileDuLocal, string etageDuLocal)
-        {
-            Task<Dictionary<string, object>> taskLocal = Task.Run<Dictionary<string, object>>(async () => await TrouverLocalBD(numero, aileDuLocal, etageDuLocal));
-            return taskLocal.Result;
         }
 
         private void AfficherLocal(Dictionary<string, object> leLocal)
@@ -108,34 +102,16 @@ namespace gestionAdminVisiteGuidee
             textBoxDescription.Text = leLocal["Description"].ToString();
         }
 
-        private async Task<Dictionary<string, object>> TrouverLocalBD(string numero, string aileDuLocal, string etageDuLocal)
+        private DocumentSnapshot ObtenirLocal(string numero, string aileDuLocal, string etageDuLocal)
         {
-            Dictionary<string, object> leLocal = new Dictionary<string, object>();
-            CollectionReference reference = db.Collection("Étages").Document(etageDuLocal).Collection("Ailes").Document(aileDuLocal).Collection("Locaux");
-            QuerySnapshot locauxSnapshot = await reference.GetSnapshotAsync();
-            foreach (DocumentSnapshot local in locauxSnapshot.Documents)
-            {
-                Dictionary<string, object> documentDictionary = local.ToDictionary();
-                if (documentDictionary["Numero"].ToString() == numero)
-                {
-                    leLocal = documentDictionary;
-                }
-            }
-            return leLocal;
-        }
-
-        private DocumentReference ObtenirLocal2(string numero, string aileDuLocal, string etageDuLocal)
-        {
-            Task<DocumentReference> taskLocal = Task.Run<DocumentReference>(async () => await TrouverLocalBD2(numero, aileDuLocal, etageDuLocal));
-      
+            Task<DocumentSnapshot> taskLocal = Task.Run<DocumentSnapshot>(async () => await TrouverLocalBD(numero, aileDuLocal, etageDuLocal));
             taskLocal.Wait();
-            System.Console.WriteLine("hello");
             return taskLocal.Result;
         }
 
-        private async Task<DocumentReference> TrouverLocalBD2(string numero, string aileDuLocal, string etageDuLocal)
+        private async Task<DocumentSnapshot> TrouverLocalBD(string numero, string aileDuLocal, string etageDuLocal)
         {
-            DocumentReference leLocal = null;
+            DocumentSnapshot leLocal = null;
             CollectionReference reference = db.Collection("Étages").Document(etageDuLocal).Collection("Ailes").Document(aileDuLocal).Collection("Locaux");
             QuerySnapshot locauxSnapshot = await reference.GetSnapshotAsync();
             foreach (DocumentSnapshot local in locauxSnapshot.Documents)
@@ -143,28 +119,23 @@ namespace gestionAdminVisiteGuidee
                 Dictionary<string, object> documentDictionary = local.ToDictionary();
                 if (documentDictionary["Numero"].ToString() == numero)
                 {
-                    leLocal = local.Reference;
-                    
+                    leLocal = local;
                 }
             }
             return leLocal;
-        }
+        } 
 
         private async void ModifierLocal()
         {
-            // [START fs_update_nested_fields]
-            DocumentReference leLocal = ObtenirLocal2("B-533", "Aile B", "Étage 5");
-
-            // Update age and favorite color
+            DocumentReference leLocal = ObtenirLocal("B-533", "Aile B", "Étage 5").Reference;
             Dictionary<FieldPath, object> updates = new Dictionary<FieldPath, object>
             {
                 { new FieldPath("Description"), textBoxDescription.Text },
                 { new FieldPath("Nom"), textBoxNom.Text },
                 { new FieldPath("Numero"), textBoxNumero.Text },
             };
-
-            // Asynchronously update the document
             WriteResult updateResult = await leLocal.UpdateAsync(updates);
+            MessageBox.Show("Modifications effectuées", "Message", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
 
         private void OuvrirFormGestionFichiers()
@@ -193,10 +164,12 @@ namespace gestionAdminVisiteGuidee
             Return();
         }
 
-
         private void buttonModifier_Click(object sender, EventArgs e)
         {
-            ModifierLocal();
+            if (textBoxNumero.Text != "")
+            {
+                ModifierLocal();
+            }
         }
     }
 }

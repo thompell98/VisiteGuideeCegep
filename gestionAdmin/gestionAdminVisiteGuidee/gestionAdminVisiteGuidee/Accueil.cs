@@ -35,6 +35,17 @@ namespace gestionAdminVisiteGuidee
             Modifier form = new Modifier();
             form.Show();
         }
-       
+
+        private void GererLesAdmins()
+        {
+            this.Hide();
+            GestionDesAdmins form = new GestionDesAdmins();
+            form.Show();
+        }
+
+        private void buttonGererAdmins_Click(object sender, EventArgs e)
+        {
+            GererLesAdmins();
+        }
     }
 }

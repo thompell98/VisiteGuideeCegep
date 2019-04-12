@@ -85,6 +85,7 @@
             this.buttonGererAdmins.TabIndex = 6;
             this.buttonGererAdmins.Text = "Gérer les admins";
             this.buttonGererAdmins.UseVisualStyleBackColor = true;
+            this.buttonGererAdmins.Click += new System.EventHandler(this.buttonGererAdmins_Click);
             // 
             // Accueil
             // 

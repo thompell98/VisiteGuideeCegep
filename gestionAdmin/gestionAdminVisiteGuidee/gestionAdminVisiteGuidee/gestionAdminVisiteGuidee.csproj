@@ -79,6 +79,12 @@
     <Compile Include="Connexion.Designer.cs">
       <DependentUpon>Connexion.cs</DependentUpon>
     </Compile>
+    <Compile Include="GestionDesAdmins.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="GestionDesAdmins.Designer.cs">
+      <DependentUpon>GestionDesAdmins.cs</DependentUpon>
+    </Compile>
     <Compile Include="GestionFichiers.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -104,6 +110,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Connexion.resx">
       <DependentUpon>Connexion.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="GestionDesAdmins.resx">
+      <DependentUpon>GestionDesAdmins.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="GestionFichiers.resx">
       <DependentUpon>GestionFichiers.cs</DependentUpon>
