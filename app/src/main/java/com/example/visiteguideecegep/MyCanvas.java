@@ -30,7 +30,7 @@ import static android.view.MotionEvent.INVALID_POINTER_ID;
 
 public class MyCanvas extends View {
 
-
+    Bitmap Star;
     Bitmap Map;
     Bitmap Pin;
     private static final float MINIMUM_SCALE_FACTOR = 1.0f;
@@ -50,13 +50,16 @@ public class MyCanvas extends View {
     String no_local;
     String Description;
     Rect cordee;
+    Rect destination;
 
-    public MyCanvas(Context context, String emplacement,String local,String description, Rect corde) {
+   // public MyCanvas(Context context, String emplacement,String local,String description, Rect corde) {
+   public MyCanvas(Context context,Rect coordonné) {
         super(context);
-        cordee = corde;
-        nom_emplacement = emplacement;
-        no_local=local;
-        Description=description;
+      //  cordee = corde;
+         destination = coordonné;
+      //  nom_emplacement = emplacement;
+       // no_local=local;
+       // Description=description;
         init(context);
 
     }
@@ -87,14 +90,17 @@ public class MyCanvas extends View {
         int heightt = getHeight() / 20;
         int widthh = getWidth() / 20;
 
-         if (nom_emplacement != null) {
-             canvas.drawBitmap(Pin, null, new Rect(getLeft() + widthh *cordee.left, getTop() + heightt * cordee.top, getRight() - widthh * cordee.right, getBottom() - heightt *cordee.bottom), paint);
+       //  if (nom_emplacement != null) {
+          //   canvas.drawBitmap(Pin, null, new Rect(getLeft() + widthh *cordee.left, getTop() + heightt * cordee.top, getRight() - widthh * cordee.right, getBottom() - heightt *cordee.bottom), paint);
+             canvas.drawBitmap(Pin, null, new Rect(getLeft() + widthh *15, getTop() + heightt * 4, getRight() - widthh * 3, getBottom() - heightt *15), paint);
+           canvas.drawBitmap(Star, null, new Rect(getLeft() + widthh *destination.left, getTop() + heightt * destination.top, getRight() - widthh * destination.right, getBottom() - heightt *destination.bottom), paint);
+
              myStaticLayout.draw(canvas);
-         }
-         else
-         {
-             Toast.makeText(getContext(),"Emplacement non trouvé",Toast.LENGTH_LONG).show();
-         }
+     //    }
+    //     else
+     //    {
+     //        Toast.makeText(getContext(),"Emplacement non trouvé",Toast.LENGTH_LONG).show();
+        // }
         canvas.restore();
     }
 
@@ -133,6 +139,7 @@ public class MyCanvas extends View {
     private void init(@NonNull Context context) {
         Map = BitmapFactory.decodeResource(getResources(), R.drawable.etage1bon);
         Pin = BitmapFactory.decodeResource(getResources(), R.drawable.pin);
+        Star = BitmapFactory.decodeResource(getResources(), R.drawable.star);
         this.mScaleFactor = MINIMUM_SCALE_FACTOR;
         this.mScaleDetector = new ScaleGestureDetector(context, new ScalesListener());
         this.mMoveDetector = new GestureDetector(context, new MoveListener());

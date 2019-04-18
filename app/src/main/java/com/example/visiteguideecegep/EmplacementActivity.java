@@ -26,7 +26,7 @@ public class EmplacementActivity extends AppCompatActivity {
     MyCanvas mycanvas;
     String Nom_emplacement;
     Rect coordonnées;
-
+    Rect coordonnéesDestination;
     String local;
     String description;
 
@@ -38,13 +38,15 @@ public class EmplacementActivity extends AppCompatActivity {
         local = i.getStringExtra("numero");
         description = i.getStringExtra("description");
         ArrayList<Integer> position = i.getIntegerArrayListExtra("position");
-        if (Nom_emplacement != null) {
-            coordonnées = new Rect(Integer.parseInt(String.valueOf(position.get(0))), Integer.parseInt(String.valueOf(position.get(1))), Integer.parseInt(String.valueOf(position.get(2))), Integer.parseInt(String.valueOf(position.get(3))));
-        } else {
-            Intent emplacement = new Intent(this, CameraActivity.class);
-            startActivity(emplacement);
-        }
-        mycanvas = new MyCanvas(this, Nom_emplacement, local, description, coordonnées);
+//        if (Nom_emplacement != null) {
+//            coordonnées = new Rect(Integer.parseInt(String.valueOf(position.get(0))), Integer.parseInt(String.valueOf(position.get(1))), Integer.parseInt(String.valueOf(position.get(2))), Integer.parseInt(String.valueOf(position.get(3))));
+              coordonnées = new Rect(Integer.parseInt(String.valueOf(position.get(0))), Integer.parseInt(String.valueOf(position.get(1))), Integer.parseInt(String.valueOf(position.get(2))), Integer.parseInt(String.valueOf(position.get(3))));
+// } else {
+//            Intent emplacement = new Intent(this, CameraActivity.class);
+//            startActivity(emplacement);
+//        }
+      //  mycanvas = new MyCanvas(this, Nom_emplacement, local, description, coordonnées);
+        mycanvas = new MyCanvas(this,coordonnées);
         mycanvas.setBackgroundColor(Color.WHITE);
         setContentView(mycanvas);
     }
