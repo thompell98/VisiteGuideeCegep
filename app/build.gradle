@@ -30,23 +30,15 @@ dependencies {
     implementation 'com.github.chrisbanes:PhotoView:2.1.2'
     implementation 'com.mcxiaoke.volley:library:1.0.19'
     implementation fileTree(dir: 'libs', include: '*.jar')
-    //implementation 'com.google.firebase:firebase-core:16.0.8'
-    //implementation 'com.google.firebase:firebase-database:16.1.0'
-    //implementation 'com.google.firebase:firebase-crash:16.2.1'
-    //implementation 'com.google.firebase:firebase-auth:16.2.0'
-    //implementation 'com.google.android.gms:play-services-auth:16.0.1'
-    //implementation 'com.google.firebase:firebase-storage:16.1.0'
-    //implementation 'com.firebaseui:firebase-ui-database:3.3.1'
-    //implementation 'com.google.firebase:firebase-messaging:17.5.0'
     implementation 'com.google.firebase:firebase-firestore:18.2.0'
-    //annotationProcessor 'com.google.auto.value:auto-value:1.5.2'
+    implementation 'com.google.firebase:firebase-auth:16.2.1'
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'com.android.support.test:runner:1.0.2'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
-    //implementation 'com.google.android.gms:play-services-auth:16.0.1'
     implementation 'me.dm7.barcodescanner:zxing:1.9'
-    //implementation 'com.google.cloud:google-cloud-storage:1.49.0'
     implementation 'com.google.firebase:firebase-storage:16.1.0'
+    implementation 'com.github.bumptech.glide:glide:4.7.1'
+    annotationProcessor 'com.github.bumptech.glide:compiler:4.7.1'
 
 }
 
