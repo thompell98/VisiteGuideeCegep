@@ -22,6 +22,8 @@ import android.view.GestureDetector;
 import android.view.MotionEvent;
 import android.view.ScaleGestureDetector;
 import android.view.View;
+import android.widget.Button;
+import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -57,6 +59,8 @@ public class MyCanvas extends View {
         super(context);
       //  cordee = corde;
          destination = coordonné;
+
+
       //  nom_emplacement = emplacement;
        // no_local=local;
        // Description=description;
@@ -101,6 +105,7 @@ public class MyCanvas extends View {
      //    {
      //        Toast.makeText(getContext(),"Emplacement non trouvé",Toast.LENGTH_LONG).show();
         // }
+
         canvas.restore();
     }
 
@@ -144,6 +149,7 @@ public class MyCanvas extends View {
         this.mScaleDetector = new ScaleGestureDetector(context, new ScalesListener());
         this.mMoveDetector = new GestureDetector(context, new MoveListener());
     }
+
 
 }
 

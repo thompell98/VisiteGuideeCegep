@@ -52,15 +52,25 @@ public class ScanActivity extends AppCompatActivity implements ZXingScannerView.
                     public void onComplete(@NonNull Task<QuerySnapshot> task) {
                         if (task.isSuccessful()) {
                             Intent intente = new Intent(ScanActivity.this, EmplacementActivity.class);
-
+                            Intent trajet = new Intent(ScanActivity.this, TrajetActivity.class);
+                            Intent i = getIntent();
                             for (QueryDocumentSnapshot document : task.getResult()) {
                                 intente.putExtra("numero", document.get("Numero").toString());
                                 intente.putExtra("nom", document.get("Nom").toString());
                                 intente.putExtra("description", document.get("Description").toString());
                                 ArrayList<Integer> group = (ArrayList<Integer>) document.get("Position");
-                                intente.putExtra("position", group);
+                                intente.putExtra("positionQ", group);
+                                if (!i.getBooleanExtra("allo", true)) {
+                                    trajet.putExtra("numero", document.get("Numero").toString());
+                                    ArrayList<Integer> groupe = (ArrayList<Integer>) document.get("Position");
+                                    intente.putExtra("positionD", groupe);
+                                }
                             }
-                            startActivity(intente);
+                            if (!i.getBooleanExtra("allo", true)) {
+                                startActivity(trajet);
+                            } else {
+                                startActivity(intente);
+                            }
                         } else {
                             Toast.makeText(getApplicationContext(), task.getException().toString(), Toast.LENGTH_LONG).show();
                         }
