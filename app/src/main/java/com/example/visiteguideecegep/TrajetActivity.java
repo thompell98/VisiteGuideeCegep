@@ -7,6 +7,7 @@ import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -21,14 +22,14 @@ public class TrajetActivity extends AppCompatActivity {
     String local;
     private static final String TAG = "ConnexionBD";
     FirebaseFirestore db = FirebaseFirestore.getInstance();
-    EditText actuel;
+    TextView actuel;
     EditText destination;
  //   ArrayList<Integer>  group;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.trajet_activity);
-        actuel=findViewById(R.id.editText_emplacement);
+        actuel=findViewById(R.id.textViewEmplacement);
         destination=findViewById(R.id.editText_destination);
         Intent i = getIntent();
         local = i.getStringExtra("numero");
@@ -65,6 +66,8 @@ public class TrajetActivity extends AppCompatActivity {
         canvas.putExtra("actuel", actuel.getText().toString());
         canvas.putExtra("destination",destination.getText().toString() );
         String etageDuLocal = "Étage " + Character.toString( destination.getText().toString().charAt(2));
+
+
         String aileDuLocal = "Aile " + Character.toString( destination.getText().toString().charAt(0));
         db.collection("Étages").document(etageDuLocal).collection("Ailes").document(aileDuLocal).collection("Locaux")
                 .whereEqualTo("Numero",destination.getText().toString())
@@ -73,20 +76,22 @@ public class TrajetActivity extends AppCompatActivity {
                     @Override
                     public void onComplete(@NonNull Task<QuerySnapshot> task) {
                         if (task.isSuccessful()) {
-                            Intent i = getIntent();
+
                             for (QueryDocumentSnapshot document : task.getResult()) {
                                 //  intente.putExtra("numero", document.get("Numero").toString());
                                 //  intente.putExtra("nom", document.get("Nom").toString());
                                 //  intente.putExtra("description", document.get("Description").toString());
                                 ArrayList<Integer>group= (ArrayList<Integer>) document.get("Position");
                                 canvas.putExtra("position", group);
-
-                                Toast toast = Toast.makeText(getApplicationContext(),String.valueOf( group.get(1)), Toast.LENGTH_LONG);toast.show();
-                                Toast toastt = Toast.makeText(getApplicationContext(),"gfdhd", Toast.LENGTH_LONG);toastt.show();
+                                Intent i = getIntent();
+                                ArrayList<Integer> position = i.getIntegerArrayListExtra("positionD");
+                                //  Toast toast = Toast.makeText(getApplicationContext(),String.valueOf( position.get(1)), Toast.LENGTH_LONG);toast.show();
+                                canvas.putExtra("positionA", position);
+                          //      Toast toastt = Toast.makeText(getApplicationContext(),"gfdhd", Toast.LENGTH_LONG);toastt.show();
 
                             }
 
-
+                           // Toast toastt = Toast.makeText(getApplicationContext(),"gfssdhd", Toast.LENGTH_LONG);toastt.show();
                             startActivity(canvas);
 
                         }

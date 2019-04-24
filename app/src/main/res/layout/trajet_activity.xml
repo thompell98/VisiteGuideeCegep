@@ -31,18 +31,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-        <EditText
-            android:id="@+id/editText_emplacement"
-            android:layout_width="wrap_content"
-            android:layout_height="44dp"
-            android:layout_marginStart="32dp"
-            android:layout_marginTop="4dp"
-            android:ems="10"
-            android:hint="Local actuel"
-            android:inputType="textPersonName"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView" />
-
         <TextView
             android:id="@+id/textView"
             android:layout_width="91dp"
@@ -60,13 +48,10 @@
             android:id="@+id/button_scanEdittext"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
             android:layout_marginTop="76dp"
-            android:layout_marginEnd="16dp"
+            android:layout_marginEnd="52dp"
             android:text="Scan"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.566"
-            app:layout_constraintStart_toEndOf="@+id/editText_emplacement"
             app:layout_constraintTop_toTopOf="parent" />
 
         <EditText
@@ -74,7 +59,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
-            android:layout_marginTop="84dp"
+            android:layout_marginTop="8dp"
             android:layout_marginEnd="8dp"
             android:ems="10"
             android:hint="Local destination"
@@ -82,20 +67,34 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.151"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/editText_emplacement" />
+            app:layout_constraintTop_toBottomOf="@+id/textView3" />
 
         <TextView
             android:id="@+id/textView3"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
-            android:layout_marginTop="64dp"
+            android:layout_marginTop="68dp"
             android:layout_marginEnd="8dp"
             android:text="Destination"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.08"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/editText_emplacement" />
+            app:layout_constraintTop_toBottomOf="@+id/textViewEmplacement" />
+
+        <TextView
+            android:id="@+id/textViewEmplacement"
+            android:layout_width="119dp"
+            android:layout_height="32dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="12dp"
+            android:layout_marginEnd="8dp"
+            android:text="TextView"
+            android:textSize="18sp"
+            app:layout_constraintEnd_toStartOf="@+id/button_scanEdittext"
+            app:layout_constraintHorizontal_bias="0.162"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView" />
     </android.support.constraint.ConstraintLayout>
 
 </android.support.constraint.ConstraintLayout>

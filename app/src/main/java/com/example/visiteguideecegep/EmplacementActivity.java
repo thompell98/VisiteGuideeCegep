@@ -31,33 +31,36 @@ public class EmplacementActivity extends AppCompatActivity {
 
     MyCanvas mycanvas;
     String Nom_emplacement;
-    Rect coordonnées=new Rect(0,0,0,0);
+    Rect coordonnéesActuel;
     Rect coordonnéesDestination;
-    String local;
+    String localA;
+    String localD;
     String description;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Intent i = getIntent();
-       // Nom_emplacement = i.getStringExtra("nom");
-        local = i.getStringExtra("actuel");
-     //   Toast toast = Toast.makeText(getApplicationContext(),local, Toast.LENGTH_LONG);toast.show();
+        // Nom_emplacement = i.getStringExtra("nom");
+        localA = i.getStringExtra("actuel");
+        localD = i.getStringExtra("destination");
+        //   Toast toast = Toast.makeText(getApplicationContext(),local, Toast.LENGTH_LONG);toast.show();
 
         //  description = i.getStringExtra("description");
 
-        ArrayList<Integer> position = i.getIntegerArrayListExtra("position");
-//        Toast toast = Toast.makeText(getApplicationContext(),String.valueOf( position.get(1)), Toast.LENGTH_LONG);toast.show();
+        ArrayList<Integer> positionDes = i.getIntegerArrayListExtra("position");
+        ArrayList<Integer> positionAct = i.getIntegerArrayListExtra("positionA");
+//        Toast toast = Toast.makeText(getApplicationContext(),String.valueOf( positionA.get(1)), Toast.LENGTH_LONG);toast.show();
 
 //        if (Nom_emplacement != null) {
-//                             coordonnées = new Rect(Integer.parseInt(String.valueOf(group.get(0))), Integer.parseInt(String.valueOf(group.get(1))), Integer.parseInt(String.valueOf(group.get(2))), Integer.parseInt(String.valueOf(group.get(3))));
-//  coordonnées = new Rect(Integer.parseInt(String.valueOf(position.get(0))), Integer.parseInt(String.valueOf(position.get(1))), Integer.parseInt(String.valueOf(position.get(2))), Integer.parseInt(String.valueOf(position.get(3))));
+        coordonnéesActuel = new Rect(Integer.parseInt(String.valueOf(positionAct.get(0))), Integer.parseInt(String.valueOf(positionAct.get(1))), Integer.parseInt(String.valueOf(positionAct.get(2))), Integer.parseInt(String.valueOf(positionAct.get(3))));
+  coordonnéesDestination = new Rect(Integer.parseInt(String.valueOf(positionDes.get(0))), Integer.parseInt(String.valueOf(positionDes.get(1))), Integer.parseInt(String.valueOf(positionDes.get(2))), Integer.parseInt(String.valueOf(positionDes.get(3))));
 // } else {
 //            Intent emplacement = new Intent(this, CameraActivity.class);
 //            startActivity(emplacement);
 //        }
-      //  mycanvas = new MyCanvas(this, Nom_emplacement, local, description, coordonnées);
-        mycanvas = new MyCanvas(this,coordonnées);
+        //  mycanvas = new MyCanvas(this, Nom_emplacement, local, description, coordonnées);
+        mycanvas = new MyCanvas(this, coordonnéesActuel,coordonnéesDestination,localA,localD);
         mycanvas.setBackgroundColor(Color.WHITE);
         setContentView(mycanvas);
     }

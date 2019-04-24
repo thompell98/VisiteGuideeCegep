@@ -63,7 +63,7 @@ public class ScanActivity extends AppCompatActivity implements ZXingScannerView.
                                 if (!i.getBooleanExtra("allo", true)) {
                                     trajet.putExtra("numero", document.get("Numero").toString());
                                     ArrayList<Integer> groupe = (ArrayList<Integer>) document.get("Position");
-                                    intente.putExtra("positionD", groupe);
+                                    trajet.putExtra("positionD", groupe);
                                 }
                             }
                             if (!i.getBooleanExtra("allo", true)) {
