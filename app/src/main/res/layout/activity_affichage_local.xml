@@ -8,7 +8,7 @@
         <LinearLayout
             android:id="@+id/linearLayout"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:layout_marginLeft="10dp"
             android:layout_marginTop="10dp"
             android:layout_marginRight="10dp"
@@ -26,7 +26,10 @@
             <ViewFlipper
                 android:id="@+id/image_flipper"
                 android:layout_width="match_parent"
-                android:layout_height="250dp" />
+                android:layout_height="250dp" >
+
+
+            </ViewFlipper>
 
             <TextView
                 android:id="@+id/textViewNomDuLocal"

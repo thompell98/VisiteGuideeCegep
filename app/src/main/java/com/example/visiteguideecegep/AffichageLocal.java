@@ -2,6 +2,9 @@ package com.example.visiteguideecegep;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.os.Handler;
 import android.support.annotation.NonNull;
@@ -14,12 +17,15 @@ import android.view.GestureDetector.SimpleOnGestureListener;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.ViewTreeObserver;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.MediaController;
+import android.widget.ProgressBar;
+import android.widget.RelativeLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -76,7 +82,7 @@ public class AffichageLocal extends AppCompatActivity {
         textViewDescriptionDuLocal = findViewById(R.id.textViewDescriptionDuLocal);
         toucher = false;
         SwipeLeft();
-        setListener();
+        setTouchListener();
         createArrayOfFiles("A-111");
     }
 
@@ -108,13 +114,24 @@ public class AffichageLocal extends AppCompatActivity {
         return true;
     }
 
-    private void setListener()
+    private void setTouchListener()
     {
         imageFlipper.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
                 toucher = true;
                 return true;
+            }
+        });
+    }
+
+    private void setScrollListener(final MediaController mediaController)
+    {
+        ScrollView scrollView = findViewById(R.id.scrollView);
+        scrollView.getViewTreeObserver().addOnScrollChangedListener(new ViewTreeObserver.OnScrollChangedListener() {
+            @Override
+            public void onScrollChanged() {
+                mediaController.hide();
             }
         });
     }
@@ -150,49 +167,60 @@ public class AffichageLocal extends AppCompatActivity {
                             for (QueryDocumentSnapshot document : task.getResult()) {
                                 List<String> lesFichiers = (List<String>) document.get("Fichiers");
                                 setCloudStorage(numeroLocal);
-                                downloadArrayOfImages(numeroLocal, lesFichiers);
-                                displayVideosOrAudio(numeroLocal, lesFichiers);
+                                displayImages(numeroLocal, lesFichiers);
+                                displayVideos(numeroLocal, lesFichiers);
                                 textViewNomDuLocal.setText(document.get("Nom").toString());
                                 textViewNumeroDuLocal.setText(document.get("Numero").toString());
                                 textViewDescriptionDuLocal.setText(document.get("Description").toString());
                             }
-                        } else {
+                        }
+                        else {
                             Toast.makeText(getApplicationContext(), "Erreur", LENGTH_LONG).show();
                         }
                     }
                 });
+        //ProgressBar progressBar = findViewById(R.id.progressBar);
+        //progressBar.setVisibility(View.INVISIBLE);
     }
 
-    private void displayVideosOrAudio(String numeroLocal, List<String> lesFichiers)
+    private void displayVideos(String numeroLocal, List<String> lesFichiers)
     {
-
         for (int cpt = 0; cpt < lesFichiers.size(); cpt++)
         {
-            if (lesFichiers.get(cpt).endsWith("mp4"))
+            if (lesFichiers.get(cpt).endsWith("mp4") || lesFichiers.get(cpt).endsWith("mp3"))
             {
                 LinearLayout linearLayout = findViewById(R.id.linearLayout);
+                RelativeLayout relativeLayout = new RelativeLayout(this);
                 VideoView videoView = new VideoView(this);
-                videoView.setLayoutParams(new FrameLayout.LayoutParams(550, 550));
-                linearLayout.addView(videoView);
+                final MediaController mediaController = new MediaController(this);
 
+                final float scale = getResources().getDisplayMetrics().density;
+                int dpWidthInPx  = (int) (500 * scale);
+                int dpHeightInPx = (int) (250 * scale);
+                LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(dpWidthInPx, dpHeightInPx);
+                layoutParams.setMargins(0,0,0,8);
+                videoView.setLayoutParams(layoutParams);
+                videoView.setMediaController(mediaController);
+                mediaController.setAnchorView(videoView);
+                relativeLayout.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
+
+                setScrollListener(mediaController);
+
+                relativeLayout.addView(videoView);
+                linearLayout.addView(relativeLayout);
                 downloadVideoOrAudio(numeroLocal, lesFichiers.get(cpt), videoView);
             }
         }
-
-        //String str = "fire_base_video_URL";
-        //Uri uri = Uri.parse(str);
-        //videoViewLandscape.setVideoURI(uri);
-        //progressBarLandScape.setVisibility(View.VISIBLE);
-        //videoViewLandscape.requestFocus();
-        //videoViewLandscape.start();
-        //linearLayout.addView(tv);
     }
 
-    private void downloadArrayOfImages(String numeroLocal, List<String> lesFichiers)
+    private void displayImages(String numeroLocal, List<String> lesFichiers)
     {
         for (int cpt = 0; cpt < lesFichiers.size(); cpt++)
         {
-            downloadImage(numeroLocal, lesFichiers.get(cpt));
+            if (lesFichiers.get(cpt).endsWith("jpg") || lesFichiers.get(cpt).endsWith("png"))
+            {
+                downloadImage(numeroLocal, lesFichiers.get(cpt));
+            }
         }
         imageFlipper.setFlipInterval(5000);
         imageFlipper.startFlipping();
@@ -250,10 +278,10 @@ public class AffichageLocal extends AppCompatActivity {
         videoRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
             @Override
             public void onSuccess(Uri uri) {
-                //videoView.setVideoURI(uri);
-                //MediaController mediaController = new MediaController(getApplicationContext());
-                //videoView.setMediaController(mediaController);
-                //mediaController.setAnchorView(videoView);
+                videoView.setVideoURI(uri);
+                videoView.setVisibility(View.VISIBLE);
+                videoView.requestFocus();
+                videoView.seekTo(1);
                 //videoView.start();
             }
         }).addOnFailureListener(new OnFailureListener() {
