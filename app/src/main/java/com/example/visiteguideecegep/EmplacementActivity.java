@@ -50,20 +50,30 @@ public class EmplacementActivity extends AppCompatActivity {
 
         ArrayList<Integer> positionDes = i.getIntegerArrayListExtra("position");
         ArrayList<Integer> positionAct = i.getIntegerArrayListExtra("positionA");
+       //  if (positionDes != null&&positionAct!=null) {
+
+
 //        Toast toast = Toast.makeText(getApplicationContext(),String.valueOf( positionA.get(1)), Toast.LENGTH_LONG);toast.show();
 
 //        if (Nom_emplacement != null) {
-        coordonnéesActuel = new Rect(Integer.parseInt(String.valueOf(positionAct.get(0))), Integer.parseInt(String.valueOf(positionAct.get(1))), Integer.parseInt(String.valueOf(positionAct.get(2))), Integer.parseInt(String.valueOf(positionAct.get(3))));
-  coordonnéesDestination = new Rect(Integer.parseInt(String.valueOf(positionDes.get(0))), Integer.parseInt(String.valueOf(positionDes.get(1))), Integer.parseInt(String.valueOf(positionDes.get(2))), Integer.parseInt(String.valueOf(positionDes.get(3))));
+             coordonnéesActuel = new Rect(Integer.parseInt(String.valueOf(positionAct.get(0))), Integer.parseInt(String.valueOf(positionAct.get(1))), Integer.parseInt(String.valueOf(positionAct.get(2))), Integer.parseInt(String.valueOf(positionAct.get(3))));
+             coordonnéesDestination = new Rect(Integer.parseInt(String.valueOf(positionDes.get(0))), Integer.parseInt(String.valueOf(positionDes.get(1))), Integer.parseInt(String.valueOf(positionDes.get(2))), Integer.parseInt(String.valueOf(positionDes.get(3))));
 // } else {
 //            Intent emplacement = new Intent(this, CameraActivity.class);
 //            startActivity(emplacement);
 //        }
-        //  mycanvas = new MyCanvas(this, Nom_emplacement, local, description, coordonnées);
-        mycanvas = new MyCanvas(this, coordonnéesActuel,coordonnéesDestination,localA,localD);
-        mycanvas.setBackgroundColor(Color.WHITE);
-        setContentView(mycanvas);
-    }
+             //  mycanvas = new MyCanvas(this, Nom_emplacement, local, description, coordonnées);
+             mycanvas = new MyCanvas(this, coordonnéesActuel, coordonnéesDestination, localA, localD);
+             mycanvas.setBackgroundColor(Color.WHITE);
+             setContentView(mycanvas);
+         }
+       // else {
+       //    Toast toastt = Toast.makeText(getApplicationContext(), "Numero local incorect", Toast.LENGTH_LONG);
+       //    toastt.show();
+       //      Intent intent = new Intent(this, TrajetActivity.class);
+       //    startActivity(intent);
+       //}
+   // }
 
 
 }

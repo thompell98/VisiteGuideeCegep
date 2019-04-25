@@ -67,7 +67,13 @@ public class ScanActivity extends AppCompatActivity implements ZXingScannerView.
                                 }
                             }
                             if (!i.getBooleanExtra("allo", true)) {
-                                startActivity(trajet);
+                                if (trajet.getStringExtra("numero")==null)
+                                {
+                                    Toast toast = Toast.makeText(getApplicationContext(), "Local inexistant(ou véréfier votre connexion internet)", Toast.LENGTH_LONG);toast.show();
+
+                                }
+                                    startActivity(trajet);
+
                             } else {
                                 startActivity(intente);
                             }

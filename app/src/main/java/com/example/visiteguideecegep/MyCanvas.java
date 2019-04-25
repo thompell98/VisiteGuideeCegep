@@ -42,6 +42,8 @@ public class MyCanvas extends View {
     Rect positionA;
     Rect destination;
     Boolean aa = true;
+    String etageA;
+    String etageB;
 
     // public MyCanvas(Context context, String emplacement,String local,String description, Rect corde) {
     public MyCanvas(Context context, Rect coordonnéActu, Rect coordonnéDes, String localA, String localD) {
@@ -53,7 +55,13 @@ public class MyCanvas extends View {
         //  nom_emplacement = emplacement;
         no_localA = localA;
         no_localD = localD;
+        etageA = Character.toString(no_localA.charAt(2));
+        etageB = Character.toString(no_localD.charAt(2));
 
+        if (!etageA.equals(etageB)) {
+            Toast toast = Toast.makeText(getContext(), "Touchez 2 fois pour changer d'étage ", Toast.LENGTH_LONG);
+            toast.show();
+        }
         // Description=description;
         init(context);
 
@@ -80,16 +88,22 @@ public class MyCanvas extends View {
         Rect dest = new Rect(0, 0, getWidth(), getHeight());
         Paint paint = new Paint();
         paint.setFilterBitmap(true);
+
         canvas.drawBitmap(Map, null, dest, paint);
 
         int heightt = getHeight() / 20;
         int widthh = getWidth() / 20;
 
         //  if (nom_emplacement != null) {
-        //   canvas.drawBitmap(Pin, null, new Rect(getLeft() + widthh *cordee.left, getTop() + heightt * cordee.top, getRight() - widthh * cordee.right, getBottom() - heightt *cordee.bottom), paint);
-        canvas.drawBitmap(Pin, null, new Rect(getLeft() + widthh * positionA.left, getTop() + heightt * positionA.top, getRight() - widthh * positionA.right, getBottom() - heightt * positionA.bottom), paint);
-        canvas.drawBitmap(Star, null, new Rect(getLeft() + widthh * destination.left, getTop() + heightt * destination.top, getRight() - widthh * destination.right, getBottom() - heightt * destination.bottom), paint);
 
+
+        //   canvas.drawBitmap(Pin, null, new Rect(getLeft() + widthh *cordee.left, getTop() + heightt * cordee.top, getRight() - widthh * cordee.right, getBottom() - heightt *cordee.bottom), paint);
+        if (Pin != null) {
+            canvas.drawBitmap(Pin, null, new Rect(getLeft() + widthh * positionA.left, getTop() + heightt * positionA.top, getRight() - widthh * positionA.right, getBottom() - heightt * positionA.bottom), paint);
+        }
+        if (Star != null) {
+            canvas.drawBitmap(Star, null, new Rect(getLeft() + widthh * destination.left, getTop() + heightt * destination.top, getRight() - widthh * destination.right, getBottom() - heightt * destination.bottom), paint);
+        }
         // canvas.drawBitmap(Pin, null, new Rect(getLeft() + widthh *15, getTop() + heightt * 4, getRight() - widthh * 3, getBottom() - heightt *15), paint);
 
         //      myStaticLayout.draw(canvas);
@@ -122,43 +136,56 @@ public class MyCanvas extends View {
         @Override
         public boolean onDoubleTap(MotionEvent e) {
 
-            final String etageA = Character.toString(no_localA.charAt(2));
-            final String etageB = Character.toString(no_localD.charAt(2));
 
             if (!etageA.equals(etageB)) {
-                //  Toast toast = Toast.makeText(getContext(),"Touchez 2 fois pour changer d'étage ", Toast.LENGTH_LONG);toast.show();
-
+                Toast toast = Toast.makeText(getContext(), "Touchez 2 fois pour changer d'étage ", Toast.LENGTH_LONG);
+                toast.show();
                 if (aa) {
                     if (etageB.equals("1")) {
                         Map = BitmapFactory.decodeResource(getResources(), R.drawable.etage1);
+                        Star = BitmapFactory.decodeResource(getResources(), R.drawable.star);
+                        //   Pin = BitmapFactory.decodeResource(getResources(), R.drawable.pin);
+                        Pin = null;
                         aa = false;
                         //Star = BitmapFactory.decodeResource(getResources(), R.drawable.star);
 
                     }
                     if (etageB.equals("2")) {
                         Map = BitmapFactory.decodeResource(getResources(), R.drawable.banane);
+                        Star = BitmapFactory.decodeResource(getResources(), R.drawable.star);
+                        // Pin = BitmapFactory.decodeResource(getResources(), R.drawable.pin);
                         aa = false;
-                      //  Star = BitmapFactory.decodeResource(getResources(), R.drawable.star);
+                        Pin = null;
+                        //  Star = BitmapFactory.decodeResource(getResources(), R.drawable.star);
                     }
                     if (etageB.equals("3")) {
                         Map = BitmapFactory.decodeResource(getResources(), R.drawable.banane);
-                       // Star = BitmapFactory.decodeResource(getResources(), R.drawable.star);
+                        //   Star = BitmapFactory.decodeResource(getResources(), R.drawable.star);
+                        // Pin = BitmapFactory.decodeResource(getResources(), R.drawable.pin);
+
+                        // Star = BitmapFactory.decodeResource(getResources(), R.drawable.star);
                     }
                 } else {
                     if (etageA.equals("1")) {
                         Map = BitmapFactory.decodeResource(getResources(), R.drawable.etage1);
                         aa = true;
+                        Star = null;
+                        Pin = BitmapFactory.decodeResource(getResources(), R.drawable.pin);
+
+                        // Pin = null;
                     }
                     if (etageA.equals("2")) {
                         Map = BitmapFactory.decodeResource(getResources(), R.drawable.banane);
                         aa = true;
+                        Star = null;
+                        // Pin = null;
+                        Pin = BitmapFactory.decodeResource(getResources(), R.drawable.pin);
 
                     }
                 }
 
             }
             invalidate();
-
 
 
             // addElementToDisplay(new Marqueur(pinmap, (e.getX()/zoomlevel1)+currX,(e.getY()/zoomlevel1)-currY));
@@ -183,7 +210,7 @@ public class MyCanvas extends View {
     @Override
     public boolean onTouchEvent(MotionEvent event) {
         mScaleDetector.onTouchEvent(event);
-                mMoveDetector.onTouchEvent(event);
+        mMoveDetector.onTouchEvent(event);
 
 
         return true;
@@ -191,10 +218,30 @@ public class MyCanvas extends View {
 
     private void init(@NonNull Context context) {
 
-
-        Map = BitmapFactory.decodeResource(getResources(), R.drawable.etage1);
         Pin = BitmapFactory.decodeResource(getResources(), R.drawable.pin);
-        Star = BitmapFactory.decodeResource(getResources(), R.drawable.star);
+        // final String etageA = Character.toString(no_localA.charAt(2));
+        if (etageA.equals("1")) {
+            Map = BitmapFactory.decodeResource(getResources(), R.drawable.etage1);
+
+        } else if (etageA.equals("2")) {
+            Map = BitmapFactory.decodeResource(getResources(), R.drawable.banane);
+
+        }
+//        else if (etageA.equals("3"))
+//        {
+//            Map = BitmapFactory.decodeResource(getResources(), R.drawable.etage1);
+//
+//        }
+//        else if (etageA.equals("4"))
+//        {
+//            Map = BitmapFactory.decodeResource(getResources(), R.drawable.etage1);
+//
+//        }
+//        else if (etageA.equals("5"))
+//        {
+//            Map = BitmapFactory.decodeResource(getResources(), R.drawable.etage1);
+//
+//        }
         this.mScaleFactor = MINIMUM_SCALE_FACTOR;
         this.mScaleDetector = new ScaleGestureDetector(context, new ScalesListener());
         this.mMoveDetector = new GestureDetector(context, new MoveListener());
