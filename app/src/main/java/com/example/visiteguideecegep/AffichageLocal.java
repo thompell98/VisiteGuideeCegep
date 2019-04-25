@@ -13,10 +13,17 @@ import android.view.GestureDetector;
 import android.view.GestureDetector.SimpleOnGestureListener;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.MediaController;
+import android.widget.ScrollView;
+import android.widget.TextView;
 import android.widget.Toast;
+import android.widget.VideoView;
 import android.widget.ViewFlipper;
 import com.bumptech.glide.Glide;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -41,6 +48,7 @@ public class AffichageLocal extends AppCompatActivity {
     StorageReference storageRef = null;
     StorageReference imageRef = null;
     FirebaseAuth mAuth = null;
+
     ViewFlipper imageFlipper = null;
     Animation animFlipInForeward = null;
     Animation animFlipOutForeward = null;
@@ -48,16 +56,25 @@ public class AffichageLocal extends AppCompatActivity {
     Animation animFlipOutBackward = null;
     GestureDetector gestureDetector = null;
 
+    TextView textViewNomDuLocal = null;
+    TextView textViewNumeroDuLocal = null;
+    TextView textViewDescriptionDuLocal = null;
+    Boolean toucher = null;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_affichage_local);
-        imageFlipper = (ViewFlipper)findViewById( R.id.image_flipper );
+        imageFlipper = findViewById( R.id.image_flipper );
         animFlipInForeward = AnimationUtils.loadAnimation(this, R.anim.flipin);
         animFlipOutForeward = AnimationUtils.loadAnimation(this, R.anim.flipout);
         animFlipInBackward = AnimationUtils.loadAnimation(this, R.anim.flipin_reverse);
         animFlipOutBackward = AnimationUtils.loadAnimation(this, R.anim.flipout_reverse);
         gestureDetector = new GestureDetector(simpleOnGestureListener);
+        textViewNomDuLocal = findViewById(R.id.textViewNomDuLocal);
+        textViewNumeroDuLocal = findViewById(R.id.textViewNumeroDuLocal);
+        textViewDescriptionDuLocal = findViewById(R.id.textViewDescriptionDuLocal);
+        toucher = false;
         SwipeLeft();
         setListener();
         createArrayOfFiles("A-111");
@@ -76,15 +93,19 @@ public class AffichageLocal extends AppCompatActivity {
     }
 
     @Override
-    public boolean onTouchEvent(MotionEvent event) {
-        // TODO Auto-generated method stub
-        return gestureDetector.onTouchEvent(event);
-    }
-
-    @Override
     public boolean dispatchTouchEvent(MotionEvent ev){
         super.dispatchTouchEvent(ev);
-        return gestureDetector.onTouchEvent(ev);
+        if (toucher == true)
+        {
+            gestureDetector.onTouchEvent(ev);
+        }
+        Handler handler = new Handler();
+        handler.postDelayed(new Runnable() {
+            public void run() {
+                toucher = false;
+            }
+        }, 2000);
+        return true;
     }
 
     private void setListener()
@@ -92,7 +113,7 @@ public class AffichageLocal extends AppCompatActivity {
         imageFlipper.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
-                Toast.makeText(getApplicationContext(), "Toucher", LENGTH_LONG).show();
+                toucher = true;
                 return true;
             }
         });
@@ -130,12 +151,41 @@ public class AffichageLocal extends AppCompatActivity {
                                 List<String> lesFichiers = (List<String>) document.get("Fichiers");
                                 setCloudStorage(numeroLocal);
                                 downloadArrayOfImages(numeroLocal, lesFichiers);
+                                displayVideosOrAudio(numeroLocal, lesFichiers);
+                                textViewNomDuLocal.setText(document.get("Nom").toString());
+                                textViewNumeroDuLocal.setText(document.get("Numero").toString());
+                                textViewDescriptionDuLocal.setText(document.get("Description").toString());
                             }
                         } else {
                             Toast.makeText(getApplicationContext(), "Erreur", LENGTH_LONG).show();
                         }
                     }
                 });
+    }
+
+    private void displayVideosOrAudio(String numeroLocal, List<String> lesFichiers)
+    {
+
+        for (int cpt = 0; cpt < lesFichiers.size(); cpt++)
+        {
+            if (lesFichiers.get(cpt).endsWith("mp4"))
+            {
+                LinearLayout linearLayout = findViewById(R.id.linearLayout);
+                VideoView videoView = new VideoView(this);
+                videoView.setLayoutParams(new FrameLayout.LayoutParams(550, 550));
+                linearLayout.addView(videoView);
+
+                downloadVideoOrAudio(numeroLocal, lesFichiers.get(cpt), videoView);
+            }
+        }
+
+        //String str = "fire_base_video_URL";
+        //Uri uri = Uri.parse(str);
+        //videoViewLandscape.setVideoURI(uri);
+        //progressBarLandScape.setVisibility(View.VISIBLE);
+        //videoViewLandscape.requestFocus();
+        //videoViewLandscape.start();
+        //linearLayout.addView(tv);
     }
 
     private void downloadArrayOfImages(String numeroLocal, List<String> lesFichiers)
@@ -190,6 +240,26 @@ public class AffichageLocal extends AppCompatActivity {
             @Override
             public void onFailure(@NonNull Exception e) {
                Toast.makeText(getApplicationContext(), "Download image error", LENGTH_LONG).show();
+            }
+        });
+    }
+
+    public void downloadVideoOrAudio(String numeroLocal, String nomDuFichier, final VideoView videoView)
+    {
+        StorageReference videoRef = storageRef.child(numeroLocal + "/" + nomDuFichier);
+        videoRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+            @Override
+            public void onSuccess(Uri uri) {
+                //videoView.setVideoURI(uri);
+                //MediaController mediaController = new MediaController(getApplicationContext());
+                //videoView.setMediaController(mediaController);
+                //mediaController.setAnchorView(videoView);
+                //videoView.start();
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                Toast.makeText(getApplicationContext(), "Download image error", LENGTH_LONG).show();
             }
         });
     }
