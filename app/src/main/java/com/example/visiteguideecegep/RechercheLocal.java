@@ -45,6 +45,14 @@ public class RechercheLocal extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_recherche_local);
+        setVariables();
+        chargerFirestoreEnMemoire();
+        obtenirDataScan();
+        setListener();
+    }
+
+    private void setVariables()
+    {
         db = FirebaseFirestore.getInstance();
         lesMotsRecherche = new ArrayList<String>();
         lesNumerosDesLocaux = new ArrayList<String>();
@@ -52,9 +60,6 @@ public class RechercheLocal extends AppCompatActivity {
         autoCompleteTextView = findViewById(R.id.actv);
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, lesMotsRecherche);
         autoCompleteTextView.setAdapter(adapter);
-        chargerFirestoreEnMemoire();
-        obtenirDataScan();
-        setListener();
     }
 
     private void obtenirDataScan() {
@@ -91,12 +96,10 @@ public class RechercheLocal extends AppCompatActivity {
         findViewById(R.id.buttonAfficherLeLocal).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (autoCompleteTextView.getText().toString().equals(""))
-                {
+                if (autoCompleteTextView.getText().toString().equals("")) {
                     Toast.makeText(getApplicationContext(), "Le champs ne doit pas être vide", Toast.LENGTH_LONG).show();
                 }
-                else
-                {
+                else {
                     if (verifierNumeroExiste(autoCompleteTextView.getText().toString()) ||
                         verifierNomExiste(autoCompleteTextView.getText().toString())) {
                         obtenirPositionLocalVoulu();
