@@ -16,6 +16,7 @@ namespace gestionAdminVisiteGuidee
     public partial class GestionFichiers : Form
     {
         string bucketName = "visiteguideecegep-f394b.appspot.com";
+        FirestoreDb db = FirestoreDb.Create("visiteguideecegep-f394b");
         string numeroDuLocal = Modifier.numero;
 
         public GestionFichiers()
@@ -40,7 +41,32 @@ namespace gestionAdminVisiteGuidee
             {
                 objectName = objectName ?? Path.GetFileName(path + "\\" + nomDuFichier);
                 storage.UploadObject(bucketName, numeroDuLocal + "/" + objectName, null, f);
-            }     
+            }
+            DocumentReference leLocalReference = ObtenirLocal(numeroDuLocal, "Aile " + numeroDuLocal[0].ToString(), "Étage " + numeroDuLocal[2].ToString()).Reference;
+            leLocalReference.UpdateAsync("Fichiers", FieldValue.ArrayUnion(nomDuFichier));
+        }
+
+        private DocumentSnapshot ObtenirLocal(string numero, string aileDuLocal, string etageDuLocal)
+        {
+            Task<DocumentSnapshot> taskLocal = Task.Run<DocumentSnapshot>(async () => await TrouverLocalBD(numero, aileDuLocal, etageDuLocal));
+            taskLocal.Wait();
+            return taskLocal.Result;
+        }
+
+        private async Task<DocumentSnapshot> TrouverLocalBD(string numero, string aileDuLocal, string etageDuLocal)
+        {
+            DocumentSnapshot leLocal = null;
+            CollectionReference reference = db.Collection("Étages").Document(etageDuLocal).Collection("Ailes").Document(aileDuLocal).Collection("Locaux");
+            QuerySnapshot locauxSnapshot = await reference.GetSnapshotAsync();
+            foreach (DocumentSnapshot local in locauxSnapshot.Documents)
+            {
+                Dictionary<string, object> documentDictionary = local.ToDictionary();
+                if (documentDictionary["Numero"].ToString() == numero)
+                {
+                    leLocal = local;
+                }
+            }
+            return leLocal;
         }
 
         private void LireFichiersFirestore(string numeroLocal)
@@ -134,6 +160,8 @@ namespace gestionAdminVisiteGuidee
         {
             var storage = StorageClient.Create();
             storage.DeleteObject(bucketName, numeroDuLocal + "/" + nomDuFichier);
+            DocumentReference leLocalReference = ObtenirLocal(numeroDuLocal, "Aile " + numeroDuLocal[0].ToString(), "Étage " + numeroDuLocal[2].ToString()).Reference;
+            leLocalReference.UpdateAsync("Fichiers", FieldValue.ArrayRemove(nomDuFichier));
         }
 
         private void buttonSupprimer_Click(object sender, EventArgs e)

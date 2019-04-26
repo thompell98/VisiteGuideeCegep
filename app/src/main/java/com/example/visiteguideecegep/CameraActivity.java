@@ -24,7 +24,6 @@ public class CameraActivity extends AppCompatActivity {
                 redirectionCamera();
             }
         });
-   
     }
     private void redirectionCamera()
     {
