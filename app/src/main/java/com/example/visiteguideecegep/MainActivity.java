@@ -17,6 +17,8 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         setListener();
+        Intent sendUserToRechercheLocal = new Intent(this, RechercheLocal.class);
+        startActivity(sendUserToRechercheLocal);
     }
 
     private void setListener() {

@@ -1458,10 +1458,11 @@
   },
   "libraries": {
     "Google.Api.CommonProtos/1.3.0": {
-      "sha512": "x5j71Q4giIJ/qAM8+/ZWPpWw8F8IDhdJjq6tOh/lEsJg5hd2BAa9pZkIUVG/qez9SA4RFAW6mQ9K2WgrZ+LlfA==",
+      "sha512": "U7mYn9v8CjBWiUOFfd0hMXQB2i4yO7M2/7QAFlvLQ2mHYftqdGXe9pN7EkiPBrIjRkbEJaano0PhKWjr2pvAXQ==",
       "type": "package",
       "path": "google.api.commonprotos/1.3.0",
       "files": [
+        ".nupkg.metadata",
         ".signature.p7s",
         "google.api.commonprotos.1.3.0.nupkg.sha512",
         "google.api.commonprotos.nuspec",
@@ -1474,10 +1475,11 @@
       ]
     },
     "Google.Api.Gax/2.5.0": {
-      "sha512": "p5hd6/8GslKY2LSQo9YAAyE3nbknYVIh38zNDlU9MwMccCOpf4QhQUdC+12R5zWeudCalZBFO3lChmuSU6wBow==",
+      "sha512": "a4m7UtIGRkFCJ6Uw8XxviIFvZfCqbwLauGOrbRuf1WxmLtcTr+GeG2gpQhnkyEKjqnUiqQCHhCDDGFDgEqsJlw==",
       "type": "package",
       "path": "google.api.gax/2.5.0",
       "files": [
+        ".nupkg.metadata",
         ".signature.p7s",
         "google.api.gax.2.5.0.nupkg.sha512",
         "google.api.gax.nuspec",
@@ -1490,10 +1492,11 @@
       ]
     },
     "Google.Api.Gax.Grpc/2.5.0": {
-      "sha512": "IQ0Z4PRNMhuyHbr4oFD0+CqloqDuwo2rPnq52kic6lrF4VkOwDtTP+ICMQ5VzwYBOiMUUt20XJZm8Gf6fs8Ahw==",
+      "sha512": "Ui0m6lbBUK/jBbMvIaa6rFsL3GCLgZ8yDF49nzffTxsL8kWZhojq6xu0AyUtvhJD0QnV23qfGOWSJHaM8L/w9Q==",
       "type": "package",
       "path": "google.api.gax.grpc/2.5.0",
       "files": [
+        ".nupkg.metadata",
         ".signature.p7s",
         "google.api.gax.grpc.2.5.0.nupkg.sha512",
         "google.api.gax.grpc.nuspec",
@@ -1506,10 +1509,11 @@
       ]
     },
     "Google.Api.Gax.Rest/2.5.0": {
-      "sha512": "il2TJjeX1AZnZ1SwuNjv9SOG10jK3rzPFfbzKNj99HHltfKOFz+vp55VXeJbTH12LXYz+xZck+RVP4EMiEFBRw==",
+      "sha512": "toJF5qhEhtU1dFg/FXXQKEHsZ/Q8gDfvutlUWk0H71UAMVH+rygumpAUbSVsIMY2P2i2+l2hVKciJoIqZHEK2Q==",
       "type": "package",
       "path": "google.api.gax.rest/2.5.0",
       "files": [
+        ".nupkg.metadata",
         ".signature.p7s",
         "google.api.gax.rest.2.5.0.nupkg.sha512",
         "google.api.gax.rest.nuspec",
@@ -1522,10 +1526,11 @@
       ]
     },
     "Google.Apis/1.38.0": {
-      "sha512": "yLlM5vMaT/Qsc0bTyLFqfevLuH7cb3wteHQjAU4XA683BWUqueFxWjLJGjxYqNoHo0F1aohNf8y9dQoz4hyKHA==",
+      "sha512": "sDcc3qVHkgQfmrW4HFPiRs9EXf8ohj7nS6QMKRirY8gtKOtv7zAGJldOxRW07soh9O476H711qPRt+mddiOZPg==",
       "type": "package",
       "path": "google.apis/1.38.0",
       "files": [
+        ".nupkg.metadata",
         ".signature.p7s",
         "google.apis.1.38.0.nupkg.sha512",
         "google.apis.nuspec",
@@ -1542,10 +1547,11 @@
       ]
     },
     "Google.Apis.Auth/1.38.0": {
-      "sha512": "f5M8xPj3n8w36nOyQEOhE47GIIy+blVRZd5zBmqdofqtWjXP0IYuRuyHOooSZJHg+QNi+7c4x/N6ovf8I9nJJA==",
+      "sha512": "OJXWXIFTNkmlYsiEdralgYNKS0qMsFFRR4J2si1BWWlb3VsSIvQwci5w9yF4cvkX+eP7qu9oh1+GLNVjkCOm6w==",
       "type": "package",
       "path": "google.apis.auth/1.38.0",
       "files": [
+        ".nupkg.metadata",
         ".signature.p7s",
         "google.apis.auth.1.38.0.nupkg.sha512",
         "google.apis.auth.nuspec",
@@ -1564,10 +1570,11 @@
       ]
     },
     "Google.Apis.Core/1.38.0": {
-      "sha512": "PQ4dU+lMepd8P/WYTrFZL35KnPJAxc/WBuCEwjjeV3G64wouYmRrFtHhGX3BngImmh2a9BNMIbQlXjmrIwyxQg==",
+      "sha512": "0AhG8lpdjaEXCkKyI6A7U5BeGRZSYMMdJ+eYZR3bvnA4ruXmCvBKsKhvKWh7RZmeTlxMImhBDGwGAQx/g1Q79A==",
       "type": "package",
       "path": "google.apis.core/1.38.0",
       "files": [
+        ".nupkg.metadata",
         ".signature.p7s",
         "google.apis.core.1.38.0.nupkg.sha512",
         "google.apis.core.nuspec",
@@ -1583,10 +1590,11 @@
       ]
     },
     "Google.Apis.Storage.v1/1.38.0.1470": {
-      "sha512": "zK5MgLkejlfrqbuY4JgoALtNa4embs5AJ9jKPA72QfmvepBqtzTFqoCIYosJqUNQGp8kdF/x3Eyr9Qcu7GizhA==",
+      "sha512": "zfhi1MOg0btsWULKK2ncli8+cDMqtYq4Qq59vF5ok+OoYVXBSeuumI94noND4cutov/7p2JxGTT3i0YU8ovd7w==",
       "type": "package",
       "path": "google.apis.storage.v1/1.38.0.1470",
       "files": [
+        ".nupkg.metadata",
         ".signature.p7s",
         "google.apis.storage.v1.1.38.0.1470.nupkg.sha512",
         "google.apis.storage.v1.nuspec",
@@ -1608,10 +1616,11 @@
       ]
     },
     "Google.Cloud.Firestore/1.0.0-beta19": {
-      "sha512": "pgfZT1oQEfDv9mimaWYs1zQbfoqonhHimaP7LvVIYqZQO3s3CAz7yzCNKy18TJjqm9KwCNW5ebZzIMV6C8gUpg==",
+      "sha512": "zZDnlfyLaFCg4bVFKZAXAV4gA2ETftsInyyhYF/c7/PlzNrdnZpRW6qtGc2Zebq7TpYSRF+dqUtw6ByZx4yiOw==",
       "type": "package",
       "path": "google.cloud.firestore/1.0.0-beta19",
       "files": [
+        ".nupkg.metadata",
         ".signature.p7s",
         "google.cloud.firestore.1.0.0-beta19.nupkg.sha512",
         "google.cloud.firestore.nuspec",
@@ -1624,10 +1633,11 @@
       ]
     },
     "Google.Cloud.Firestore.V1/1.0.0-beta19": {
-      "sha512": "FgjHFcVwyOE1R4nO+0I6sR6/BwtKIVsBD3G3YLDRi+eRaJWoHDF56oBrnD7ZkXpn1JIuVq3PdjudEcvrzs44Fw==",
+      "sha512": "gRWTYdjYTqZkPqSoC1VO6IVCJBDEMVHme/wX5w5bDxjSWFmQ5CXtHKZzoIRPydEDT+Eu+Lkd1OiEzN+Ri4eXvA==",
       "type": "package",
       "path": "google.cloud.firestore.v1/1.0.0-beta19",
       "files": [
+        ".nupkg.metadata",
         ".signature.p7s",
         "google.cloud.firestore.v1.1.0.0-beta19.nupkg.sha512",
         "google.cloud.firestore.v1.nuspec",
@@ -1640,10 +1650,11 @@
       ]
     },
     "Google.Cloud.Storage.V1/2.3.0": {
-      "sha512": "Sq2YER2qJYsN6qentFMk4auyDtTjK9DIOga4ZLAGeMNlQOS2Ww7CJGV6PJkPDiJWOxzggSe2N3WhZXCvD6QXVQ==",
+      "sha512": "VFh5rV1VvGwqKNZRsNriLagvdse8FdMDow9Jct40unQVWplxov41kYiJIngNy++Sx54bhIE3+YoddpcKhmLltg==",
       "type": "package",
       "path": "google.cloud.storage.v1/2.3.0",
       "files": [
+        ".nupkg.metadata",
         ".signature.p7s",
         "google.cloud.storage.v1.2.3.0.nupkg.sha512",
         "google.cloud.storage.v1.nuspec",
@@ -1656,10 +1667,11 @@
       ]
     },
     "Google.LongRunning/1.0.0": {
-      "sha512": "f20BuEQJNb+uxaXBN85FvW9XJkg0vOQPOc2oLLcrG3nvPYK1NA/5wXFkGOGgJ3zw+KohStISwdR5hjFEDl5jOA==",
+      "sha512": "AbZU9XU0mTc/huZwAVVDZzOurgpYwQ0+UIc0yZNBRxfXOvgY593QLdZsUhSNbO3ITN4xomMfoPMRFtFzq29CMg==",
       "type": "package",
       "path": "google.longrunning/1.0.0",
       "files": [
+        ".nupkg.metadata",
         ".signature.p7s",
         "google.longrunning.1.0.0.nupkg.sha512",
         "google.longrunning.nuspec",
@@ -1672,10 +1684,11 @@
       ]
     },
     "Google.Protobuf/3.5.1": {
-      "sha512": "j/gbpRZ68sgvdi/vXI39Cj/jWG4d1dtDqfWbkjC9dErNWu/dFcIlq1LIgLscea+llZ6nzm06wz/JGziOegAL7Q==",
+      "sha512": "f2k1VNaB9bfvEsvARzzEL1TZiIpL33KKK3JMH7UANlPlJVptuvsk4qpBZEnz0pORWZOdUHlVwMQuUzFqjJYCxA==",
       "type": "package",
       "path": "google.protobuf/3.5.1",
       "files": [
+        ".nupkg.metadata",
         ".signature.p7s",
         "google.protobuf.3.5.1.nupkg.sha512",
         "google.protobuf.nuspec",
@@ -1686,10 +1699,11 @@
       ]
     },
     "Grpc.Auth/1.13.1": {
-      "sha512": "5/Yoqt4zFOaUviVb5WFfmybzTNvA1i+bymacbvzB2h+CmOWsCXVuIyWlbWCBU7vrsecmqWVQ0xHu6M7nSIT9AQ==",
+      "sha512": "KwYikByDNQ88v0vP5QXFS/5rYrRmNY5cvavv9vvJIR8tPiMCGaF4H5RZcpfwRp2o0MaW45SrEPWXCqQLl+fv7A==",
       "type": "package",
       "path": "grpc.auth/1.13.1",
       "files": [
+        ".nupkg.metadata",
         ".signature.p7s",
         "grpc.auth.1.13.1.nupkg.sha512",
         "grpc.auth.nuspec",
@@ -1702,10 +1716,11 @@
       ]
     },
     "Grpc.Core/1.13.1": {
-      "sha512": "IuKT4F9OuaPzCwdbfLPiho8uKAMeEX9l2p6UH/t41JMXymw+WO9jzT1ghiCE+GkY1h2k6hzOpQK/KgDMwAr/MQ==",
+      "sha512": "goMSEfe1s7g6pANKVKRDY/9eT6sn1yMDr60vO67yGu1rBUau3hCo4Wd8WjYMjoRtUsvuAXrsVPsJFQcGhRh58Q==",
       "type": "package",
       "path": "grpc.core/1.13.1",
       "files": [
+        ".nupkg.metadata",
         ".signature.p7s",
         "build/net45/Grpc.Core.targets",
         "grpc.core.1.13.1.nupkg.sha512",
@@ -1761,10 +1776,12 @@
       ]
     },
     "Newtonsoft.Json/10.0.2": {
-      "sha512": "vcX8ci+srBr5scnSKCUNNoFo5BQ6KjdfeJ5LCJQhvxncNkTy7w3pAWsnRJrsF9WBBdMiaQp0aOa3YRh1CDCc7A==",
+      "sha512": "iwElSU2IXmwGvytJsezyDML2ZWDkG2JzTYzlU/BNlmzMdlmRvbnwITsGGY74gwVEpDli1UdOLkMT7/3jxWvXzA==",
       "type": "package",
       "path": "newtonsoft.json/10.0.2",
+      "hasTools": true,
       "files": [
+        ".nupkg.metadata",
         ".signature.p7s",
         "LICENSE.md",
         "lib/net20/Newtonsoft.Json.dll",
@@ -1789,10 +1806,11 @@
       ]
     },
     "System.Collections.Immutable/1.4.0": {
-      "sha512": "1aNA04B7wZWbZ8FgVg+Rg9vkzfQkmTwE1N6Lj3h14Gl8VupDS8j/mrfvv/FlQJL0ts8sMMKRgwnKntfQ1gQ3kQ==",
+      "sha512": "71hw5RUJRu5+q/geUY69gpXD8Upd12cH+F3MwpXV2zle7Bqqkrmc1JblOTuvUcgmdnUtQvBlV5e1d6RH+H2lvA==",
       "type": "package",
       "path": "system.collections.immutable/1.4.0",
       "files": [
+        ".nupkg.metadata",
         ".signature.p7s",
         "LICENSE.TXT",
         "THIRD-PARTY-NOTICES.TXT",
@@ -1830,10 +1848,11 @@
       ]
     },
     "System.Interactive.Async/3.1.1": {
-      "sha512": "x9y2omkjEudKbIVuhUzeWw7ZlouEzpk4W98woCEq1lq9gJxERBKRKDTHF5JPEws9E0f4/Uei/2vLxEy1IrfmMg==",
+      "sha512": "hZccYiIE5RS1/J9Tb/BNtosAGVggdlsJm4Ojdu+gDV0p4AIi+LUfUogMKkRacljQEJd2AG6vYzvcjhQFkqoZmw==",
       "type": "package",
       "path": "system.interactive.async/3.1.1",
       "files": [
+        ".nupkg.metadata",
         ".signature.p7s",
         "lib/net45/System.Interactive.Async.dll",
         "lib/net45/System.Interactive.Async.xml",
@@ -2093,20 +2112,20 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\admin\\.nuget\\packages\\": {}
+    "C:\\Users\\Thomas\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\admin\\Downloads\\VisiteGuideeCegep\\gestionAdmin\\gestionAdminVisiteGuidee\\gestionAdminVisiteGuidee\\gestionAdminVisiteGuidee.csproj",
+      "projectUniqueName": "D:\\Downloads\\VisiteGuideeCegep\\gestionAdmin\\gestionAdminVisiteGuidee\\gestionAdminVisiteGuidee\\gestionAdminVisiteGuidee.csproj",
       "projectName": "gestionAdminVisiteGuidee",
-      "projectPath": "C:\\Users\\admin\\Downloads\\VisiteGuideeCegep\\gestionAdmin\\gestionAdminVisiteGuidee\\gestionAdminVisiteGuidee\\gestionAdminVisiteGuidee.csproj",
-      "packagesPath": "C:\\Users\\admin\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\admin\\Downloads\\VisiteGuideeCegep\\gestionAdmin\\gestionAdminVisiteGuidee\\gestionAdminVisiteGuidee\\obj\\",
+      "projectPath": "D:\\Downloads\\VisiteGuideeCegep\\gestionAdmin\\gestionAdminVisiteGuidee\\gestionAdminVisiteGuidee\\gestionAdminVisiteGuidee.csproj",
+      "packagesPath": "C:\\Users\\Thomas\\.nuget\\packages\\",
+      "outputPath": "D:\\Downloads\\VisiteGuideeCegep\\gestionAdmin\\gestionAdminVisiteGuidee\\gestionAdminVisiteGuidee\\obj\\",
       "projectStyle": "PackageReference",
       "skipContentFileWrite": true,
       "configFilePaths": [
-        "C:\\Users\\admin\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\Thomas\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
