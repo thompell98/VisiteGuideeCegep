@@ -42,44 +42,7 @@ public class TrajetActivity extends AppCompatActivity {
         Intent i = getIntent();
         local = i.getStringExtra("numero");
         actuel.setText(local);
-//        String etageDuLocal = "Étage " + Character.toString(destination.getText().charAt(2));
-//        String aileDuLocal = "Aile " + Character.toString(destination.getText().charAt(0));
-//        db.collection("Étages").document(etageDuLocal).collection("Ailes").document(aileDuLocal).collection("Locaux")
-//
-//     const start = destination;
-//const end = startText + '\uf8ff';
-//
-//        return this.afs.collection('movies', ref =>
-//                ref
-//                        .orderBy('title')
-//                        .limit(5)
-//                        .startAt(start)
-//                        .endAt(end)
-//  )
 
-
-        //Create a new ArrayAdapter with your context and the simple layout for the dropdown menu provided by Android
-        final ArrayAdapter<String> autoComplete = new ArrayAdapter<>(this,android.R.layout.simple_list_item_1);
-        //Child the root before all the push() keys are found and add a ValueEventListener()
-        database.child("AutoCompleteOptions").addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                //Basically, this says "For each DataSnapshot *Data* in dataSnapshot, do what's inside the method.
-                for (DataSnapshot suggestionSnapshot : dataSnapshot.getChildren()){
-                    //Get the suggestion by childing the key of the string you want to get.
-                    String suggestion = suggestionSnapshot.child("Numero").getValue(String.class);
-                    //Add the retrieved string to the list
-                    autoComplete.add(suggestion);
-                }
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-
-            }
-        });
-        AutoCompleteTextView ACTV= (AutoCompleteTextView)findViewById(R.id.autoCompleteTextView);
-        ACTV.setAdapter(autoComplete);
         setListener();
 
 //        if (actuel.getText().toString().equals(""))
