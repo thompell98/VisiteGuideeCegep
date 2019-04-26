@@ -24,15 +24,21 @@ public class CameraActivity extends AppCompatActivity {
                 redirectionCamera();
             }
         });
+        findViewById(R.id.button_trajet).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                redirectionTrajet();
+            }
+        });
     }
     private void redirectionCamera()
     {
         Intent sendUserToSignUpOrLogin=new Intent(this, ScanActivity.class);
         startActivity(sendUserToSignUpOrLogin);
     }
-    private void redirectionEmplacement()
+    private void redirectionTrajet()
     {
-        Intent emplacement = new Intent(this, EmplacementActivity.class);
+        Intent emplacement = new Intent(this, TrajetActivity.class);
         startActivity(emplacement);
     }
 }
