@@ -58,7 +58,7 @@ public class RechercheLocal extends AppCompatActivity {
         lesNumerosDesLocaux = new ArrayList<String>();
         lesNomsDesLocaux = new ArrayList<String>();
         autoCompleteTextView = findViewById(R.id.actv);
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, lesMotsRecherche);
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, lesMotsRecherche);
         autoCompleteTextView.setAdapter(adapter);
     }
 

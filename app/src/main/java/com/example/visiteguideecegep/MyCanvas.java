@@ -228,7 +228,7 @@ catch (OutOfMemoryError e1)
             Map = BitmapFactory.decodeResource(getResources(), R.drawable.etage1);
 
         } else if (etageA.equals("2")) {
-            Map = BitmapFactory.decodeResource(getResources(), R.drawable.banane);
+            Map = BitmapFactory.decodeResource(getResources(), R.drawable.etage2bon);
 
         }
 //        else if (etageA.equals("3"))
