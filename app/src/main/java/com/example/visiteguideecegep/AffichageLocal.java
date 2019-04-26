@@ -88,7 +88,9 @@ public class AffichageLocal extends AppCompatActivity {
         setListener();
         SwipeLeft();
         setTouchListener();
-        createArrayOfFiles("A-111");
+        Bundle bundle = getIntent().getExtras();
+        String numeroLocalActuel = bundle.getString("numeroLocalVoulu");
+        createArrayOfFiles(numeroLocalActuel);
     }
 
     private void setListener() {

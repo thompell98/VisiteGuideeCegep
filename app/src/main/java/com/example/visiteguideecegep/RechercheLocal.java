@@ -33,9 +33,10 @@ import javax.annotation.Nullable;
 
 public class RechercheLocal extends AppCompatActivity {
     FirebaseFirestore db = null;
-    ArrayList<String> lesMotsPourRecherche = null;
+    ArrayList<String> lesMotsRecherche = null;
+    ArrayList<String> lesNumerosDesLocaux = null;
+    ArrayList<String> lesNomsDesLocaux = null;
     AutoCompleteTextView autoCompleteTextView = null;
-
     String numeroLocalActuel = null;
     String numeroLocalVoulu = null;
     ArrayList<Integer> positionActuelle = null;
@@ -45,9 +46,11 @@ public class RechercheLocal extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_recherche_local);
         db = FirebaseFirestore.getInstance();
-        lesMotsPourRecherche = new ArrayList<String>();
+        lesMotsRecherche = new ArrayList<String>();
+        lesNumerosDesLocaux = new ArrayList<String>();
+        lesNomsDesLocaux = new ArrayList<String>();
         autoCompleteTextView = findViewById(R.id.actv);
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, lesMotsPourRecherche);
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, lesMotsRecherche);
         autoCompleteTextView.setAdapter(adapter);
         chargerFirestoreEnMemoire();
         obtenirDataScan();
@@ -62,18 +65,51 @@ public class RechercheLocal extends AppCompatActivity {
         }
     }
 
+    private boolean verifierNumeroExiste(String unNumero)
+    {
+        for (int cpt = 0; cpt < lesNumerosDesLocaux.size(); cpt++) {
+            if (unNumero.equals(lesNumerosDesLocaux.get(cpt))) {
+                numeroLocalVoulu = lesNumerosDesLocaux.get(cpt);
+                return true;
+            }
+        }
+        return false;
+    }
+
+    private boolean verifierNomExiste(String unNom)
+    {
+        for (int cpt = 0; cpt < lesNomsDesLocaux.size(); cpt++) {
+            if (unNom.equals(lesNomsDesLocaux.get(cpt))) {
+                numeroLocalVoulu = lesNumerosDesLocaux.get(cpt);
+                return true;
+            }
+        }
+        return false;
+    }
+
     private void setListener() {
         findViewById(R.id.buttonAfficherLeLocal).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                obtenirPositionLocalVoulu();
-
+                if (autoCompleteTextView.getText().toString().equals(""))
+                {
+                    Toast.makeText(getApplicationContext(), "Le champs ne doit pas être vide", Toast.LENGTH_LONG).show();
+                }
+                else
+                {
+                    if (verifierNumeroExiste(autoCompleteTextView.getText().toString()) ||
+                        verifierNomExiste(autoCompleteTextView.getText().toString())) {
+                        obtenirPositionLocalVoulu();
+                    }
+                    else {
+                        Toast.makeText(getApplicationContext(), "Aucun local n'a été trouvé", Toast.LENGTH_LONG).show();
+                    }
+                }
             }
         });
     }
 
     private void obtenirPositionLocalVoulu() {
-        numeroLocalVoulu = autoCompleteTextView.getText().toString();
        String etageDuLocal = "Étage " + Character.toString(numeroLocalVoulu.charAt(2));
        String aileDuLocal = "Aile " + Character.toString(numeroLocalVoulu.charAt(0));
        db.collection("Étages").document(etageDuLocal).collection("Ailes").document(aileDuLocal).collection("Locaux")
@@ -110,12 +146,10 @@ public class RechercheLocal extends AppCompatActivity {
                     @Override
                     public void onEvent(@Nullable QuerySnapshot queryDocumentSnapshots, @Nullable FirebaseFirestoreException e) {
                         for (DocumentChange doc : queryDocumentSnapshots.getDocumentChanges()) {
-                            if (doc.getDocument().get("Numero") != null) {
-                                lesMotsPourRecherche.add(doc.getDocument().get("Numero").toString());
-                            }
-                            if (doc.getDocument().get("Nom") != null) {
-                                lesMotsPourRecherche.add(doc.getDocument().get("Nom").toString());
-                            }
+                            lesNumerosDesLocaux.add(doc.getDocument().get("Numero").toString());
+                            lesNomsDesLocaux.add(doc.getDocument().get("Nom").toString());
+                            lesMotsRecherche.add(doc.getDocument().get("Numero").toString());
+                            lesMotsRecherche.add(doc.getDocument().get("Nom").toString());
                         }
                     }
                 });

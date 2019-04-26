@@ -8,6 +8,15 @@
     android:padding="16dp"
     tools:context=".RechercheLocal">
 
+    <TextView
+        android:id="@+id/textViewLocaux"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingBottom="16dp"
+        android:text="Veuillez maitenant rechercher un local"
+        android:textSize="20sp"
+        android:inputType="text"/>
+
     <AutoCompleteTextView
         android:id="@+id/actv"
         android:layout_width="match_parent"
@@ -15,30 +24,15 @@
         android:completionHint="Rechercher"
         android:completionThreshold="1"
         android:dropDownAnchor="@id/textViewLocaux"
-        android:hint="Rechercher" />
+        android:hint="Rechercher"
+        android:inputType="text"/>
 
-    <TextView
-        android:id="@+id/textViewLocaux"
+    <Button
+        android:id="@+id/buttonAfficherLeLocal"
         android:layout_width="match_parent"
+        android:layout_marginVertical="80dp"
         android:layout_height="wrap_content"
-        android:paddingBottom="16dp"
-        android:text="Locaux"
-        android:textSize="20sp" />
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="horizontal">
-
-        <Button
-            android:id="@+id/buttonAfficherLeLocal"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true"
-            android:layout_gravity="center"
-            android:layout_marginLeft="120dp"
-            android:text="Afficher le local"
-            android:inputType="text"/>
-    </LinearLayout>
+        android:paddingTop="16dp"
+        android:text="Afficher le local" />
 
 </LinearLayout>
