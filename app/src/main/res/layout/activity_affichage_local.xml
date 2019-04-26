@@ -80,5 +80,18 @@ Give lady of they such they sure it. Me contained explained my education. Vulgar
 
 Speedily say has suitable disposal add boy. On forth doubt miles of child. Exercise joy man children rejoiced. Yet uncommonly his ten who diminution astonished. Demesne new manners savings sta"
                 android:textSize="16sp" />
+            <Button
+                android:id="@+id/buttonAllerAuLocal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Aller à ce local"
+                android:background="@color/colorGreen">
+            </Button>
+            <Button
+                android:id="@+id/buttonAutreLocal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Rechercher un autre local">
+            </Button>
         </LinearLayout>
     </ScrollView>

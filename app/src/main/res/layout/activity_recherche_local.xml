@@ -7,22 +7,38 @@
     android:orientation="vertical"
     android:padding="16dp"
     tools:context=".RechercheLocal">
-    
+
     <AutoCompleteTextView
         android:id="@+id/actv"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Rechercher"
+        android:completionHint="Rechercher"
         android:completionThreshold="1"
         android:dropDownAnchor="@id/textViewLocaux"
-        android:completionHint="Rechercher"/>
+        android:hint="Rechercher" />
 
     <TextView
         android:id="@+id/textViewLocaux"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:paddingBottom="16dp"
         android:text="Locaux"
-        android:textSize="20sp"
-        android:paddingBottom="16dp"/>
+        android:textSize="20sp" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/buttonAfficherLeLocal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_gravity="center"
+            android:layout_marginLeft="120dp"
+            android:text="Afficher le local"
+            android:inputType="text"/>
+    </LinearLayout>
 
 </LinearLayout>

@@ -42,14 +42,14 @@ public class EmplacementActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         Intent i = getIntent();
         // Nom_emplacement = i.getStringExtra("nom");
-        localA = i.getStringExtra("actuel");
-        localD = i.getStringExtra("destination");
+        localA = i.getStringExtra("numeroLocalActuel");
+        localD = i.getStringExtra("numeroLocalVoulu");
         //   Toast toast = Toast.makeText(getApplicationContext(),local, Toast.LENGTH_LONG);toast.show();
 
         //  description = i.getStringExtra("description");
 
-        ArrayList<Integer> positionDes = i.getIntegerArrayListExtra("position");
-        ArrayList<Integer> positionAct = i.getIntegerArrayListExtra("positionA");
+        ArrayList<Integer> positionDes = i.getIntegerArrayListExtra("positionVoulue");
+        ArrayList<Integer> positionAct = i.getIntegerArrayListExtra("positionActuelle");
        //  if (positionDes != null&&positionAct!=null) {
 
 

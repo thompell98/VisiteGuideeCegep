@@ -51,32 +51,29 @@ public class ScanActivity extends AppCompatActivity implements ZXingScannerView.
                     @Override
                     public void onComplete(@NonNull Task<QuerySnapshot> task) {
                         if (task.isSuccessful()) {
-                            Intent intente = new Intent(ScanActivity.this, EmplacementActivity.class);
-                            Intent trajet = new Intent(ScanActivity.this, TrajetActivity.class);
+                         //   Intent intente = new Intent(ScanActivity.this, EmplacementActivity.class);
+                            Intent trajet = new Intent(ScanActivity.this, RechercheLocal.class);
                             Intent i = getIntent();
                             for (QueryDocumentSnapshot document : task.getResult()) {
-                                intente.putExtra("numero", document.get("Numero").toString());
-                                intente.putExtra("nom", document.get("Nom").toString());
-                                intente.putExtra("description", document.get("Description").toString());
+                               // intente.putExtra("numero", document.get("Numero").toString());
+                              //  intente.putExtra("nom", document.get("Nom").toString());
+                               // intente.putExtra("description", document.get("Description").toString());
                                 ArrayList<Integer> group = (ArrayList<Integer>) document.get("Position");
-                                intente.putExtra("positionQ", group);
-                                if (!i.getBooleanExtra("allo", true)) {
+                             //   intente.putExtra("positionQ", group);
+                             //   if (!i.getBooleanExtra("allo", true)) {
                                     trajet.putExtra("numero", document.get("Numero").toString());
                                     ArrayList<Integer> groupe = (ArrayList<Integer>) document.get("Position");
                                     trajet.putExtra("positionD", groupe);
-                                }
+                                //}
                             }
-                            if (!i.getBooleanExtra("allo", true)) {
+                           // if (!i.getBooleanExtra("allo", true)) {
                                 if (trajet.getStringExtra("numero")==null)
                                 {
                                     Toast toast = Toast.makeText(getApplicationContext(), "Local inexistant(ou véréfier votre connexion internet)", Toast.LENGTH_LONG);toast.show();
 
                                 }
                                     startActivity(trajet);
-
-                            } else {
-                                startActivity(intente);
-                            }
+                           // }
                         } else {
                             Toast.makeText(getApplicationContext(), task.getException().toString(), Toast.LENGTH_LONG).show();
                         }

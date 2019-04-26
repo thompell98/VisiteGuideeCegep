@@ -16,41 +16,12 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        setListener();
-        Intent sendUserToRechercheLocal = new Intent(this, RechercheLocal.class);
-        startActivity(sendUserToRechercheLocal);
-    }
-
-    private void setListener() {
-        findViewById(R.id.button_gotoscan).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                redirectionCamera();
-            }
-        });
-        findViewById(R.id.buttonAffichageLocal).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                redirectionAffichageLocal();
-            }
-        });
+        redirectionCamera();
     }
 
     private void redirectionCamera()
     {
-        Intent sendUserToSignUpOrLogin=new Intent(this, CameraActivity.class);
+        Intent sendUserToSignUpOrLogin=new Intent(this, TrajetActivity.class);
         startActivity(sendUserToSignUpOrLogin);
-    }
-
-    private void redirectionDb()
-    {
-        Intent sendUserToSignUpOrLogin=new Intent(this, ConnexionBD.class);
-        startActivity(sendUserToSignUpOrLogin);
-    }
-
-    private void redirectionAffichageLocal()
-    {
-        Intent sendUserToAffichageLocal = new Intent(this, AffichageLocal.class);
-        startActivity(sendUserToAffichageLocal);
     }
 }

@@ -2,6 +2,7 @@ package com.example.visiteguideecegep;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
@@ -31,6 +32,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.VideoView;
 import android.widget.ViewFlipper;
+
 import com.bumptech.glide.Glide;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -45,6 +47,8 @@ import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
+
+import java.util.ArrayList;
 import java.util.List;
 
 import static android.widget.Toast.LENGTH_LONG;
@@ -71,7 +75,7 @@ public class AffichageLocal extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_affichage_local);
-        imageFlipper = findViewById( R.id.image_flipper );
+        imageFlipper = findViewById(R.id.image_flipper);
         animFlipInForeward = AnimationUtils.loadAnimation(this, R.anim.flipin);
         animFlipOutForeward = AnimationUtils.loadAnimation(this, R.anim.flipout);
         animFlipInBackward = AnimationUtils.loadAnimation(this, R.anim.flipin_reverse);
@@ -81,28 +85,58 @@ public class AffichageLocal extends AppCompatActivity {
         textViewNumeroDuLocal = findViewById(R.id.textViewNumeroDuLocal);
         textViewDescriptionDuLocal = findViewById(R.id.textViewDescriptionDuLocal);
         toucher = false;
+        setListener();
         SwipeLeft();
         setTouchListener();
         createArrayOfFiles("A-111");
     }
 
-    private void SwipeRight(){
+    private void setListener() {
+        findViewById(R.id.buttonAllerAuLocal).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                afficherPlan();
+            }
+        });
+        findViewById(R.id.buttonAutreLocal).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                retournerDebut();
+            }
+        });
+    }
+
+    private void afficherPlan() {
+        Bundle bundle = getIntent().getExtras();
+        Intent plan = new Intent(this, EmplacementActivity.class);
+        plan.putExtra("numeroLocalActuel", bundle.getString("numeroLocalActuel"));
+        plan.putExtra("positionActuelle", bundle.getIntegerArrayList("positionActuelle"));
+        plan.putExtra("numeroLocalVoulu", bundle.getString("numeroLocalVoulu"));
+        plan.putExtra("positionVoulue", bundle.getIntegerArrayList("positionVoulue"));
+        startActivity(plan);
+    }
+
+    private void retournerDebut() {
+        Intent scan = new Intent(this, TrajetActivity.class);
+        startActivity(scan);
+    }
+
+    private void SwipeRight() {
         imageFlipper.setInAnimation(animFlipInBackward);
         imageFlipper.setOutAnimation(animFlipOutBackward);
         imageFlipper.showPrevious();
     }
 
-    private void SwipeLeft(){
+    private void SwipeLeft() {
         imageFlipper.setInAnimation(animFlipInForeward);
         imageFlipper.setOutAnimation(animFlipOutForeward);
         imageFlipper.showNext();
     }
 
     @Override
-    public boolean dispatchTouchEvent(MotionEvent ev){
+    public boolean dispatchTouchEvent(MotionEvent ev) {
         super.dispatchTouchEvent(ev);
-        if (toucher == true)
-        {
+        if (toucher == true) {
             gestureDetector.onTouchEvent(ev);
         }
         Handler handler = new Handler();
@@ -114,8 +148,7 @@ public class AffichageLocal extends AppCompatActivity {
         return true;
     }
 
-    private void setTouchListener()
-    {
+    private void setTouchListener() {
         imageFlipper.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
@@ -125,8 +158,7 @@ public class AffichageLocal extends AppCompatActivity {
         });
     }
 
-    private void setScrollListener(final MediaController mediaController)
-    {
+    private void setScrollListener(final MediaController mediaController) {
         ScrollView scrollView = findViewById(R.id.scrollView);
         scrollView.getViewTreeObserver().addOnScrollChangedListener(new ViewTreeObserver.OnScrollChangedListener() {
             @Override
@@ -137,15 +169,15 @@ public class AffichageLocal extends AppCompatActivity {
     }
 
     SimpleOnGestureListener simpleOnGestureListener
-            = new SimpleOnGestureListener(){
+            = new SimpleOnGestureListener() {
 
         @Override
         public boolean onFling(MotionEvent e1, MotionEvent e2, float velocityX,
                                float velocityY) {
             float sensitvity = 50;
-            if((e1.getX() - e2.getX()) > sensitvity){
+            if ((e1.getX() - e2.getX()) > sensitvity) {
                 SwipeLeft();
-            }else if((e2.getX() - e1.getX()) > sensitvity){
+            } else if ((e2.getX() - e1.getX()) > sensitvity) {
                 SwipeRight();
             }
             return true;
@@ -153,8 +185,7 @@ public class AffichageLocal extends AppCompatActivity {
 
     };
 
-    private void createArrayOfFiles(final String numeroLocal)
-    {
+    private void createArrayOfFiles(final String numeroLocal) {
         String aile = "Aile " + String.valueOf(numeroLocal.charAt(0));
         String etage = "Étage " + String.valueOf(numeroLocal.charAt(2));
         CollectionReference colRef = FirebaseFirestore.getInstance().collection("Étages").document(etage).collection("Ailes").document(aile).collection("Locaux");
@@ -173,32 +204,26 @@ public class AffichageLocal extends AppCompatActivity {
                                 textViewNumeroDuLocal.setText(document.get("Numero").toString());
                                 textViewDescriptionDuLocal.setText(document.get("Description").toString());
                             }
-                        }
-                        else {
+                        } else {
                             Toast.makeText(getApplicationContext(), "Erreur", LENGTH_LONG).show();
                         }
                     }
                 });
-        //ProgressBar progressBar = findViewById(R.id.progressBar);
-        //progressBar.setVisibility(View.INVISIBLE);
     }
 
-    private void displayVideos(String numeroLocal, List<String> lesFichiers)
-    {
-        for (int cpt = 0; cpt < lesFichiers.size(); cpt++)
-        {
-            if (lesFichiers.get(cpt).endsWith("mp4") || lesFichiers.get(cpt).endsWith("mp3"))
-            {
+    private void displayVideos(String numeroLocal, List<String> lesFichiers) {
+        for (int cpt = 0; cpt < lesFichiers.size(); cpt++) {
+            if (lesFichiers.get(cpt).endsWith("mp4") || lesFichiers.get(cpt).endsWith("mp3")) {
                 LinearLayout linearLayout = findViewById(R.id.linearLayout);
                 RelativeLayout relativeLayout = new RelativeLayout(this);
                 VideoView videoView = new VideoView(this);
                 final MediaController mediaController = new MediaController(this);
 
                 final float scale = getResources().getDisplayMetrics().density;
-                int dpWidthInPx  = (int) (500 * scale);
+                int dpWidthInPx = (int) (500 * scale);
                 int dpHeightInPx = (int) (250 * scale);
                 LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(dpWidthInPx, dpHeightInPx);
-                layoutParams.setMargins(0,0,0,8);
+                layoutParams.setMargins(0, 0, 0, 8);
                 videoView.setLayoutParams(layoutParams);
                 videoView.setMediaController(mediaController);
                 mediaController.setAnchorView(videoView);
@@ -213,12 +238,9 @@ public class AffichageLocal extends AppCompatActivity {
         }
     }
 
-    private void displayImages(String numeroLocal, List<String> lesFichiers)
-    {
-        for (int cpt = 0; cpt < lesFichiers.size(); cpt++)
-        {
-            if (lesFichiers.get(cpt).endsWith("jpg") || lesFichiers.get(cpt).endsWith("png"))
-            {
+    private void displayImages(String numeroLocal, List<String> lesFichiers) {
+        for (int cpt = 0; cpt < lesFichiers.size(); cpt++) {
+            if (lesFichiers.get(cpt).endsWith("jpg") || lesFichiers.get(cpt).endsWith("png")) {
                 downloadImage(numeroLocal, lesFichiers.get(cpt));
             }
         }
@@ -226,8 +248,7 @@ public class AffichageLocal extends AppCompatActivity {
         imageFlipper.startFlipping();
     }
 
-    private void setCloudStorage(String numeroLocal)
-    {
+    private void setCloudStorage(String numeroLocal) {
         storage = FirebaseStorage.getInstance();
         storageRef = storage.getReference();
         mAuth = FirebaseAuth.getInstance();
@@ -239,7 +260,7 @@ public class AffichageLocal extends AppCompatActivity {
     }
 
     private void signInAnonymously() {
-        mAuth.signInAnonymously().addOnSuccessListener(this, new  OnSuccessListener<AuthResult>() {
+        mAuth.signInAnonymously().addOnSuccessListener(this, new OnSuccessListener<AuthResult>() {
             @Override
             public void onSuccess(AuthResult authResult) {
             }
@@ -252,13 +273,12 @@ public class AffichageLocal extends AppCompatActivity {
                 });
     }
 
-    public void downloadImage(String numeroLocal, String nomDuFichier)
-    {
+    public void downloadImage(String numeroLocal, String nomDuFichier) {
         imageRef = storageRef.child(numeroLocal + "/" + nomDuFichier);
         imageRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
             @Override
             public void onSuccess(Uri uri) {
-                ImageView image = new ImageView ( getApplicationContext() );
+                ImageView image = new ImageView(getApplicationContext());
                 Glide.with(getApplicationContext())
                         .load(uri)
                         .into(image);
@@ -267,13 +287,12 @@ public class AffichageLocal extends AppCompatActivity {
         }).addOnFailureListener(new OnFailureListener() {
             @Override
             public void onFailure(@NonNull Exception e) {
-               Toast.makeText(getApplicationContext(), "Download image error", LENGTH_LONG).show();
+                Toast.makeText(getApplicationContext(), "Download image error", LENGTH_LONG).show();
             }
         });
     }
 
-    public void downloadVideoOrAudio(String numeroLocal, String nomDuFichier, final VideoView videoView)
-    {
+    public void downloadVideoOrAudio(String numeroLocal, String nomDuFichier, final VideoView videoView) {
         StorageReference videoRef = storageRef.child(numeroLocal + "/" + nomDuFichier);
         videoRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
             @Override
