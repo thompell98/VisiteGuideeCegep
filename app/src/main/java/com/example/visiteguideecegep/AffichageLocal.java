@@ -198,14 +198,14 @@ public class AffichageLocal extends AppCompatActivity {
                     public void onComplete(@NonNull Task<QuerySnapshot> task) {
                         if (task.isSuccessful()) {
                             for (QueryDocumentSnapshot document : task.getResult()) {
-                                List<String> lesFichiers = (List<String>) document.get("Fichiers");
-                                setCloudStorage(numeroLocal);
-                                displayImages(numeroLocal, lesFichiers);
-                                displayVideos(numeroLocal, lesFichiers);
-                                textViewNomDuLocal.setText(document.get("Nom").toString());
-                                textViewNumeroDuLocal.setText(document.get("Numero").toString());
-                                textViewDescriptionDuLocal.setText(document.get("Description").toString());
-                            }
+                                    List<String> lesFichiers = (List<String>) document.get("Fichiers");
+                                    setCloudStorage(numeroLocal);
+                                    displayImages(numeroLocal, lesFichiers);
+                                    displayVideos(numeroLocal, lesFichiers);
+                                    textViewNomDuLocal.setText(document.get("Nom").toString());
+                                    textViewNumeroDuLocal.setText(document.get("Numero").toString());
+                                    textViewDescriptionDuLocal.setText(document.get("Description").toString());
+                                }
                         } else {
                             Toast.makeText(getApplicationContext(), "Erreur", LENGTH_LONG).show();
                         }

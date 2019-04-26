@@ -130,7 +130,15 @@ public class RechercheLocal extends AppCompatActivity {
                                trajet.putExtra("numeroLocalVoulu", numeroLocalVoulu);
                                trajet.putExtra("positionVoulue", positionVoulue);
                            }
-                           startActivity(trajet);
+                           if (trajet.getIntegerArrayListExtra("positionVoulue")!=null) {
+
+                               startActivity(trajet);
+                           }
+                           else
+                           {
+                               Toast.makeText(getApplicationContext(),"local indisponible", Toast.LENGTH_LONG).show();
+
+                           }
                        } else {
                            Toast.makeText(getApplicationContext(), task.getException().toString(), Toast.LENGTH_LONG).show();
                        }

@@ -10,12 +10,12 @@
 
     <TextView
         android:id="@+id/textViewLocaux"
-        android:layout_width="match_parent"
+        android:layout_width="378dp"
         android:layout_height="wrap_content"
+        android:inputType="text"
         android:paddingBottom="16dp"
         android:text="Veuillez maitenant rechercher un local"
-        android:textSize="20sp"
-        android:inputType="text"/>
+        android:textSize="18sp" />
 
     <AutoCompleteTextView
         android:id="@+id/actv"
