@@ -141,7 +141,7 @@ try {
 
                     }
                     if (etageB.equals("2")) {
-                        Map = BitmapFactory.decodeResource(getResources(), R.drawable.banane);
+                        Map = BitmapFactory.decodeResource(getResources(), R.drawable.etage2bon);
                         Star = BitmapFactory.decodeResource(getResources(), R.drawable.star);
                         // Pin = BitmapFactory.decodeResource(getResources(), R.drawable.pin);
                         aa = false;
@@ -149,7 +149,7 @@ try {
                         //  Star = BitmapFactory.decodeResource(getResources(), R.drawable.star);
                     }
                     if (etageB.equals("3")) {
-                        Map = BitmapFactory.decodeResource(getResources(), R.drawable.banane);
+                        Map = BitmapFactory.decodeResource(getResources(), R.drawable.etage2bon);
                         //   Star = BitmapFactory.decodeResource(getResources(), R.drawable.star);
                         // Pin = BitmapFactory.decodeResource(getResources(), R.drawable.pin);
 
@@ -165,7 +165,7 @@ try {
                         // Pin = null;
                     }
                     if (etageA.equals("2")) {
-                        Map = BitmapFactory.decodeResource(getResources(), R.drawable.banane);
+                        Map = BitmapFactory.decodeResource(getResources(), R.drawable.etage2bon);
                         aa = true;
                         Star = null;
                         // Pin = null;
