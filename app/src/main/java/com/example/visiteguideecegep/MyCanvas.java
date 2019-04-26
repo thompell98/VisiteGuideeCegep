@@ -45,10 +45,10 @@ public class MyCanvas extends View {
     String etageA;
     String etageB;
 
-    // public MyCanvas(Context context, String emplacement,String local,String description, Rect corde) {
+
     public MyCanvas(Context context, Rect coordonnéActu, Rect coordonnéDes, String localA, String localD) {
         super(context);
-        //  cordee = corde;
+
         destination = coordonnéDes;
         positionA = coordonnéActu;
 
@@ -78,11 +78,8 @@ public class MyCanvas extends View {
         textPaint.setTextSize(16 * getResources().getDisplayMetrics().density);
         textPaint.setColor(0xFF000000);
 
-        //  int width = (int) textPaint.measureText(text);
-        //  StaticLayout.Builder builder = StaticLayout.Builder.obtain(text, 0, text.length(), textPaint, width);
-
         canvas.save();
-        //   StaticLayout myStaticLayout = builder.build();
+
         canvas.scale(mScaleFactor, mScaleFactor, mScaleFocusX, mScaleFocusY);
         canvas.translate(mFocusX, mFocusY);
         Rect dest = new Rect(0, 0, getWidth(), getHeight());
@@ -106,12 +103,6 @@ public class MyCanvas extends View {
         }
         // canvas.drawBitmap(Pin, null, new Rect(getLeft() + widthh *15, getTop() + heightt * 4, getRight() - widthh * 3, getBottom() - heightt *15), paint);
 
-        //      myStaticLayout.draw(canvas);
-        //    }
-        //     else
-        //    {
-
-        // }
 
         canvas.restore();
 
@@ -135,8 +126,7 @@ public class MyCanvas extends View {
     private class MoveListener extends GestureDetector.SimpleOnGestureListener {
         @Override
         public boolean onDoubleTap(MotionEvent e) {
-
-
+try {
             if (!etageA.equals(etageB)) {
                 Toast toast = Toast.makeText(getContext(), "Touchez 2 fois pour changer d'étage ", Toast.LENGTH_LONG);
                 toast.show();
@@ -192,7 +182,14 @@ public class MyCanvas extends View {
             //   pinmap.setHeight(pinmap.getHeight()/(int)zoomlevel1);
             //    pinmap.setWidth(pinmap.getWidth()/(int)zoomlevel1);
 
-            return true;
+    return true;
+}
+catch (OutOfMemoryError e1)
+{
+    Toast toast = Toast.makeText(getContext(), e1.toString(), Toast.LENGTH_LONG);toast.show();
+    return false;
+}
+
         }
 
         @Override
@@ -209,11 +206,18 @@ public class MyCanvas extends View {
 
     @Override
     public boolean onTouchEvent(MotionEvent event) {
-        mScaleDetector.onTouchEvent(event);
-        mMoveDetector.onTouchEvent(event);
 
+        try {
+            mScaleDetector.onTouchEvent(event);
+            mMoveDetector.onTouchEvent(event);
+            return true;
+        }
+        catch (Exception e1)
+        {
+            Toast toast = Toast.makeText(getContext(), e1.toString(), Toast.LENGTH_LONG);toast.show();
+            return false;
+        }
 
-        return true;
     }
 
     private void init(@NonNull Context context) {
