@@ -62,6 +62,10 @@ public class MyCanvas extends View {
             Toast toast = Toast.makeText(getContext(), "Touchez 2 fois pour changer d'étage ", Toast.LENGTH_LONG);
             toast.show();
         }
+        else {
+            Star = BitmapFactory.decodeResource(getResources(), R.drawable.star);
+
+        }
         // Description=description;
         init(context);
 
@@ -246,6 +250,7 @@ catch (OutOfMemoryError e1)
 //            Map = BitmapFactory.decodeResource(getResources(), R.drawable.etage1);
 //
 //        }
+
         this.mScaleFactor = MINIMUM_SCALE_FACTOR;
         this.mScaleDetector = new ScaleGestureDetector(context, new ScalesListener());
         this.mMoveDetector = new GestureDetector(context, new MoveListener());
