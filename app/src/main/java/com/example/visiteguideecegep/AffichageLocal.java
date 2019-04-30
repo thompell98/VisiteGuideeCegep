@@ -106,6 +106,12 @@ public class AffichageLocal extends AppCompatActivity {
                 retournerDebut();
             }
         });
+        findViewById(R.id.button_perdu).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                afficherPlanPerdu();
+            }
+        });
     }
 
     private void afficherPlan() {
@@ -311,5 +317,14 @@ public class AffichageLocal extends AppCompatActivity {
                 Toast.makeText(getApplicationContext(), "Download image error", LENGTH_LONG).show();
             }
         });
+    }
+    public void afficherPlanPerdu()
+    {
+        Bundle bundle = getIntent().getExtras();
+        Intent plan = new Intent(this, ScanActivity.class);
+        plan.putExtra("bool",false);
+        plan.putExtra("numeroLocalVoulu", bundle.getString("numeroLocalVoulu"));
+        plan.putExtra("positionVoulue", bundle.getIntegerArrayList("positionVoulue"));
+        startActivity(plan);
     }
 }

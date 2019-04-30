@@ -93,5 +93,11 @@ Speedily say has suitable disposal add boy. On forth doubt miles of child. Exerc
                 android:layout_height="wrap_content"
                 android:text="Rechercher un autre local">
             </Button>
+
+            <Button
+                android:id="@+id/button_perdu"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Perdu en chemin" />
         </LinearLayout>
     </ScrollView>

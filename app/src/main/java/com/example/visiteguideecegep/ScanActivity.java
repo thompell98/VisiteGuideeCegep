@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
-import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -16,7 +15,6 @@ import com.google.firebase.firestore.QuerySnapshot;
 import com.google.zxing.Result;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import me.dm7.barcodescanner.zxing.ZXingScannerView;
 
@@ -29,13 +27,20 @@ public class ScanActivity extends AppCompatActivity implements ZXingScannerView.
     ZXingScannerView scannerView;
     private static final String TAG = "ConnexionBD";
     FirebaseFirestore db = FirebaseFirestore.getInstance();
+    Boolean aBoolean;
+    String local;
+    ArrayList<Integer> positionVoulue;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         scannerView = new ZXingScannerView(this);
-
+        Intent i = getIntent();
+        aBoolean = i.getBooleanExtra("bool", true);
         setContentView(scannerView);
+
+        local = i.getStringExtra("numeroLocalVoulu");
+        positionVoulue = i.getIntegerArrayListExtra("positionVoulue");
 
     }
 
@@ -53,24 +58,29 @@ public class ScanActivity extends AppCompatActivity implements ZXingScannerView.
                         if (task.isSuccessful()) {
                             Intent intente = new Intent(ScanActivity.this, TrajetActivity.class);
                             Intent trajet = new Intent(ScanActivity.this, RechercheLocal.class);
+                            Intent trajetPerdu = new Intent(ScanActivity.this, EmplacementActivity.class);
 
                             for (QueryDocumentSnapshot document : task.getResult()) {
-                         //       ArrayList<Integer> group = (ArrayList<Integer>) document.get("Position");
-                                    trajet.putExtra("numero", document.get("Numero").toString());
-                                    ArrayList<Integer> groupe = (ArrayList<Integer>) document.get("Position");
-                                    trajet.putExtra("positionD", groupe);
-
+                                //       ArrayList<Integer> group = (ArrayList<Integer>) document.get("Position");
+                                trajet.putExtra("numero", document.get("Numero").toString());
+                                ArrayList<Integer> groupe = (ArrayList<Integer>) document.get("Position");
+                                trajet.putExtra("positionD", groupe);
+                                trajetPerdu.putExtra("numeroLocalActuel", document.get("Numero").toString());
+                                trajetPerdu.putExtra("positionActuelle", groupe);
                             }
-
-                                if (trajet.getStringExtra("numero")==null)
-                                {
-                                    Toast toast = Toast.makeText(getApplicationContext(), "Local inexistant(ou véréfier votre connexion internet)", Toast.LENGTH_LONG);toast.show();
+                            if (aBoolean) {
+                                if (trajet.getStringExtra("numero") == null) {
+                                    Toast toast = Toast.makeText(getApplicationContext(), "Local inexistant(ou véréfier votre connexion internet)", Toast.LENGTH_LONG);
+                                    toast.show();
                                     startActivity(intente);
+                                } else {
+                                    startActivity(trajet);
                                 }
-                                else
-                            {
-                                startActivity(trajet);
-
+                            } else {
+                                trajetPerdu.putExtra("numeroLocalVoulu", local);
+                                trajetPerdu.putExtra("positionVoulue", positionVoulue);
+                                startActivity(trajetPerdu);
+                                finish();
                             }
 
                         } else {

@@ -1,9 +1,11 @@
 package com.example.visiteguideecegep;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
+import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Rect;
 import android.os.Build;
@@ -12,6 +14,7 @@ import android.support.annotation.NonNull;
 import android.support.annotation.RequiresApi;
 import android.text.TextPaint;
 import android.view.GestureDetector;
+import android.view.KeyEvent;
 import android.view.MotionEvent;
 import android.view.ScaleGestureDetector;
 import android.view.View;
@@ -88,8 +91,11 @@ public class MyCanvas extends View {
         canvas.translate(mFocusX, mFocusY);
         Rect dest = new Rect(0, 0, getWidth(), getHeight());
         Paint paint = new Paint();
+        Paint paintt = new Paint();
         paint.setFilterBitmap(true);
-
+        paintt.setColor(Color.RED);
+        paintt.setStyle(Paint.Style.STROKE);
+        paintt.setStrokeWidth(10);
         canvas.drawBitmap(Map, null, dest, paint);
 
         int heightt = getHeight() / 20;
@@ -97,7 +103,8 @@ public class MyCanvas extends View {
 
         //  if (nom_emplacement != null) {
 
-
+        canvas.drawLine(getLeft() + widthh * positionA.left, getBottom() - heightt * positionA.bottom, getLeft() + widthh * 11, getBottom() - heightt * 13, paintt);
+        canvas.drawLine(getLeft() + widthh * 11, getBottom() - heightt *13, getLeft() + widthh * destination.left, getBottom() - heightt * destination.bottom, paintt);
         //   canvas.drawBitmap(Pin, null, new Rect(getLeft() + widthh *cordee.left, getTop() + heightt * cordee.top, getRight() - widthh * cordee.right, getBottom() - heightt *cordee.bottom), paint);
         if (Pin != null) {
             canvas.drawBitmap(Pin, null, new Rect(getLeft() + widthh * positionA.left, getTop() + heightt * positionA.top, getRight() - widthh * positionA.right, getBottom() - heightt * positionA.bottom), paint);
@@ -125,7 +132,10 @@ public class MyCanvas extends View {
 
         }
 
+
     }
+
+
 
     private class MoveListener extends GestureDetector.SimpleOnGestureListener {
         @Override
