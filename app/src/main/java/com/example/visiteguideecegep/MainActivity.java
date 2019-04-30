@@ -16,12 +16,19 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        redirectionCamera();
+        redirectionCanvasActivity();
+        //redirectionCamera();
     }
 
     private void redirectionCamera()
     {
         Intent sendUserToSignUpOrLogin=new Intent(this, TrajetActivity.class);
         startActivity(sendUserToSignUpOrLogin);
+    }
+
+    private void redirectionCanvasActivity()
+    {
+        Intent sendUserToActivityCanvas = new Intent(this, activityCanvas.class);
+        startActivity(sendUserToActivityCanvas);
     }
 }
