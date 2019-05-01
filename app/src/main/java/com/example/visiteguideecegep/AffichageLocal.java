@@ -3,6 +3,7 @@ package com.example.visiteguideecegep;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Intent;
+import android.content.pm.ActivityInfo;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
@@ -13,12 +14,14 @@ import android.support.v4.view.GestureDetectorCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.DisplayMetrics;
 import android.view.GestureDetector;
 import android.view.GestureDetector.SimpleOnGestureListener;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
+import android.view.WindowManager;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.FrameLayout;
@@ -70,6 +73,7 @@ public class AffichageLocal extends AppCompatActivity {
     TextView textViewNumeroDuLocal = null;
     TextView textViewDescriptionDuLocal = null;
     Boolean toucher = null;
+  //  VideoView videoView ;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -85,6 +89,8 @@ public class AffichageLocal extends AppCompatActivity {
         textViewNumeroDuLocal = findViewById(R.id.textViewNumeroDuLocal);
         textViewDescriptionDuLocal = findViewById(R.id.textViewDescriptionDuLocal);
         toucher = false;
+       //  videoView = new VideoView(this);
+
         setListener();
         SwipeLeft();
         setTouchListener();
@@ -193,9 +199,9 @@ public class AffichageLocal extends AppCompatActivity {
 
     };
 
-    private void createArrayOfFiles(final String numeroLocal) {
+   private void createArrayOfFiles(final String numeroLocal) {
         String aile = "Aile " + String.valueOf(numeroLocal.charAt(0));
-        String etage = "Étage " + String.valueOf(numeroLocal.charAt(2));
+       String etage = "Étage " + String.valueOf(numeroLocal.charAt(2));
         CollectionReference colRef = FirebaseFirestore.getInstance().collection("Étages").document(etage).collection("Ailes").document(aile).collection("Locaux");
         colRef.whereEqualTo("Numero", numeroLocal)
                 .get()
@@ -220,28 +226,42 @@ public class AffichageLocal extends AppCompatActivity {
     }
 
     private void displayVideos(String numeroLocal, List<String> lesFichiers) {
+        MediaController mediaController = new MediaController(this);
+
         for (int cpt = 0; cpt < lesFichiers.size(); cpt++) {
             if (lesFichiers.get(cpt).endsWith("mp4") || lesFichiers.get(cpt).endsWith("mp3")) {
                 LinearLayout linearLayout = findViewById(R.id.linearLayout);
                 RelativeLayout relativeLayout = new RelativeLayout(this);
-                VideoView videoView = new VideoView(this);
-                final MediaController mediaController = new MediaController(this);
+               VideoView videoView = new VideoView(this);
 
                 final float scale = getResources().getDisplayMetrics().density;
                 int dpWidthInPx = (int) (500 * scale);
                 int dpHeightInPx = (int) (250 * scale);
                 LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(dpWidthInPx, dpHeightInPx);
                 layoutParams.setMargins(0, 0, 0, 8);
-                videoView.setLayoutParams(layoutParams);
-                videoView.setMediaController(mediaController);
-                mediaController.setAnchorView(videoView);
                 relativeLayout.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
 
                 setScrollListener(mediaController);
+//                String fullScreen =  getIntent().getStringExtra("fullScreenInd");
+//                if("y".equals(fullScreen)){
+//                    enterFullScreen(videoView);
+//                }
+//                else
+//                {
+                    videoView.setLayoutParams(layoutParams);
 
+              //  }
                 relativeLayout.addView(videoView);
                 linearLayout.addView(relativeLayout);
                 downloadVideoOrAudio(numeroLocal, lesFichiers.get(cpt), videoView);
+
+
+
+
+                mediaController = new FullScreenMediaController(this);
+                mediaController.setAnchorView(videoView);
+                videoView.setMediaController(mediaController);
+               // videoView.start();
             }
         }
     }
@@ -309,6 +329,7 @@ public class AffichageLocal extends AppCompatActivity {
                 videoView.setVisibility(View.VISIBLE);
                 videoView.requestFocus();
                 videoView.seekTo(1);
+
                 //videoView.start();
             }
         }).addOnFailureListener(new OnFailureListener() {
@@ -317,6 +338,7 @@ public class AffichageLocal extends AppCompatActivity {
                 Toast.makeText(getApplicationContext(), "Download image error", LENGTH_LONG).show();
             }
         });
+
     }
     public void afficherPlanPerdu()
     {
@@ -326,5 +348,24 @@ public class AffichageLocal extends AppCompatActivity {
         plan.putExtra("numeroLocalVoulu", bundle.getString("numeroLocalVoulu"));
         plan.putExtra("positionVoulue", bundle.getIntegerArrayList("positionVoulue"));
         startActivity(plan);
+    }
+    private void enterFullScreen(VideoView videoView){
+//        RelativeLayout.LayoutParams layoutParams = new RelativeLayout.LayoutParams(
+//                RelativeLayout.LayoutParams.MATCH_PARENT,
+//                RelativeLayout.LayoutParams.MATCH_PARENT
+//        );
+//      //  this.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);//设置横屏
+//        videoView.setSystemUiVisibility(
+//                View.SYSTEM_UI_FLAG_LAYOUT_STABLE
+//                        | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
+//                        | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
+//                        | View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
+//                        | View.SYSTEM_UI_FLAG_FULLSCREEN
+//                        | View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY);
+//        layoutParams.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM);
+//        layoutParams.addRule(RelativeLayout.ALIGN_PARENT_TOP);
+//        layoutParams.addRule(RelativeLayout.ALIGN_PARENT_LEFT);
+//        layoutParams.addRule(RelativeLayout.ALIGN_PARENT_RIGHT);
+//        videoView.setLayoutParams(layoutParams);
     }
 }

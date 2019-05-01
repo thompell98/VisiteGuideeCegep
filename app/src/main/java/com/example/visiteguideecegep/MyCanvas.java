@@ -167,7 +167,7 @@ try {
                         //   Star = BitmapFactory.decodeResource(getResources(), R.drawable.star);
                         // Pin = BitmapFactory.decodeResource(getResources(), R.drawable.pin);
 
-                        // Star = BitmapFactory.decodeResource(getResources(), R.drawable.star);
+                        // Star = BitmapFactor y.decodeResource(getResources(), R.drawable.star);
                     }
                 } else {
                     if (etageA.equals("1")) {
