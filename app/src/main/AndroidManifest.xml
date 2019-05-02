@@ -24,7 +24,9 @@
         <activity android:name=".EmplacementActivity"/>
         <activity android:name=".MainActivity"/>
         <activity android:name=".ConnexionBD"/>
+
         <activity android:name=".TrajetActivity"/>
+
         <activity android:name=".RechercheLocal"></activity>
         <activity android:name=".AffichageLocal"></activity>
     </application>
