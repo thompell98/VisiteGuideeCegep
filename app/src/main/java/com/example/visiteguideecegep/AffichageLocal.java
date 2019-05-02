@@ -73,7 +73,7 @@ public class AffichageLocal extends AppCompatActivity {
     TextView textViewNumeroDuLocal = null;
     TextView textViewDescriptionDuLocal = null;
     Boolean toucher = null;
-  //  VideoView videoView ;
+    //  VideoView videoView ;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -89,7 +89,7 @@ public class AffichageLocal extends AppCompatActivity {
         textViewNumeroDuLocal = findViewById(R.id.textViewNumeroDuLocal);
         textViewDescriptionDuLocal = findViewById(R.id.textViewDescriptionDuLocal);
         toucher = false;
-       //  videoView = new VideoView(this);
+        //  videoView = new VideoView(this);
 
         setListener();
         SwipeLeft();
@@ -121,13 +121,21 @@ public class AffichageLocal extends AppCompatActivity {
     }
 
     private void afficherPlan() {
+
         Bundle bundle = getIntent().getExtras();
         Intent plan = new Intent(this, EmplacementActivity.class);
-        plan.putExtra("numeroLocalActuel", bundle.getString("numeroLocalActuel"));
-        plan.putExtra("positionActuelle", bundle.getIntegerArrayList("positionActuelle"));
-        plan.putExtra("numeroLocalVoulu", bundle.getString("numeroLocalVoulu"));
-        plan.putExtra("positionVoulue", bundle.getIntegerArrayList("positionVoulue"));
-        startActivity(plan);
+        if (!bundle.getString("numeroLocalActuel").equals(bundle.getString("numeroLocalVoulu"))) {
+
+            plan.putExtra("numeroLocalActuel", bundle.getString("numeroLocalActuel"));
+            plan.putExtra("positionActuelle", bundle.getIntegerArrayList("positionActuelle"));
+            plan.putExtra("numeroLocalVoulu", bundle.getString("numeroLocalVoulu"));
+            plan.putExtra("positionVoulue", bundle.getIntegerArrayList("positionVoulue"));
+            startActivity(plan);
+
+        } else {
+            Toast toast = Toast.makeText(getApplicationContext(), "Vous êtes déja a cette emplacement", Toast.LENGTH_LONG);
+            toast.show();
+        }
     }
 
     private void retournerDebut() {
@@ -199,9 +207,9 @@ public class AffichageLocal extends AppCompatActivity {
 
     };
 
-   private void createArrayOfFiles(final String numeroLocal) {
+    private void createArrayOfFiles(final String numeroLocal) {
         String aile = "Aile " + String.valueOf(numeroLocal.charAt(0));
-       String etage = "Étage " + String.valueOf(numeroLocal.charAt(2));
+        String etage = "Étage " + String.valueOf(numeroLocal.charAt(2));
         CollectionReference colRef = FirebaseFirestore.getInstance().collection("Étages").document(etage).collection("Ailes").document(aile).collection("Locaux");
         colRef.whereEqualTo("Numero", numeroLocal)
                 .get()
@@ -210,14 +218,14 @@ public class AffichageLocal extends AppCompatActivity {
                     public void onComplete(@NonNull Task<QuerySnapshot> task) {
                         if (task.isSuccessful()) {
                             for (QueryDocumentSnapshot document : task.getResult()) {
-                                    List<String> lesFichiers = (List<String>) document.get("Fichiers");
-                                    setCloudStorage(numeroLocal);
-                                    displayImages(numeroLocal, lesFichiers);
-                                    displayVideos(numeroLocal, lesFichiers);
-                                    textViewNomDuLocal.setText(document.get("Nom").toString());
-                                    textViewNumeroDuLocal.setText(document.get("Numero").toString());
-                                    textViewDescriptionDuLocal.setText(document.get("Description").toString());
-                                }
+                                List<String> lesFichiers = (List<String>) document.get("Fichiers");
+                                setCloudStorage(numeroLocal);
+                                displayImages(numeroLocal, lesFichiers);
+                                displayVideos(numeroLocal, lesFichiers);
+                                textViewNomDuLocal.setText(document.get("Nom").toString());
+                                textViewNumeroDuLocal.setText(document.get("Numero").toString());
+                                textViewDescriptionDuLocal.setText(document.get("Description").toString());
+                            }
                         } else {
                             Toast.makeText(getApplicationContext(), "Erreur", LENGTH_LONG).show();
                         }
@@ -232,7 +240,7 @@ public class AffichageLocal extends AppCompatActivity {
             if (lesFichiers.get(cpt).endsWith("mp4") || lesFichiers.get(cpt).endsWith("mp3")) {
                 LinearLayout linearLayout = findViewById(R.id.linearLayout);
                 RelativeLayout relativeLayout = new RelativeLayout(this);
-               VideoView videoView = new VideoView(this);
+                VideoView videoView = new VideoView(this);
 
                 final float scale = getResources().getDisplayMetrics().density;
                 int dpWidthInPx = (int) (500 * scale);
@@ -248,20 +256,18 @@ public class AffichageLocal extends AppCompatActivity {
 //                }
 //                else
 //                {
-                    videoView.setLayoutParams(layoutParams);
+                videoView.setLayoutParams(layoutParams);
 
-              //  }
+                //  }
                 relativeLayout.addView(videoView);
                 linearLayout.addView(relativeLayout);
                 downloadVideoOrAudio(numeroLocal, lesFichiers.get(cpt), videoView);
 
 
-
-
                 mediaController = new FullScreenMediaController(this);
                 mediaController.setAnchorView(videoView);
                 videoView.setMediaController(mediaController);
-               // videoView.start();
+                // videoView.start();
             }
         }
     }
@@ -340,16 +346,24 @@ public class AffichageLocal extends AppCompatActivity {
         });
 
     }
-    public void afficherPlanPerdu()
-    {
+
+    public void afficherPlanPerdu() {
         Bundle bundle = getIntent().getExtras();
         Intent plan = new Intent(this, ScanActivity.class);
-        plan.putExtra("bool",false);
-        plan.putExtra("numeroLocalVoulu", bundle.getString("numeroLocalVoulu"));
-        plan.putExtra("positionVoulue", bundle.getIntegerArrayList("positionVoulue"));
-        startActivity(plan);
+        if (!bundle.getString("numeroLocalActuel").equals(bundle.getString("numeroLocalVoulu"))) {
+
+            plan.putExtra("bool", false);
+            plan.putExtra("numeroLocalVoulu", bundle.getString("numeroLocalVoulu"));
+            plan.putExtra("positionVoulue", bundle.getIntegerArrayList("positionVoulue"));
+            startActivity(plan);
+        } else {
+            Toast toast = Toast.makeText(getApplicationContext(), "Vous êtes déja a cette emplacement", Toast.LENGTH_LONG);
+            toast.show();
+        }
+
     }
-    private void enterFullScreen(VideoView videoView){
+
+    private void enterFullScreen(VideoView videoView) {
 //        RelativeLayout.LayoutParams layoutParams = new RelativeLayout.LayoutParams(
 //                RelativeLayout.LayoutParams.MATCH_PARENT,
 //                RelativeLayout.LayoutParams.MATCH_PARENT

@@ -155,7 +155,7 @@ try {
 
                     }
                     if (etageB.equals("2")) {
-                        Map = BitmapFactory.decodeResource(getResources(), R.drawable.etage2bon);
+                        Map = BitmapFactory.decodeResource(getResources(), R.drawable.etage2);
                         Star = BitmapFactory.decodeResource(getResources(), R.drawable.star);
                         // Pin = BitmapFactory.decodeResource(getResources(), R.drawable.pin);
                         aa = false;
@@ -163,7 +163,7 @@ try {
                         //  Star = BitmapFactory.decodeResource(getResources(), R.drawable.star);
                     }
                     if (etageB.equals("3")) {
-                        Map = BitmapFactory.decodeResource(getResources(), R.drawable.etage2bon);
+                        Map = BitmapFactory.decodeResource(getResources(), R.drawable.etage2);
                         //   Star = BitmapFactory.decodeResource(getResources(), R.drawable.star);
                         // Pin = BitmapFactory.decodeResource(getResources(), R.drawable.pin);
 
@@ -179,7 +179,7 @@ try {
                         // Pin = null;
                     }
                     if (etageA.equals("2")) {
-                        Map = BitmapFactory.decodeResource(getResources(), R.drawable.etage2bon);
+                        Map = BitmapFactory.decodeResource(getResources(), R.drawable.etage2);
                         aa = true;
                         Star = null;
                         // Pin = null;
@@ -242,7 +242,7 @@ catch (OutOfMemoryError e1)
             Map = BitmapFactory.decodeResource(getResources(), R.drawable.etage1);
 
         } else if (etageA.equals("2")) {
-            Map = BitmapFactory.decodeResource(getResources(), R.drawable.etage2bon);
+            Map = BitmapFactory.decodeResource(getResources(), R.drawable.etage2);
 
         }
 //        else if (etageA.equals("3"))
