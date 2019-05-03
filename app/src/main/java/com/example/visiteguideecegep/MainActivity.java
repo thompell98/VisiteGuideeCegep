@@ -1,9 +1,13 @@
 package com.example.visiteguideecegep;
 
+import android.Manifest;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.graphics.Rect;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.ArrayAdapter;
@@ -21,9 +25,11 @@ import com.google.firebase.firestore.QuerySnapshot;
 import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
+    private static final int CAMERA_PERMISSION = 1;
     String local;
     private static final String TAG = "ConnexionBD";
     FirebaseFirestore db = FirebaseFirestore.getInstance();
+
     //   ArrayList<Integer>  group;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,10 +58,38 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void redirectionCamera() {
-        Intent scan = new Intent(this, ScanActivity.class);
-        scan.putExtra("allo", false);
-        startActivity(scan);
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA)
+                != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(this,
+                    new String[]{Manifest.permission.CAMERA}, CAMERA_PERMISSION);
+        } else {
+            Intent intent = new Intent(this, ScanActivity.class);
+            intent.putExtra("allo", false);
+            startActivity(intent);
+        }
 
+
+//        Intent scan = new Intent(this, ScanActivity.class);
+//        scan.putExtra("allo", false);
+//        startActivity(scan);
+
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, String permissions[], int[] grantResults) {
+        switch (requestCode) {
+            case CAMERA_PERMISSION:
+                if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    if (MainActivity.class != null) {
+                        Intent intent = new Intent(this, ScanActivity.class);
+                        intent.putExtra("allo", false);
+                        startActivity(intent);
+                    }
+                } else {
+                    Toast.makeText(this, "Please grant camera permission", Toast.LENGTH_SHORT).show();
+                }
+
+        }
     }
 }
 

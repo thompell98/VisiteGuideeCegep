@@ -61,15 +61,6 @@ public class MyCanvas extends View {
         etageA = Character.toString(no_localA.charAt(2));
         etageB = Character.toString(no_localD.charAt(2));
 
-        if (!etageA.equals(etageB)) {
-            Toast toast = Toast.makeText(getContext(), "Touchez 2 fois pour changer d'étage ", Toast.LENGTH_LONG);
-            toast.show();
-        }
-        else {
-            Star = BitmapFactory.decodeResource(getResources(), R.drawable.star);
-
-        }
-        // Description=description;
         init(context);
 
     }
@@ -236,6 +227,15 @@ catch (OutOfMemoryError e1)
 
     private void init(@NonNull Context context) {
 
+        if (!etageA.equals(etageB)) {
+            Toast toast = Toast.makeText(getContext(), "Touchez 2 fois pour changer d'étage ", Toast.LENGTH_LONG);
+            toast.show();
+        }
+        else {
+            Star = BitmapFactory.decodeResource(getResources(), R.drawable.star);
+
+        }
+        // Description=description;
         Pin = BitmapFactory.decodeResource(getResources(), R.drawable.pin);
         // final String etageA = Character.toString(no_localA.charAt(2));
         if (etageA.equals("1")) {
