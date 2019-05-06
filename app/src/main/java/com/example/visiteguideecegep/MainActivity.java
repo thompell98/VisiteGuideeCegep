@@ -80,13 +80,13 @@ public class MainActivity extends AppCompatActivity {
         switch (requestCode) {
             case CAMERA_PERMISSION:
                 if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                    if (MainActivity.class != null) {
+                    //if (MainActivity.class != null) {
                         Intent intent = new Intent(this, ScanActivity.class);
                         intent.putExtra("allo", false);
                         startActivity(intent);
-                    }
+                  //  }
                 } else {
-                    Toast.makeText(this, "Please grant camera permission", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(this, "Veuillez autoriser l'utilisation de la caméra", Toast.LENGTH_SHORT).show();
                 }
 
         }

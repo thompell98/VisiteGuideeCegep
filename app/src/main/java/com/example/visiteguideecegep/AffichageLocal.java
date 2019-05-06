@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Point;
 import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.os.Handler;
@@ -15,6 +16,7 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
+import android.view.Display;
 import android.view.GestureDetector;
 import android.view.GestureDetector.SimpleOnGestureListener;
 import android.view.MotionEvent;
@@ -235,6 +237,7 @@ public class AffichageLocal extends AppCompatActivity {
 
     private void displayVideos(String numeroLocal, List<String> lesFichiers) {
         MediaController mediaController = new MediaController(this);
+        mediaController = new FullScreenMediaController(this);
 
         for (int cpt = 0; cpt < lesFichiers.size(); cpt++) {
             if (lesFichiers.get(cpt).endsWith("mp4") || lesFichiers.get(cpt).endsWith("mp3")) {
@@ -248,23 +251,25 @@ public class AffichageLocal extends AppCompatActivity {
                 LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(dpWidthInPx, dpHeightInPx);
                 layoutParams.setMargins(0, 0, 0, 8);
                 relativeLayout.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
-
                 setScrollListener(mediaController);
-//                String fullScreen =  getIntent().getStringExtra("fullScreenInd");
-//                if("y".equals(fullScreen)){
-//                    enterFullScreen(videoView);
-//                }
-//                else
-//                {
                 videoView.setLayoutParams(layoutParams);
 
-                //  }
                 relativeLayout.addView(videoView);
                 linearLayout.addView(relativeLayout);
                 downloadVideoOrAudio(numeroLocal, lesFichiers.get(cpt), videoView);
+                String fullScreen =  getIntent().getStringExtra("fullScreenInd");
+                //  String fullScreen =  getIntent().getStringExtra("fullScreenInd");
+                //  onPause();
+                if("y".equals(fullScreen)){
+                    //  onPause();
+                    getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
+                            WindowManager.LayoutParams.FLAG_FULLSCREEN);
+                    getSupportActionBar().hide();
+                    enterFullScreen(videoView);
+                }
 
 
-                mediaController = new FullScreenMediaController(this);
+
                 mediaController.setAnchorView(videoView);
                 videoView.setMediaController(mediaController);
                 // videoView.start();
@@ -364,22 +369,18 @@ public class AffichageLocal extends AppCompatActivity {
     }
 
     private void enterFullScreen(VideoView videoView) {
-//        RelativeLayout.LayoutParams layoutParams = new RelativeLayout.LayoutParams(
-//                RelativeLayout.LayoutParams.MATCH_PARENT,
-//                RelativeLayout.LayoutParams.MATCH_PARENT
-//        );
-//      //  this.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);//设置横屏
-//        videoView.setSystemUiVisibility(
-//                View.SYSTEM_UI_FLAG_LAYOUT_STABLE
-//                        | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
-//                        | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
-//                        | View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
-//                        | View.SYSTEM_UI_FLAG_FULLSCREEN
-//                        | View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY);
-//        layoutParams.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM);
-//        layoutParams.addRule(RelativeLayout.ALIGN_PARENT_TOP);
-//        layoutParams.addRule(RelativeLayout.ALIGN_PARENT_LEFT);
-//        layoutParams.addRule(RelativeLayout.ALIGN_PARENT_RIGHT);
-//        videoView.setLayoutParams(layoutParams);
+        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
+        android.widget.RelativeLayout.LayoutParams params = (android.widget.RelativeLayout.LayoutParams) videoView.getLayoutParams();
+        Display display = getWindowManager().getDefaultDisplay();
+        Point size = new Point();
+        display.getSize(size);
+        int width = size.x;
+        int height = size.y;
+        params.width = width;
+        params.height=height;
+        params.setMargins(0, 0, 0, 0);
+        videoView.setLayoutParams(params);
+
+
     }
 }

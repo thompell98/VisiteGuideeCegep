@@ -20,15 +20,15 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".ScanActivity"/>
-        <activity android:name=".EmplacementActivity"/>
-        <activity android:name=".MainActivity"/>
-        <activity android:name=".ConnexionBD"/>
+        <activity android:name=".ScanActivity" android:screenOrientation="portrait"/>
+        <activity android:name=".EmplacementActivity" android:screenOrientation="portrait"/>
+        <activity android:name=".MainActivity" android:screenOrientation="portrait"/>
+        <activity android:name=".ConnexionBD" android:screenOrientation="portrait"/>
 
-        <activity android:name=".TrajetActivity"/>
+        <activity android:name=".TrajetActivity" android:screenOrientation="portrait"/>
 
-        <activity android:name=".RechercheLocal"></activity>
-        <activity android:name=".AffichageLocal"></activity>
+        <activity android:name=".RechercheLocal" android:screenOrientation="portrait"></activity>
+        <activity android:name=".AffichageLocal" android:screenOrientation="portrait"></activity>
     </application>
 
 </manifest>
