@@ -13,15 +13,16 @@ import android.widget.Toast;
 import com.google.firestore.v1.StructuredQuery;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.HashMap;
 
 public class activityCanvas extends AppCompatActivity {
     Canvas canvas;
     ImageView mImageView;
     Bitmap bitmap;
-    Intersection lesIntersections[] = new Intersection[7];
-    ArrayList<Intersection> lesIntersectionsARelier = new ArrayList<>();
-    Intersection intersectionATrouver;
-    Intersection intersectionDepart;
+    Intersection lesIntersections[] = new Intersection[9];
     boolean connecte;
 
     @Override
@@ -31,10 +32,8 @@ public class activityCanvas extends AppCompatActivity {
         mImageView = findViewById(R.id.imageView);
         setCanvas();
         ajouterLesIntersections();
-        intersectionDepart = lesIntersections[6];
-        intersectionATrouver = lesIntersections[1];
         connecte = false;
-        djikastra();
+        djikastra(lesIntersections[0], lesIntersections[8]);
     }
 
     private void setCanvas() {
@@ -58,7 +57,7 @@ public class activityCanvas extends AppCompatActivity {
         mImageView.setImageBitmap(bitmap);
     }
 
-    private void afficherTrajet() {
+    private void afficherTrajet(ArrayList<Intersection> lesIntersectionsARelier) {
         for (int cpt = 0; cpt < lesIntersectionsARelier.size() - 1; cpt++) {
             dessinerLigne(lesIntersectionsARelier.get(cpt), lesIntersectionsARelier.get(cpt + 1));
         }
@@ -66,12 +65,14 @@ public class activityCanvas extends AppCompatActivity {
 
     private void ajouterLesIntersections() {
         lesIntersections[0] = new Intersection(0, 250, 20, new int[]{1});
-        lesIntersections[1] = new Intersection(1, 250, 70, new int[]{0, 2});
-        lesIntersections[2] = new Intersection(2, 250, 120, new int[]{1, 3});
-        lesIntersections[3] = new Intersection(3, 250, 170, new int[]{2, 4});
+        lesIntersections[1] = new Intersection(1, 250, 70, new int[]{7, 2});
+        lesIntersections[2] = new Intersection(2, 250, 120, new int[]{1, 6});
+        lesIntersections[3] = new Intersection(3, 250, 170, new int[]{2, 4, 8});
         lesIntersections[4] = new Intersection(4, 250, 220, new int[]{3, 5, 6});
-        lesIntersections[5] = new Intersection(5, 200, 220, new int[]{4});
+        lesIntersections[5] = new Intersection(5, 200, 220, new int[]{4, 7});
         lesIntersections[6] = new Intersection(6, 300, 220, new int[]{4});
+        lesIntersections[7] = new Intersection(7, 150, 220, new int[]{2, 3});
+        lesIntersections[8] = new Intersection(8, 350, 220, new int[]{6});
         for (int cpt = 0; cpt < lesIntersections.length; cpt++) {
             dessinerIntersection(lesIntersections[cpt]);
         }
@@ -86,7 +87,51 @@ public class activityCanvas extends AppCompatActivity {
         return Math.sqrt(Math.pow(intersection2.x - intersection1.x, 2) + Math.pow(intersection2.y - intersection1.y, 2));
     }
 
-    private void djikastra() {
+    private void djikastra(Intersection intersectionDepart, Intersection intersectionATrouver) {
+        final HashMap<Intersection, Double> distances = new HashMap<>();
+        HashMap<Intersection, Intersection> precedent = new HashMap<>();
+        ArrayList<Intersection> intersections = new ArrayList<>();
+        intersections.addAll(Arrays.asList(lesIntersections));
+        for(Intersection intersection : intersections){
+            distances.put(intersection, Double.MAX_VALUE);
+            precedent.put(intersection, null);
+        }
+        distances.put(intersectionDepart, (double) 0);
+
+        while (intersections.size() != 0) {
+            Collections.sort(intersections, new Comparator<Intersection>() {
+                @Override
+                public int compare(Intersection o1, Intersection o2) {
+                    return distances.get(o1).compareTo(distances.get(o2));
+                }
+            });
+            Intersection intersectionATraiter = intersections.get(0);
+            intersections.remove(intersectionATraiter);
+            for(int numeroIntersectionsReliees : intersectionATraiter.numerosIntersectionsReliees){
+                Intersection intersectionDestinationEnTraitement = lesIntersections[numeroIntersectionsReliees];
+                double distanceCourante = distances.get(intersectionATraiter) +  calculerDistanceEntreDeuxPoints(intersectionDestinationEnTraitement, intersectionATraiter);
+                if (distanceCourante < distances.get(intersectionDestinationEnTraitement)){
+                    distances.put(intersectionDestinationEnTraitement, distanceCourante);
+                    precedent.put(intersectionDestinationEnTraitement, intersectionATraiter);
+                }
+            }
+        }
+
+        if (precedent.get(intersectionATrouver) == null){
+            Toast.makeText(getApplicationContext(), "Aucun chemin trouvé", Toast.LENGTH_LONG).show();
+        }
+
+        Intersection intersectionTrajet = intersectionATrouver;
+        ArrayList<Intersection> meilleurTrajet = new ArrayList<>();
+        meilleurTrajet.add(intersectionTrajet);
+        while (intersectionTrajet != intersectionDepart) {
+            meilleurTrajet.add(precedent.get(intersectionTrajet));
+            intersectionTrajet = precedent.get(intersectionTrajet);
+        }
+        afficherTrajet(meilleurTrajet);
+    }
+
+/*    private void djikastra() {
         if (intersectionDepart.numero < intersectionATrouver.numero) {
             Intersection intersectionTemp = intersectionDepart;
             intersectionDepart = intersectionATrouver;
@@ -126,5 +171,5 @@ public class activityCanvas extends AppCompatActivity {
             intersectionInitial.utilise = true;
             lesIntersectionsARelier.add(intersectionLaPlusProche);
         }
-    }
+    }*/
 }
