@@ -95,7 +95,7 @@ public class MyCanvas extends View {
         //  if (nom_emplacement != null) {
 
         canvas.drawLine(getLeft() + widthh * positionA.left, getBottom() - heightt * positionA.bottom, getLeft() + widthh * 11, getBottom() - heightt * 13, paintt);
-        canvas.drawLine(getLeft() + widthh * 11, getBottom() - heightt *13, getLeft() + widthh * destination.left, getBottom() - heightt * destination.bottom, paintt);
+        canvas.drawLine(getLeft() + widthh * 11, getBottom() - heightt * 13, getLeft() + widthh * destination.left, getBottom() - heightt * destination.bottom, paintt);
         //   canvas.drawBitmap(Pin, null, new Rect(getLeft() + widthh *cordee.left, getTop() + heightt * cordee.top, getRight() - widthh * cordee.right, getBottom() - heightt *cordee.bottom), paint);
         if (Pin != null) {
             canvas.drawBitmap(Pin, null, new Rect(getLeft() + widthh * positionA.left, getTop() + heightt * positionA.top, getRight() - widthh * positionA.right, getBottom() - heightt * positionA.bottom), paint);
@@ -127,73 +127,64 @@ public class MyCanvas extends View {
     }
 
 
-
     private class MoveListener extends GestureDetector.SimpleOnGestureListener {
         @Override
         public boolean onDoubleTap(MotionEvent e) {
-try {
-            if (!etageA.equals(etageB)) {
-                Toast toast = Toast.makeText(getContext(), "Touchez 2 fois pour changer d'étage ", Toast.LENGTH_LONG);
-                toast.show();
-                if (aa) {
-                    if (etageB.equals("1")) {
-                        Map = BitmapFactory.decodeResource(getResources(), R.drawable.etage1);
-                        Star = BitmapFactory.decodeResource(getResources(), R.drawable.star);
-                        //   Pin = BitmapFactory.decodeResource(getResources(), R.drawable.pin);
+            try {
+                if (!etageA.equals(etageB)) {
+                    Toast toast = Toast.makeText(getContext(), "Touchez 2 fois pour changer d'étage ", Toast.LENGTH_LONG);
+                    toast.show();
+                    if (aa) {
                         Pin = null;
                         aa = false;
-                        //Star = BitmapFactory.decodeResource(getResources(), R.drawable.star);
-
-                    }
-                    if (etageB.equals("2")) {
-                        Map = BitmapFactory.decodeResource(getResources(), R.drawable.etage2);
                         Star = BitmapFactory.decodeResource(getResources(), R.drawable.star);
-                        // Pin = BitmapFactory.decodeResource(getResources(), R.drawable.pin);
-                        aa = false;
-                        Pin = null;
-                        //  Star = BitmapFactory.decodeResource(getResources(), R.drawable.star);
-                    }
-                    if (etageB.equals("3")) {
-                        Map = BitmapFactory.decodeResource(getResources(), R.drawable.etage2);
-                        //   Star = BitmapFactory.decodeResource(getResources(), R.drawable.star);
-                        // Pin = BitmapFactory.decodeResource(getResources(), R.drawable.pin);
-
-                        // Star = BitmapFactor y.decodeResource(getResources(), R.drawable.star);
-                    }
-                } else {
-                    if (etageA.equals("1")) {
-                        Map = BitmapFactory.decodeResource(getResources(), R.drawable.etage1);
+                        if (etageB.equals("1")) {
+                            Map = BitmapFactory.decodeResource(getResources(), R.drawable.etage1);
+                        }
+                        if (etageB.equals("2")) {
+                            Map = BitmapFactory.decodeResource(getResources(), R.drawable.etage2);
+                        }
+                        if (etageB.equals("3")) {
+                            Map = BitmapFactory.decodeResource(getResources(), R.drawable.etage3);
+                        }
+                        if (etageB.equals("4")) {
+                            Map = BitmapFactory.decodeResource(getResources(), R.drawable.etage4);
+                        }
+                        if (etageB.equals("5")) {
+                            //   Map = BitmapFactory.decodeResource(getResources(), R.drawable.etage5);
+                        }
+                    } else {
                         aa = true;
                         Star = null;
                         Pin = BitmapFactory.decodeResource(getResources(), R.drawable.pin);
+                        if (etageA.equals("1")) {
+                            Map = BitmapFactory.decodeResource(getResources(), R.drawable.etage1);
 
-                        // Pin = null;
-                    }
-                    if (etageA.equals("2")) {
-                        Map = BitmapFactory.decodeResource(getResources(), R.drawable.etage2);
-                        aa = true;
-                        Star = null;
-                        // Pin = null;
-                        Pin = BitmapFactory.decodeResource(getResources(), R.drawable.pin);
+                            Pin = BitmapFactory.decodeResource(getResources(), R.drawable.pin);
+                        } else if (etageA.equals("2")) {
+                            Map = BitmapFactory.decodeResource(getResources(), R.drawable.etage2);
 
+                        } else if (etageA.equals("3")) {
+                            Map = BitmapFactory.decodeResource(getResources(), R.drawable.etage3);
+
+                        } else if (etageA.equals("4")) {
+                            Map = BitmapFactory.decodeResource(getResources(), R.drawable.etage4);
+
+                        } else if (etageA.equals("5")) {
+                            //   Map = BitmapFactory.decodeResource(getResources(), R.drawable.etage5);
+                        }
                     }
+
                 }
+                invalidate();
 
+                return true;
+
+            } catch (OutOfMemoryError e1) {
+                Toast toast = Toast.makeText(getContext(), e1.toString(), Toast.LENGTH_LONG);
+                toast.show();
+                return false;
             }
-            invalidate();
-
-
-            // addElementToDisplay(new Marqueur(pinmap, (e.getX()/zoomlevel1)+currX,(e.getY()/zoomlevel1)-currY));
-            //   pinmap.setHeight(pinmap.getHeight()/(int)zoomlevel1);
-            //    pinmap.setWidth(pinmap.getWidth()/(int)zoomlevel1);
-
-    return true;
-}
-catch (OutOfMemoryError e1)
-{
-    Toast toast = Toast.makeText(getContext(), e1.toString(), Toast.LENGTH_LONG);toast.show();
-    return false;
-}
 
         }
 
@@ -216,10 +207,9 @@ catch (OutOfMemoryError e1)
             mScaleDetector.onTouchEvent(event);
             mMoveDetector.onTouchEvent(event);
             return true;
-        }
-        catch (Exception e1)
-        {
-            Toast toast = Toast.makeText(getContext(), e1.toString(), Toast.LENGTH_LONG);toast.show();
+        } catch (Exception e1) {
+            Toast toast = Toast.makeText(getContext(), e1.toString(), Toast.LENGTH_LONG);
+            toast.show();
             return false;
         }
 
@@ -230,8 +220,7 @@ catch (OutOfMemoryError e1)
         if (!etageA.equals(etageB)) {
             Toast toast = Toast.makeText(getContext(), "Touchez 2 fois pour changer d'étage ", Toast.LENGTH_LONG);
             toast.show();
-        }
-        else {
+        } else {
             Star = BitmapFactory.decodeResource(getResources(), R.drawable.star);
 
         }
@@ -244,22 +233,19 @@ catch (OutOfMemoryError e1)
         } else if (etageA.equals("2")) {
             Map = BitmapFactory.decodeResource(getResources(), R.drawable.etage2);
 
+        } else if (etageA.equals("3")) {
+            Map = BitmapFactory.decodeResource(getResources(), R.drawable.etage3);
         }
-//        else if (etageA.equals("3"))
-//        {
-//            Map = BitmapFactory.decodeResource(getResources(), R.drawable.etage1);
-//
-//        }
-//        else if (etageA.equals("4"))
-//        {
-//            Map = BitmapFactory.decodeResource(getResources(), R.drawable.etage1);
-//
-//        }
-//        else if (etageA.equals("5"))
-//        {
-//            Map = BitmapFactory.decodeResource(getResources(), R.drawable.etage1);
-//
-//        }
+        else if (etageA.equals("4"))
+        {
+            Map = BitmapFactory.decodeResource(getResources(), R.drawable.etage4);
+
+        }
+        else if (etageA.equals("5"))
+        {
+         //   Map = BitmapFactory.decodeResource(getResources(), R.drawable.etage1);
+
+        }
 
         this.mScaleFactor = MINIMUM_SCALE_FACTOR;
         this.mScaleDetector = new ScaleGestureDetector(context, new ScalesListener());
