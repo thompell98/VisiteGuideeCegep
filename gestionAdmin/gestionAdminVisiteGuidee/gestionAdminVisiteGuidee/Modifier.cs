@@ -129,7 +129,9 @@ namespace gestionAdminVisiteGuidee
 
         private async void ModifierLocal()
         {
-            DocumentReference leLocal = ObtenirLocal("B-533", "Aile B", "Étage 5").Reference;
+            String aileDuLocal = "Aile " + textBoxNumero.Text[0];
+            String etageDuLocal = "Étage " + textBoxNumero.Text[2];
+            DocumentReference leLocal = ObtenirLocal(textBoxNumero.Text, aileDuLocal, etageDuLocal).Reference;
             Dictionary<FieldPath, object> updates = new Dictionary<FieldPath, object>
             {
                 { new FieldPath("Description"), textBoxDescription.Text },

@@ -161,5 +161,10 @@ C:\Users\admin\Downloads\VisiteGuideeCegep\gestionAdmin\gestionAdminVisiteGuidee
 C:\Users\admin\Downloads\VisiteGuideeCegep\gestionAdmin\gestionAdminVisiteGuidee\gestionAdminVisiteGuidee\obj\Release\gestionAdminVisiteGuidee.csproj.CopyComplete
 C:\Users\admin\Downloads\VisiteGuideeCegep\gestionAdmin\gestionAdminVisiteGuidee\gestionAdminVisiteGuidee\obj\Release\gestionAdminVisiteGuidee.exe
 C:\Users\admin\Downloads\VisiteGuideeCegep\gestionAdmin\gestionAdminVisiteGuidee\gestionAdminVisiteGuidee\obj\Release\gestionAdminVisiteGuidee.pdb
-C:\Users\admin\Downloads\VisiteGuideeCegep\gestionAdmin\gestionAdminVisiteGuidee\gestionAdminVisiteGuidee\obj\Release\gestionAdminVisiteGuidee.csprojAssemblyReference.cache
 C:\Users\admin\Downloads\VisiteGuideeCegep\gestionAdmin\gestionAdminVisiteGuidee\gestionAdminVisiteGuidee\obj\Release\gestionAdminVisiteGuidee.GestionDesAdmins.resources
+C:\Users\admin\Downloads\VisiteGuideeCegep\gestionAdmin\gestionAdminVisiteGuidee\gestionAdminVisiteGuidee\bin\Release\System.ServiceModel.Duplex.dll
+C:\Users\admin\Downloads\VisiteGuideeCegep\gestionAdmin\gestionAdminVisiteGuidee\gestionAdminVisiteGuidee\bin\Release\System.ServiceModel.Http.dll
+C:\Users\admin\Downloads\VisiteGuideeCegep\gestionAdmin\gestionAdminVisiteGuidee\gestionAdminVisiteGuidee\bin\Release\System.ServiceModel.Primitives.dll
+C:\Users\admin\Downloads\VisiteGuideeCegep\gestionAdmin\gestionAdminVisiteGuidee\gestionAdminVisiteGuidee\bin\Release\System.ServiceModel.Security.dll
+C:\Users\admin\Downloads\VisiteGuideeCegep\gestionAdmin\gestionAdminVisiteGuidee\gestionAdminVisiteGuidee\bin\Release\System.IO.Compression.FileSystem.dll
+C:\Users\admin\Downloads\VisiteGuideeCegep\gestionAdmin\gestionAdminVisiteGuidee\gestionAdminVisiteGuidee\bin\Release\System.Shim.dll
