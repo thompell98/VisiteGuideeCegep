@@ -54,7 +54,7 @@ public class MyCanvas extends View {
         super(context);
         Toast toast = Toast.makeText(getContext(), "Perdu? Revenez en arrière et appuiyez sur 'Perdu en chemin'", Toast.LENGTH_LONG);
         toast.show();
-        destination = coordonneActu;
+        destination = coordonneDes;
         positionA = coordonneActu;
 
         //  nom_emplacement = emplacement;
@@ -84,10 +84,10 @@ public class MyCanvas extends View {
         canvas.translate(mFocusX, mFocusY);
         Rect dest = new Rect(0, 0, getWidth(), getHeight());
         Paint paint = new Paint();
-       // Paint paintt = new Paint();
+        // Paint paintt = new Paint();
         paint.setFilterBitmap(true);
-       // paintt.setColor(Color.RED);
-      //  paintt.setStyle(Paint.Style.STROKE);
+        // paintt.setColor(Color.RED);
+        //  paintt.setStyle(Paint.Style.STROKE);
         //paintt.setStrokeWidth(10);
         canvas.drawBitmap(Map, null, dest, paint);
 
@@ -96,7 +96,7 @@ public class MyCanvas extends View {
 
         //  if (nom_emplacement != null) {
 
-       // canvas.drawLine(getLeft() + widthh * positionA.left, getBottom() - heightt * positionA.bottom, getLeft() + widthh * 11, getBottom() - heightt * 13, paintt);
+        // canvas.drawLine(getLeft() + widthh * positionA.left, getBottom() - heightt * positionA.bottom, getLeft() + widthh * 11, getBottom() - heightt * 13, paintt);
         //canvas.drawLine(getLeft() + widthh * 11, getBottom() - heightt * 13, getLeft() + widthh * destination.left, getBottom() - heightt * destination.bottom, paintt);
         //   canvas.drawBitmap(Pin, null, new Rect(getLeft() + widthh *cordee.left, getTop() + heightt * cordee.top, getRight() - widthh * cordee.right, getBottom() - heightt *cordee.bottom), paint);
         if (Pin != null) {
@@ -141,23 +141,19 @@ public class MyCanvas extends View {
                         Pin = null;
                         aa = false;
                         Star = BitmapFactory.decodeResource(getResources(), R.drawable.star);
-                        for (int i=1;i<images.length+1;i++)
-                            {
-                                if (etageB.equals(String.valueOf(i)))
-                                {
-                                    Map = BitmapFactory.decodeResource(getResources(), images[i-1]);
-                                }
+                        for (int i = 1; i < images.length + 1; i++) {
+                            if (etageB.equals(String.valueOf(i))) {
+                                Map = BitmapFactory.decodeResource(getResources(), images[i - 1]);
                             }
+                        }
                     } else {
 
                         aa = true;
                         Star = null;
                         Pin = BitmapFactory.decodeResource(getResources(), R.drawable.pin);
-                        for (int i=1;i<images.length+1;i++)
-                        {
-                            if (etageA.equals(String.valueOf(i)))
-                            {
-                                Map = BitmapFactory.decodeResource(getResources(), images[i-1]);
+                        for (int i = 1; i < images.length + 1; i++) {
+                            if (etageA.equals(String.valueOf(i))) {
+                                Map = BitmapFactory.decodeResource(getResources(), images[i - 1]);
                             }
                         }
                     }
@@ -168,7 +164,7 @@ public class MyCanvas extends View {
                 return true;
 
             } catch (OutOfMemoryError e1) {
-                Toast toast = Toast.makeText(getContext(), e1.toString(), Toast.LENGTH_LONG);
+                Toast toast = Toast.makeText(getContext(), e1.toString(), Toast.LENGTH_SHORT);
                 toast.show();
                 return false;
             }
@@ -195,7 +191,7 @@ public class MyCanvas extends View {
             mMoveDetector.onTouchEvent(event);
             return true;
         } catch (Exception e1) {
-            Toast toast = Toast.makeText(getContext(), e1.toString(), Toast.LENGTH_LONG);
+            Toast toast = Toast.makeText(getContext(), e1.toString(), Toast.LENGTH_SHORT);
             toast.show();
             return false;
         }
@@ -207,42 +203,21 @@ public class MyCanvas extends View {
         images[1] = R.drawable.etage2;
         images[2] = R.drawable.etage3;
         images[3] = R.drawable.etage4;
-      //  images[4] = R.drawable.etage5;
+        //  images[4] = R.drawable.etage5;
         if (!etageA.equals(etageB)) {
-            Toast toast = Toast.makeText(getContext(), "Touchez 2 fois pour changer d'étage ", Toast.LENGTH_LONG);
+            Toast toast = Toast.makeText(getContext(), "Touchez 2 fois pour changer d'étage ", Toast.LENGTH_SHORT);
             toast.show();
         } else {
             Star = BitmapFactory.decodeResource(getResources(), R.drawable.star);
         }
         Pin = BitmapFactory.decodeResource(getResources(), R.drawable.pin);
-        for (int i=1;i<images.length+1;i++)
-        {
-            if (etageA.equals(String.valueOf(i)))
-            {
+        for (int i = 1; i < images.length + 1; i++) {
+            if (etageA.equals(String.valueOf(i))) {
+                Map=null;
                 Map = BitmapFactory.decodeResource(getResources(), images[i-1]);
             }
         }
-//        switch (etageA) {
-//            case "1":
-//
-//
-//                break;
-//            case "2":
-//                Map = BitmapFactory.decodeResource(getResources(), R.drawable.etage2);
-//
-//                break;
-//            case "3":
-//                Map = BitmapFactory.decodeResource(getResources(), R.drawable.etage3);
-//                break;
-//            case "4":
-//                Map = BitmapFactory.decodeResource(getResources(), R.drawable.etage4);
-//
-//                break;
-//            case "5":
-//                //   Map = BitmapFactory.decodeResource(getResources(), R.drawable.etage1);
-//
-//                break;
-    //    }
+
 
         this.mScaleFactor = MINIMUM_SCALE_FACTOR;
         this.mScaleDetector = new ScaleGestureDetector(context, new ScalesListener());
