@@ -23,7 +23,7 @@ import android.widget.Toast;
 public class MyCanvas extends View {
 
     Bitmap Star;
-    Bitmap Map;
+    Bitmap Map = BitmapFactory.decodeResource(getResources(), R.drawable.etage1);
     Bitmap Pin;
     private static final float MINIMUM_SCALE_FACTOR = 1.0f;
     private static final float MAXIMUM_SCALE_FACTOR = 4.0f;
@@ -51,7 +51,8 @@ public class MyCanvas extends View {
 
     public MyCanvas(Context context, Rect coordonnéActu, Rect coordonnéDes, String localA, String localD) {
         super(context);
-
+        Toast toast = Toast.makeText(getContext(), "Perdu? Revenez en arrière et appuiyez sur 'Perdu en chemin'", Toast.LENGTH_LONG);
+        toast.show();
         destination = coordonnéDes;
         positionA = coordonnéActu;
 
@@ -82,11 +83,11 @@ public class MyCanvas extends View {
         canvas.translate(mFocusX, mFocusY);
         Rect dest = new Rect(0, 0, getWidth(), getHeight());
         Paint paint = new Paint();
-        Paint paintt = new Paint();
+       // Paint paintt = new Paint();
         paint.setFilterBitmap(true);
-        paintt.setColor(Color.RED);
-        paintt.setStyle(Paint.Style.STROKE);
-        paintt.setStrokeWidth(10);
+       // paintt.setColor(Color.RED);
+      //  paintt.setStyle(Paint.Style.STROKE);
+        //paintt.setStrokeWidth(10);
         canvas.drawBitmap(Map, null, dest, paint);
 
         int heightt = getHeight() / 20;
@@ -94,8 +95,8 @@ public class MyCanvas extends View {
 
         //  if (nom_emplacement != null) {
 
-        canvas.drawLine(getLeft() + widthh * positionA.left, getBottom() - heightt * positionA.bottom, getLeft() + widthh * 11, getBottom() - heightt * 13, paintt);
-        canvas.drawLine(getLeft() + widthh * 11, getBottom() - heightt * 13, getLeft() + widthh * destination.left, getBottom() - heightt * destination.bottom, paintt);
+       // canvas.drawLine(getLeft() + widthh * positionA.left, getBottom() - heightt * positionA.bottom, getLeft() + widthh * 11, getBottom() - heightt * 13, paintt);
+        //canvas.drawLine(getLeft() + widthh * 11, getBottom() - heightt * 13, getLeft() + widthh * destination.left, getBottom() - heightt * destination.bottom, paintt);
         //   canvas.drawBitmap(Pin, null, new Rect(getLeft() + widthh *cordee.left, getTop() + heightt * cordee.top, getRight() - widthh * cordee.right, getBottom() - heightt *cordee.bottom), paint);
         if (Pin != null) {
             canvas.drawBitmap(Pin, null, new Rect(getLeft() + widthh * positionA.left, getTop() + heightt * positionA.top, getRight() - widthh * positionA.right, getBottom() - heightt * positionA.bottom), paint);
@@ -132,46 +133,56 @@ public class MyCanvas extends View {
         public boolean onDoubleTap(MotionEvent e) {
             try {
                 if (!etageA.equals(etageB)) {
-                    Toast toast = Toast.makeText(getContext(), "Touchez 2 fois pour changer d'étage ", Toast.LENGTH_LONG);
+                    Toast toast = Toast.makeText(getContext(), "Touchez 2 fois pour changer d'étage ", Toast.LENGTH_SHORT);
                     toast.show();
                     if (aa) {
                         Pin = null;
                         aa = false;
                         Star = BitmapFactory.decodeResource(getResources(), R.drawable.star);
-                        if (etageB.equals("1")) {
-                            Map = BitmapFactory.decodeResource(getResources(), R.drawable.etage1);
-                        }
-                        if (etageB.equals("2")) {
-                            Map = BitmapFactory.decodeResource(getResources(), R.drawable.etage2);
-                        }
-                        if (etageB.equals("3")) {
-                            Map = BitmapFactory.decodeResource(getResources(), R.drawable.etage3);
-                        }
-                        if (etageB.equals("4")) {
-                            Map = BitmapFactory.decodeResource(getResources(), R.drawable.etage4);
-                        }
-                        if (etageB.equals("5")) {
-                            //   Map = BitmapFactory.decodeResource(getResources(), R.drawable.etage5);
+                        switch (etageB) {
+                            case "1":
+                                Map = BitmapFactory.decodeResource(getResources(), R.drawable.etage1);
+                                break;
+                            case "2":
+                                Map = BitmapFactory.decodeResource(getResources(), R.drawable.etage2);
+
+                                break;
+                            case "3":
+                                Map = BitmapFactory.decodeResource(getResources(), R.drawable.etage3);
+
+                                break;
+                            case "4":
+                                Map = BitmapFactory.decodeResource(getResources(), R.drawable.etage4);
+
+                                break;
+                            case "5":
+                                //   Map = BitmapFactory.decodeResource(getResources(), R.drawable.etage5);
+                                break;
                         }
                     } else {
+
                         aa = true;
                         Star = null;
                         Pin = BitmapFactory.decodeResource(getResources(), R.drawable.pin);
-                        if (etageA.equals("1")) {
-                            Map = BitmapFactory.decodeResource(getResources(), R.drawable.etage1);
+                        switch (etageA) {
+                            case "1":
+                                Map = BitmapFactory.decodeResource(getResources(), R.drawable.etage1);
+                                break;
+                            case "2":
+                                Map = BitmapFactory.decodeResource(getResources(), R.drawable.etage2);
 
-                            Pin = BitmapFactory.decodeResource(getResources(), R.drawable.pin);
-                        } else if (etageA.equals("2")) {
-                            Map = BitmapFactory.decodeResource(getResources(), R.drawable.etage2);
+                                break;
+                            case "3":
+                                Map = BitmapFactory.decodeResource(getResources(), R.drawable.etage3);
 
-                        } else if (etageA.equals("3")) {
-                            Map = BitmapFactory.decodeResource(getResources(), R.drawable.etage3);
+                                break;
+                            case "4":
+                                Map = BitmapFactory.decodeResource(getResources(), R.drawable.etage4);
 
-                        } else if (etageA.equals("4")) {
-                            Map = BitmapFactory.decodeResource(getResources(), R.drawable.etage4);
-
-                        } else if (etageA.equals("5")) {
-                            //   Map = BitmapFactory.decodeResource(getResources(), R.drawable.etage5);
+                                break;
+                            case "5":
+                                //   Map = BitmapFactory.decodeResource(getResources(), R.drawable.etage5);
+                                break;
                         }
                     }
 
@@ -222,29 +233,30 @@ public class MyCanvas extends View {
             toast.show();
         } else {
             Star = BitmapFactory.decodeResource(getResources(), R.drawable.star);
-
         }
         // Description=description;
         Pin = BitmapFactory.decodeResource(getResources(), R.drawable.pin);
         // final String etageA = Character.toString(no_localA.charAt(2));
-        if (etageA.equals("1")) {
-            Map = BitmapFactory.decodeResource(getResources(), R.drawable.etage1);
+        switch (etageA) {
+            case "1":
+                Map = BitmapFactory.decodeResource(getResources(), R.drawable.etage1);
 
-        } else if (etageA.equals("2")) {
-            Map = BitmapFactory.decodeResource(getResources(), R.drawable.etage2);
+                break;
+            case "2":
+                Map = BitmapFactory.decodeResource(getResources(), R.drawable.etage2);
 
-        } else if (etageA.equals("3")) {
-            Map = BitmapFactory.decodeResource(getResources(), R.drawable.etage3);
-        }
-        else if (etageA.equals("4"))
-        {
-            Map = BitmapFactory.decodeResource(getResources(), R.drawable.etage4);
+                break;
+            case "3":
+                Map = BitmapFactory.decodeResource(getResources(), R.drawable.etage3);
+                break;
+            case "4":
+                Map = BitmapFactory.decodeResource(getResources(), R.drawable.etage4);
 
-        }
-        else if (etageA.equals("5"))
-        {
-         //   Map = BitmapFactory.decodeResource(getResources(), R.drawable.etage1);
+                break;
+            case "5":
+                //   Map = BitmapFactory.decodeResource(getResources(), R.drawable.etage1);
 
+                break;
         }
 
         this.mScaleFactor = MINIMUM_SCALE_FACTOR;

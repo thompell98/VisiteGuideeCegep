@@ -30,12 +30,12 @@ public class EmplacementActivity extends AppCompatActivity {
 
 
     MyCanvas mycanvas;
-    String Nom_emplacement;
+   // String Nom_emplacement;
     Rect coordonnéesActuel;
     Rect coordonnéesDestination;
     String localA;
     String localD;
-    String description;
+   // String description;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,8 +52,7 @@ public class EmplacementActivity extends AppCompatActivity {
         ArrayList<Integer> positionAct = i.getIntegerArrayListExtra("positionActuelle");
        //  if (positionDes != null&&positionAct!=null) {
 
-        Toast toast = Toast.makeText(getApplicationContext(), "Perdu? Revenez en arrière et appuiyez sur 'Perdu en chemin'", Toast.LENGTH_LONG);
-        toast.show();
+
 //        Toast toast = Toast.makeText(getApplicationContext(),String.valueOf( positionA.get(1)), Toast.LENGTH_LONG);toast.show();
 
 //        if (Nom_emplacement != null) {
