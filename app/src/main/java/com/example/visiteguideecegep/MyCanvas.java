@@ -47,14 +47,15 @@ public class MyCanvas extends View {
     Boolean aa = true;
     String etageA;
     String etageB;
+    int[] images = new int[4];
 
 
-    public MyCanvas(Context context, Rect coordonnéActu, Rect coordonnéDes, String localA, String localD) {
+    public MyCanvas(Context context, Rect coordonneActu, Rect coordonneDes, String localA, String localD) {
         super(context);
         Toast toast = Toast.makeText(getContext(), "Perdu? Revenez en arrière et appuiyez sur 'Perdu en chemin'", Toast.LENGTH_LONG);
         toast.show();
-        destination = coordonnéDes;
-        positionA = coordonnéActu;
+        destination = coordonneActu;
+        positionA = coordonneActu;
 
         //  nom_emplacement = emplacement;
         no_localA = localA;
@@ -131,6 +132,7 @@ public class MyCanvas extends View {
     private class MoveListener extends GestureDetector.SimpleOnGestureListener {
         @Override
         public boolean onDoubleTap(MotionEvent e) {
+
             try {
                 if (!etageA.equals(etageB)) {
                     Toast toast = Toast.makeText(getContext(), "Touchez 2 fois pour changer d'étage ", Toast.LENGTH_SHORT);
@@ -139,50 +141,24 @@ public class MyCanvas extends View {
                         Pin = null;
                         aa = false;
                         Star = BitmapFactory.decodeResource(getResources(), R.drawable.star);
-                        switch (etageB) {
-                            case "1":
-                                Map = BitmapFactory.decodeResource(getResources(), R.drawable.etage1);
-                                break;
-                            case "2":
-                                Map = BitmapFactory.decodeResource(getResources(), R.drawable.etage2);
-
-                                break;
-                            case "3":
-                                Map = BitmapFactory.decodeResource(getResources(), R.drawable.etage3);
-
-                                break;
-                            case "4":
-                                Map = BitmapFactory.decodeResource(getResources(), R.drawable.etage4);
-
-                                break;
-                            case "5":
-                                //   Map = BitmapFactory.decodeResource(getResources(), R.drawable.etage5);
-                                break;
-                        }
+                        for (int i=1;i<images.length+1;i++)
+                            {
+                                if (etageB.equals(String.valueOf(i)))
+                                {
+                                    Map = BitmapFactory.decodeResource(getResources(), images[i-1]);
+                                }
+                            }
                     } else {
 
                         aa = true;
                         Star = null;
                         Pin = BitmapFactory.decodeResource(getResources(), R.drawable.pin);
-                        switch (etageA) {
-                            case "1":
-                                Map = BitmapFactory.decodeResource(getResources(), R.drawable.etage1);
-                                break;
-                            case "2":
-                                Map = BitmapFactory.decodeResource(getResources(), R.drawable.etage2);
-
-                                break;
-                            case "3":
-                                Map = BitmapFactory.decodeResource(getResources(), R.drawable.etage3);
-
-                                break;
-                            case "4":
-                                Map = BitmapFactory.decodeResource(getResources(), R.drawable.etage4);
-
-                                break;
-                            case "5":
-                                //   Map = BitmapFactory.decodeResource(getResources(), R.drawable.etage5);
-                                break;
+                        for (int i=1;i<images.length+1;i++)
+                        {
+                            if (etageA.equals(String.valueOf(i)))
+                            {
+                                Map = BitmapFactory.decodeResource(getResources(), images[i-1]);
+                            }
                         }
                     }
 
@@ -227,37 +203,46 @@ public class MyCanvas extends View {
     }
 
     private void init(@NonNull Context context) {
-
+        images[0] = R.drawable.etage1;
+        images[1] = R.drawable.etage2;
+        images[2] = R.drawable.etage3;
+        images[3] = R.drawable.etage4;
+      //  images[4] = R.drawable.etage5;
         if (!etageA.equals(etageB)) {
             Toast toast = Toast.makeText(getContext(), "Touchez 2 fois pour changer d'étage ", Toast.LENGTH_LONG);
             toast.show();
         } else {
             Star = BitmapFactory.decodeResource(getResources(), R.drawable.star);
         }
-        // Description=description;
         Pin = BitmapFactory.decodeResource(getResources(), R.drawable.pin);
-        // final String etageA = Character.toString(no_localA.charAt(2));
-        switch (etageA) {
-            case "1":
-                Map = BitmapFactory.decodeResource(getResources(), R.drawable.etage1);
-
-                break;
-            case "2":
-                Map = BitmapFactory.decodeResource(getResources(), R.drawable.etage2);
-
-                break;
-            case "3":
-                Map = BitmapFactory.decodeResource(getResources(), R.drawable.etage3);
-                break;
-            case "4":
-                Map = BitmapFactory.decodeResource(getResources(), R.drawable.etage4);
-
-                break;
-            case "5":
-                //   Map = BitmapFactory.decodeResource(getResources(), R.drawable.etage1);
-
-                break;
+        for (int i=1;i<images.length+1;i++)
+        {
+            if (etageA.equals(String.valueOf(i)))
+            {
+                Map = BitmapFactory.decodeResource(getResources(), images[i-1]);
+            }
         }
+//        switch (etageA) {
+//            case "1":
+//
+//
+//                break;
+//            case "2":
+//                Map = BitmapFactory.decodeResource(getResources(), R.drawable.etage2);
+//
+//                break;
+//            case "3":
+//                Map = BitmapFactory.decodeResource(getResources(), R.drawable.etage3);
+//                break;
+//            case "4":
+//                Map = BitmapFactory.decodeResource(getResources(), R.drawable.etage4);
+//
+//                break;
+//            case "5":
+//                //   Map = BitmapFactory.decodeResource(getResources(), R.drawable.etage1);
+//
+//                break;
+    //    }
 
         this.mScaleFactor = MINIMUM_SCALE_FACTOR;
         this.mScaleDetector = new ScaleGestureDetector(context, new ScalesListener());

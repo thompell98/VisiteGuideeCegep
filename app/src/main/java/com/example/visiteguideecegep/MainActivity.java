@@ -1,9 +1,12 @@
 package com.example.visiteguideecegep;
 
 import android.Manifest;
+import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Rect;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
@@ -29,6 +32,8 @@ public class MainActivity extends AppCompatActivity {
     String local;
     private static final String TAG = "ConnexionBD";
     FirebaseFirestore db = FirebaseFirestore.getInstance();
+    Boolean connected = false;
+
 
     //   ArrayList<Integer>  group;
     @Override
@@ -37,9 +42,8 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.trajet_activity);
         Intent i = getIntent();
         local = i.getStringExtra("numero");
-
+        verifierConnexion();
         setListener();
-
 //        if (actuel.getText().toString().equals(""))
 //        {
 //            Toast toast = Toast.makeText(getApplicationContext(), "Local inexistant", Toast.LENGTH_LONG);toast.show();
@@ -51,8 +55,13 @@ public class MainActivity extends AppCompatActivity {
         findViewById(R.id.button_scanEdittext).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                redirectionCamera();
+                if (connected) {
+                    redirectionCamera();
 
+                } else {
+                    Toast.makeText(getApplicationContext(), "Veuillez vérifier votre connexion", Toast.LENGTH_SHORT).show();
+                    verifierConnexion();
+                }
             }
         });
     }
@@ -81,15 +90,21 @@ public class MainActivity extends AppCompatActivity {
             case CAMERA_PERMISSION:
                 if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                     //if (MainActivity.class != null) {
-                        Intent intent = new Intent(this, ScanActivity.class);
-                        intent.putExtra("allo", false);
-                        startActivity(intent);
-                  //  }
+                    Intent intent = new Intent(this, ScanActivity.class);
+                    intent.putExtra("allo", false);
+                    startActivity(intent);
+                    //  }
                 } else {
                     Toast.makeText(this, "Veuillez autoriser l'utilisation de la caméra", Toast.LENGTH_SHORT).show();
                 }
 
         }
+    }
+
+    private void verifierConnexion() {
+        ConnectivityManager connectivityManager = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+        connected = connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_MOBILE).getState() == NetworkInfo.State.CONNECTED ||
+                connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_WIFI).getState() == NetworkInfo.State.CONNECTED;
     }
 }
 
