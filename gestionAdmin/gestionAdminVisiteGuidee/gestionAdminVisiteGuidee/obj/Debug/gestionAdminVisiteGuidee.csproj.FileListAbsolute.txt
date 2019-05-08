@@ -1,7 +1,6 @@
 C:\Users\admin\Downloads\VisiteGuideeCegep\gestionAdmin\gestionAdminVisiteGuidee\gestionAdminVisiteGuidee\bin\Debug\gestionAdminVisiteGuidee.exe.config
 C:\Users\admin\Downloads\VisiteGuideeCegep\gestionAdmin\gestionAdminVisiteGuidee\gestionAdminVisiteGuidee\bin\Debug\gestionAdminVisiteGuidee.exe
 C:\Users\admin\Downloads\VisiteGuideeCegep\gestionAdmin\gestionAdminVisiteGuidee\gestionAdminVisiteGuidee\bin\Debug\gestionAdminVisiteGuidee.pdb
-C:\Users\admin\Downloads\VisiteGuideeCegep\gestionAdmin\gestionAdminVisiteGuidee\gestionAdminVisiteGuidee\obj\Debug\gestionAdminVisiteGuidee.csprojAssemblyReference.cache
 C:\Users\admin\Downloads\VisiteGuideeCegep\gestionAdmin\gestionAdminVisiteGuidee\gestionAdminVisiteGuidee\obj\Debug\gestionAdminVisiteGuidee.Properties.Resources.resources
 C:\Users\admin\Downloads\VisiteGuideeCegep\gestionAdmin\gestionAdminVisiteGuidee\gestionAdminVisiteGuidee\obj\Debug\gestionAdminVisiteGuidee.csproj.GenerateResource.cache
 C:\Users\admin\Downloads\VisiteGuideeCegep\gestionAdmin\gestionAdminVisiteGuidee\gestionAdminVisiteGuidee\obj\Debug\gestionAdminVisiteGuidee.csproj.CoreCompileInputs.cache
@@ -481,3 +480,4 @@ D:\Downloads\VisiteGuideeCegep\gestionAdmin\gestionAdminVisiteGuidee\gestionAdmi
 D:\Downloads\VisiteGuideeCegep\gestionAdmin\gestionAdminVisiteGuidee\gestionAdminVisiteGuidee\obj\Debug\gestionAdminVisiteGuidee.pdb
 D:\Downloads\VisiteGuideeCegep\gestionAdmin\gestionAdminVisiteGuidee\gestionAdminVisiteGuidee\obj\Debug\gestionAdminVisiteGuidee.GestionDesAdmins.resources
 C:\Users\admin\Downloads\VisiteGuideeCegep\gestionAdmin\gestionAdminVisiteGuidee\gestionAdminVisiteGuidee\obj\Debug\gestionAdminVisiteGuidee.GestionDesAdmins.resources
+C:\Users\admin\Downloads\VisiteGuideeCegep\gestionAdmin\gestionAdminVisiteGuidee\gestionAdminVisiteGuidee\obj\Debug\gestionAdminVisiteGuidee.csprojAssemblyReference.cache

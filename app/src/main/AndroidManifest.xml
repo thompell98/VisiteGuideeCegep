@@ -12,9 +12,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-
-        <activity android:name=".SplashScreenActivity" android:screenOrientation="portrait">
-
+        <activity android:name=".activityCanvas"></activity>
+        <activity android:name=".SplashScreenActivity">
             <intent-filter>
                 <action android:name="android.intent.action." />
 
@@ -25,9 +24,7 @@
         <activity android:name=".EmplacementActivity" android:screenOrientation="portrait"/>
         <activity android:name=".MainActivity" android:screenOrientation="portrait"/>
         <activity android:name=".ConnexionBD" android:screenOrientation="portrait"/>
-
         <activity android:name=".TrajetActivity" android:screenOrientation="portrait"/>
-
         <activity android:name=".RechercheLocal" android:screenOrientation="portrait"></activity>
         <activity android:name=".AffichageLocal" android:screenOrientation="portrait"></activity>
     </application>
