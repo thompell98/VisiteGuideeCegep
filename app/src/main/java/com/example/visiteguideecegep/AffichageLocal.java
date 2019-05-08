@@ -3,8 +3,10 @@ package com.example.visiteguideecegep;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Intent;
+import android.content.pm.ActivityInfo;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Point;
 import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.os.Handler;
@@ -13,12 +15,15 @@ import android.support.v4.view.GestureDetectorCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.DisplayMetrics;
+import android.view.Display;
 import android.view.GestureDetector;
 import android.view.GestureDetector.SimpleOnGestureListener;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
+import android.view.WindowManager;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.FrameLayout;
@@ -70,6 +75,7 @@ public class AffichageLocal extends AppCompatActivity {
     TextView textViewNumeroDuLocal = null;
     TextView textViewDescriptionDuLocal = null;
     Boolean toucher = null;
+    //  VideoView videoView ;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -85,6 +91,8 @@ public class AffichageLocal extends AppCompatActivity {
         textViewNumeroDuLocal = findViewById(R.id.textViewNumeroDuLocal);
         textViewDescriptionDuLocal = findViewById(R.id.textViewDescriptionDuLocal);
         toucher = false;
+        //  videoView = new VideoView(this);
+
         setListener();
         SwipeLeft();
         setTouchListener();
@@ -106,16 +114,30 @@ public class AffichageLocal extends AppCompatActivity {
                 retournerDebut();
             }
         });
+        findViewById(R.id.button_perdu).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                afficherPlanPerdu();
+            }
+        });
     }
 
     private void afficherPlan() {
+
         Bundle bundle = getIntent().getExtras();
         Intent plan = new Intent(this, EmplacementActivity.class);
-        plan.putExtra("numeroLocalActuel", bundle.getString("numeroLocalActuel"));
-        plan.putExtra("positionActuelle", bundle.getIntegerArrayList("positionActuelle"));
-        plan.putExtra("numeroLocalVoulu", bundle.getString("numeroLocalVoulu"));
-        plan.putExtra("positionVoulue", bundle.getIntegerArrayList("positionVoulue"));
-        startActivity(plan);
+        if (!bundle.getString("numeroLocalActuel").equals(bundle.getString("numeroLocalVoulu"))) {
+
+            plan.putExtra("numeroLocalActuel", bundle.getString("numeroLocalActuel"));
+            plan.putExtra("positionActuelle", bundle.getIntegerArrayList("positionActuelle"));
+            plan.putExtra("numeroLocalVoulu", bundle.getString("numeroLocalVoulu"));
+            plan.putExtra("positionVoulue", bundle.getIntegerArrayList("positionVoulue"));
+            startActivity(plan);
+
+        } else {
+            Toast toast = Toast.makeText(getApplicationContext(), "Vous êtes déja a cette emplacement", Toast.LENGTH_LONG);
+            toast.show();
+        }
     }
 
     private void retournerDebut() {
@@ -198,14 +220,14 @@ public class AffichageLocal extends AppCompatActivity {
                     public void onComplete(@NonNull Task<QuerySnapshot> task) {
                         if (task.isSuccessful()) {
                             for (QueryDocumentSnapshot document : task.getResult()) {
-                                    List<String> lesFichiers = (List<String>) document.get("Fichiers");
-                                    setCloudStorage(numeroLocal);
-                                    displayImages(numeroLocal, lesFichiers);
-                                    displayVideos(numeroLocal, lesFichiers);
-                                    textViewNomDuLocal.setText(document.get("Nom").toString());
-                                    textViewNumeroDuLocal.setText(document.get("Numero").toString());
-                                    textViewDescriptionDuLocal.setText(document.get("Description").toString());
-                                }
+                                List<String> lesFichiers = (List<String>) document.get("Fichiers");
+                                setCloudStorage(numeroLocal);
+                                displayImages(numeroLocal, lesFichiers);
+                                displayVideos(numeroLocal, lesFichiers);
+                                textViewNomDuLocal.setText(document.get("Nom").toString());
+                                textViewNumeroDuLocal.setText(document.get("Numero").toString());
+                                textViewDescriptionDuLocal.setText(document.get("Description").toString());
+                            }
                         } else {
                             Toast.makeText(getApplicationContext(), "Erreur", LENGTH_LONG).show();
                         }
@@ -214,28 +236,43 @@ public class AffichageLocal extends AppCompatActivity {
     }
 
     private void displayVideos(String numeroLocal, List<String> lesFichiers) {
+        MediaController mediaController = new MediaController(this);
+        mediaController = new FullScreenMediaController(this);
+
         for (int cpt = 0; cpt < lesFichiers.size(); cpt++) {
             if (lesFichiers.get(cpt).endsWith("mp4") || lesFichiers.get(cpt).endsWith("mp3")) {
                 LinearLayout linearLayout = findViewById(R.id.linearLayout);
                 RelativeLayout relativeLayout = new RelativeLayout(this);
                 VideoView videoView = new VideoView(this);
-                final MediaController mediaController = new MediaController(this);
 
                 final float scale = getResources().getDisplayMetrics().density;
                 int dpWidthInPx = (int) (500 * scale);
                 int dpHeightInPx = (int) (250 * scale);
                 LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(dpWidthInPx, dpHeightInPx);
                 layoutParams.setMargins(0, 0, 0, 8);
-                videoView.setLayoutParams(layoutParams);
-                videoView.setMediaController(mediaController);
-                mediaController.setAnchorView(videoView);
                 relativeLayout.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
-
                 setScrollListener(mediaController);
+                videoView.setLayoutParams(layoutParams);
 
                 relativeLayout.addView(videoView);
                 linearLayout.addView(relativeLayout);
                 downloadVideoOrAudio(numeroLocal, lesFichiers.get(cpt), videoView);
+                String fullScreen =  getIntent().getStringExtra("fullScreenInd");
+                //  String fullScreen =  getIntent().getStringExtra("fullScreenInd");
+                //  onPause();
+                if("y".equals(fullScreen)){
+                    //  onPause();
+                    getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
+                            WindowManager.LayoutParams.FLAG_FULLSCREEN);
+                    getSupportActionBar().hide();
+                    enterFullScreen(videoView);
+                }
+
+
+
+                mediaController.setAnchorView(videoView);
+                videoView.setMediaController(mediaController);
+                // videoView.start();
             }
         }
     }
@@ -303,6 +340,7 @@ public class AffichageLocal extends AppCompatActivity {
                 videoView.setVisibility(View.VISIBLE);
                 videoView.requestFocus();
                 videoView.seekTo(1);
+
                 //videoView.start();
             }
         }).addOnFailureListener(new OnFailureListener() {
@@ -311,5 +349,38 @@ public class AffichageLocal extends AppCompatActivity {
                 Toast.makeText(getApplicationContext(), "Download image error", LENGTH_LONG).show();
             }
         });
+
+    }
+
+    public void afficherPlanPerdu() {
+        Bundle bundle = getIntent().getExtras();
+        Intent plan = new Intent(this, ScanActivity.class);
+        if (!bundle.getString("numeroLocalActuel").equals(bundle.getString("numeroLocalVoulu"))) {
+
+            plan.putExtra("bool", false);
+            plan.putExtra("numeroLocalVoulu", bundle.getString("numeroLocalVoulu"));
+            plan.putExtra("positionVoulue", bundle.getIntegerArrayList("positionVoulue"));
+            startActivity(plan);
+        } else {
+            Toast toast = Toast.makeText(getApplicationContext(), "Vous êtes déja a cette emplacement", Toast.LENGTH_LONG);
+            toast.show();
+        }
+
+    }
+
+    private void enterFullScreen(VideoView videoView) {
+        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
+        android.widget.RelativeLayout.LayoutParams params = (android.widget.RelativeLayout.LayoutParams) videoView.getLayoutParams();
+        Display display = getWindowManager().getDefaultDisplay();
+        Point size = new Point();
+        display.getSize(size);
+        int width = size.x;
+        int height = size.y;
+        params.width = width;
+        params.height=height;
+        params.setMargins(0, 0, 0, 0);
+        videoView.setLayoutParams(params);
+
+
     }
 }

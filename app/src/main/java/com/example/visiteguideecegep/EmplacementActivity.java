@@ -30,12 +30,12 @@ public class EmplacementActivity extends AppCompatActivity {
 
 
     MyCanvas mycanvas;
-    String Nom_emplacement;
+   // String Nom_emplacement;
     Rect coordonnéesActuel;
     Rect coordonnéesDestination;
     String localA;
     String localD;
-    String description;
+   // String description;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

@@ -14,7 +14,7 @@
         android:layout_height="wrap_content"
         android:inputType="text"
         android:paddingBottom="16dp"
-        android:text="Veuillez maitenant rechercher un local"
+        android:text="Veuillez maintenant rechercher un local"
         android:textSize="18sp" />
 
     <AutoCompleteTextView
