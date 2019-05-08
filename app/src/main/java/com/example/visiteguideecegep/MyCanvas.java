@@ -1,5 +1,6 @@
 package com.example.visiteguideecegep;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -7,17 +8,21 @@ import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
+import android.graphics.Point;
 import android.graphics.Rect;
 import android.os.Build;
 import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.annotation.RequiresApi;
 import android.text.TextPaint;
+import android.util.DisplayMetrics;
+import android.view.Display;
 import android.view.GestureDetector;
 import android.view.KeyEvent;
 import android.view.MotionEvent;
 import android.view.ScaleGestureDetector;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.Toast;
 
 import java.util.ArrayList;
@@ -53,10 +58,12 @@ public class MyCanvas extends View {
     Bitmap bitmap;
     Djikastra djikastra;
     Canvas canvas;
+    Context leContext;
 
 
     public MyCanvas(Context context, Rect coordonneActu, Rect coordonneDes, String localA, String localD) {
         super(context);
+        leContext = context;
         Toast toast = Toast.makeText(getContext(), "Perdu? Revenez en arrière et appuiyez sur 'Perdu en chemin'", Toast.LENGTH_LONG);
         toast.show();
         destination = coordonneDes;
@@ -117,6 +124,22 @@ public class MyCanvas extends View {
         for (int cpt = 0; cpt < djikastra.meilleurTrajet.size() - 1; cpt++) {
               canvas.drawLine((float) djikastra.meilleurTrajet.get(cpt).x, (float)  djikastra.meilleurTrajet.get(cpt).y, (float)  djikastra.meilleurTrajet.get(cpt + 1).x, (float)  djikastra.meilleurTrajet.get(cpt + 1).y, paintte);
         }
+
+        Display display = ((Activity)leContext).getWindowManager().getDefaultDisplay();
+        Point size = new Point();
+        display.getSize(size);
+        int width = size.x;
+        int height = size.y;
+
+        Toast.makeText(leContext, "Largeur: " + String.valueOf(width) + "Hauteur: " + String.valueOf(height), Toast.LENGTH_LONG).show();
+
+        float widthDp = (width / leContext.getResources().getDisplayMetrics().density) / 100;
+        float heightDp = (height / leContext.getResources().getDisplayMetrics().density) / 100;
+
+        Toast.makeText(leContext, "Largeur Dp: " + String.valueOf(widthDp) + "Hauteur Dp: " + String.valueOf(heightDp), Toast.LENGTH_LONG).show();
+
+
+
         int heightt = getHeight() / 20;
         int widthh = getWidth() / 20;
 
