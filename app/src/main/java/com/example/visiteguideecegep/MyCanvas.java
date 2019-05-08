@@ -20,6 +20,8 @@ import android.view.ScaleGestureDetector;
 import android.view.View;
 import android.widget.Toast;
 
+import java.util.ArrayList;
+
 public class MyCanvas extends View {
 
     Bitmap Star;
@@ -48,6 +50,9 @@ public class MyCanvas extends View {
     String etageA;
     String etageB;
     int[] images = new int[4];
+    Bitmap bitmap;
+    Djikastra djikastra;
+    Canvas canvas;
 
 
     public MyCanvas(Context context, Rect coordonneActu, Rect coordonneDes, String localA, String localD) {
@@ -63,6 +68,10 @@ public class MyCanvas extends View {
         etageA = Character.toString(no_localA.charAt(2));
         etageB = Character.toString(no_localD.charAt(2));
 
+        djikastra = new Djikastra(3, 7);
+
+        //  dessinerLesIntersections(djikastra.lesIntersections);
+        //     afficherTrajet(djikastra.meilleurTrajet);
         init(context);
 
     }
@@ -88,9 +97,26 @@ public class MyCanvas extends View {
         paint.setFilterBitmap(true);
         // paintt.setColor(Color.RED);
         //  paintt.setStyle(Paint.Style.STROKE);
-        //paintt.setStrokeWidth(10);
+      //  paintt.setStrokeWidth(10);
+                Paint paintte = new Paint();
+        paintte.setColor(Color.RED);
+        paintte.setStyle(Paint.Style.STROKE);
+        paintte.setStrokeWidth(8);
+        paintte.setAntiAlias(true);
+//
+        int i=0;
         canvas.drawBitmap(Map, null, dest, paint);
 
+        Paint painte = new Paint();
+
+        for (int cpt = 0; cpt < djikastra.lesIntersections.length; cpt++) {
+
+            canvas.drawCircle((float) djikastra.lesIntersections[cpt].x, (float) djikastra.lesIntersections[cpt].y, 10, painte);
+
+        }
+        for (int cpt = 0; cpt < djikastra.meilleurTrajet.size() - 1; cpt++) {
+              canvas.drawLine((float) djikastra.meilleurTrajet.get(cpt).x, (float)  djikastra.meilleurTrajet.get(cpt).y, (float)  djikastra.meilleurTrajet.get(cpt + 1).x, (float)  djikastra.meilleurTrajet.get(cpt + 1).y, paintte);
+        }
         int heightt = getHeight() / 20;
         int widthh = getWidth() / 20;
 
@@ -213,8 +239,8 @@ public class MyCanvas extends View {
         Pin = BitmapFactory.decodeResource(getResources(), R.drawable.pin);
         for (int i = 1; i < images.length + 1; i++) {
             if (etageA.equals(String.valueOf(i))) {
-                Map=null;
-                Map = BitmapFactory.decodeResource(getResources(), images[i-1]);
+                Map = null;
+                Map = BitmapFactory.decodeResource(getResources(), images[i - 1]);
             }
         }
 
@@ -224,7 +250,26 @@ public class MyCanvas extends View {
         this.mMoveDetector = new GestureDetector(context, new MoveListener());
 
     }
+//    private void dessinerLigne(Intersection intersection1, Intersection intersection2) {
 
+//    }
+
+//    private void afficherTrajet(ArrayList<Intersection> lesIntersectionsARelier) {
+//        for (int cpt = 0; cpt < lesIntersectionsARelier.size() - 1; cpt++) {
+//            dessinerLigne(lesIntersectionsARelier.get(cpt), lesIntersectionsARelier.get(cpt + 1));
+//        }
+//    }
+
+    //   private void dessinerLesIntersections(Intersection[] lesIntersections) {
+    //      for (int cpt = 0; cpt < lesIntersections.length; cpt++) {
+    //    //     dessinerIntersection(lesIntersections[cpt]);
+    //  }
+    //   }
+
+//    private void dessinerIntersection(Intersection uneIntersection) {
+//        Paint paint = new Paint();
+//        canvas.drawCircle((float) uneIntersection.x, (float) uneIntersection.y, 10, paint);
+//    }
 
 }
 

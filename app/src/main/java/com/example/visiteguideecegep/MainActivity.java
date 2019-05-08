@@ -55,34 +55,40 @@ public class MainActivity extends AppCompatActivity {
         findViewById(R.id.button_scanEdittext).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (connected) {
+//                if (connected) {
                     redirectionCamera();
-
-                } else {
-                    Toast.makeText(getApplicationContext(), "Veuillez vérifier votre connexion", Toast.LENGTH_SHORT).show();
-                    verifierConnexion();
-                }
+//
+//                } else {
+//                    Toast.makeText(getApplicationContext(), "Veuillez vérifier votre connexion", Toast.LENGTH_SHORT).show();
+//                    verifierConnexion();
+//                }
             }
         });
     }
 
-    private void redirectionCamera() {
-        if (ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA)
-                != PackageManager.PERMISSION_GRANTED) {
-            ActivityCompat.requestPermissions(this,
-                    new String[]{Manifest.permission.CAMERA}, CAMERA_PERMISSION);
-        } else {
-            Intent intent = new Intent(this, ScanActivity.class);
-            intent.putExtra("allo", false);
+//    private void redirectionCamera() {
+//        if (ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA)
+//                != PackageManager.PERMISSION_GRANTED) {
+//            ActivityCompat.requestPermissions(this,
+//                    new String[]{Manifest.permission.CAMERA}, CAMERA_PERMISSION);
+//        } else {
+//            Intent intent = new Intent(this, ScanActivity.class);
+//            intent.putExtra("allo", false);
+//            startActivity(intent);
+//        }
+private void redirectionCamera()
+    {
+                    Intent intent = new Intent(this, EmplacementActivity.class);
+//            intent.putExtra("allo", false);
             startActivity(intent);
-        }
+    }
 
 
 //        Intent scan = new Intent(this, ScanActivity.class);
 //        scan.putExtra("allo", false);
 //        startActivity(scan);
 
-    }
+
 
     @Override
     public void onRequestPermissionsResult(int requestCode, String permissions[], int[] grantResults) {

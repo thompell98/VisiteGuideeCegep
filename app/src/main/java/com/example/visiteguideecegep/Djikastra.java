@@ -1,5 +1,8 @@
 package com.example.visiteguideecegep;
 
+import android.graphics.Point;
+import android.util.DisplayMetrics;
+import android.view.Display;
 import android.widget.Toast;
 
 import java.util.ArrayList;
@@ -30,6 +33,9 @@ public class Djikastra {
     }
 
     private void ajouterLesIntersections() {
+
+
+
         lesIntersections[0] = new Intersection(0, 250, 20, new int[]{1});
         lesIntersections[1] = new Intersection(1, 250, 70, new int[]{0, 2});
         lesIntersections[2] = new Intersection(2, 250, 120, new int[]{1, 3});
