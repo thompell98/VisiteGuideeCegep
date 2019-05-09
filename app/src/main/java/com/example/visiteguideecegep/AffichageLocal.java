@@ -261,14 +261,8 @@ public class AffichageLocal extends AppCompatActivity {
                 textView.setLayoutParams(layoutParamss);
                 textView.setTextSize(20);
                 textView.setTextColor(Color.RED);
-
-                    String gg=lesFichiers.get(cpt);
-                    textView.setText(gg);
-
-
                 relativeLayout.addView(videoView);
                 relativeLayout.addView(textView);
-
                 linearLayout.addView(relativeLayout);
                 downloadVideoOrAudio(numeroLocal, lesFichiers.get(cpt), videoView);
                 String fullScreen =  getIntent().getStringExtra("fullScreenInd");
@@ -281,9 +275,11 @@ public class AffichageLocal extends AppCompatActivity {
                     getSupportActionBar().hide();
                     enterFullScreen(videoView);
                 }
-
-
-
+                else
+                {
+                    String gg=lesFichiers.get(cpt);
+                    textView.setText(gg);
+                }
                 mediaController.setAnchorView(videoView);
                 videoView.setMediaController(mediaController);
                 // videoView.start();
