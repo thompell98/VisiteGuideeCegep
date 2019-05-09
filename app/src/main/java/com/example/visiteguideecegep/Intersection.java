@@ -4,12 +4,12 @@ import java.util.ArrayList;
 
 public class Intersection {
     int numero;
-    double x;
-    double y;
+    float x;
+    float y;
     boolean utilise;
     ArrayList<Integer> numerosIntersectionsReliees = new ArrayList<>();
 
-    public Intersection(int numero, double x, double y, int[] numerosIntersectionsReliees) {
+    public Intersection(int numero, float x, float y, int[] numerosIntersectionsReliees) {
         this.numero = numero;
         this.x = x;
         this.y = y;

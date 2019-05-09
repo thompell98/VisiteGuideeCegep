@@ -3,6 +3,7 @@ package com.example.visiteguideecegep;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
@@ -16,6 +17,7 @@ import android.support.annotation.NonNull;
 import android.support.annotation.RequiresApi;
 import android.text.TextPaint;
 import android.util.DisplayMetrics;
+import android.util.TypedValue;
 import android.view.Display;
 import android.view.GestureDetector;
 import android.view.KeyEvent;
@@ -116,28 +118,25 @@ public class MyCanvas extends View {
 
         Paint painte = new Paint();
 
-        for (int cpt = 0; cpt < djikastra.lesIntersections.length; cpt++) {
-
-            canvas.drawCircle((float) djikastra.lesIntersections[cpt].x, (float) djikastra.lesIntersections[cpt].y, 10, painte);
-
-        }
-        for (int cpt = 0; cpt < djikastra.meilleurTrajet.size() - 1; cpt++) {
-              canvas.drawLine((float) djikastra.meilleurTrajet.get(cpt).x, (float)  djikastra.meilleurTrajet.get(cpt).y, (float)  djikastra.meilleurTrajet.get(cpt + 1).x, (float)  djikastra.meilleurTrajet.get(cpt + 1).y, paintte);
-        }
-
         Display display = ((Activity)leContext).getWindowManager().getDefaultDisplay();
         Point size = new Point();
         display.getSize(size);
         int width = size.x;
         int height = size.y;
+        float widthRatio = width / 1000f;
+        float heightRatio = height / 1000f;
 
-        Toast.makeText(leContext, "Largeur: " + String.valueOf(width) + "Hauteur: " + String.valueOf(height), Toast.LENGTH_LONG).show();
+        int valeur = 50;
 
         float widthDp = (width / leContext.getResources().getDisplayMetrics().density) / 100;
         float heightDp = (height / leContext.getResources().getDisplayMetrics().density) / 100;
 
-        Toast.makeText(leContext, "Largeur Dp: " + String.valueOf(widthDp) + "Hauteur Dp: " + String.valueOf(heightDp), Toast.LENGTH_LONG).show();
-
+        for (int cpt = 0; cpt < djikastra.lesIntersections.length; cpt++) {
+            canvas.drawCircle(Math.round(djikastra.lesIntersections[cpt].x * widthRatio), Math.round(djikastra.lesIntersections[cpt].y * heightRatio), 10, painte);
+        }
+        for (int cpt = 0; cpt < djikastra.meilleurTrajet.size() - 1; cpt++) {
+              canvas.drawLine((float) djikastra.meilleurTrajet.get(cpt).x , (float)  djikastra.meilleurTrajet.get(cpt).y , (float)  djikastra.meilleurTrajet.get(cpt + 1).x , (float)  djikastra.meilleurTrajet.get(cpt + 1).y, paintte);
+        }
 
 
         int heightt = getHeight() / 20;
