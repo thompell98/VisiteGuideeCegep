@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Color;
 import android.graphics.Point;
 import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
@@ -75,7 +76,6 @@ public class AffichageLocal extends AppCompatActivity {
     TextView textViewNumeroDuLocal = null;
     TextView textViewDescriptionDuLocal = null;
     Boolean toucher = null;
-    //  VideoView videoView ;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -235,6 +235,7 @@ public class AffichageLocal extends AppCompatActivity {
                 });
     }
 
+
     private void displayVideos(String numeroLocal, List<String> lesFichiers) {
         MediaController mediaController = new MediaController(this);
         mediaController = new FullScreenMediaController(this);
@@ -244,17 +245,30 @@ public class AffichageLocal extends AppCompatActivity {
                 LinearLayout linearLayout = findViewById(R.id.linearLayout);
                 RelativeLayout relativeLayout = new RelativeLayout(this);
                 VideoView videoView = new VideoView(this);
-
+                TextView textView = new TextView(this);
                 final float scale = getResources().getDisplayMetrics().density;
                 int dpWidthInPx = (int) (500 * scale);
                 int dpHeightInPx = (int) (250 * scale);
                 LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(dpWidthInPx, dpHeightInPx);
-                layoutParams.setMargins(0, 0, 0, 8);
+                layoutParams.setMargins(0, 100, 0, 8);
+
+                LinearLayout.LayoutParams layoutParamss = new LinearLayout.LayoutParams(dpWidthInPx, dpHeightInPx);
+                layoutParamss.setMargins(0, 0, 0, 8);
+
                 relativeLayout.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
                 setScrollListener(mediaController);
                 videoView.setLayoutParams(layoutParams);
+                textView.setLayoutParams(layoutParamss);
+                textView.setTextSize(20);
+                textView.setTextColor(Color.RED);
+
+                    String gg=lesFichiers.get(cpt);
+                    textView.setText(gg);
+
 
                 relativeLayout.addView(videoView);
+                relativeLayout.addView(textView);
+
                 linearLayout.addView(relativeLayout);
                 downloadVideoOrAudio(numeroLocal, lesFichiers.get(cpt), videoView);
                 String fullScreen =  getIntent().getStringExtra("fullScreenInd");
