@@ -29,10 +29,10 @@ public class activityCanvas extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_canvas);
         mImageView = findViewById(R.id.imageView);
-        djikastra = new Djikastra(3, 7);
+        //djikastra = new Djikastra(3, 7);
         setCanvas();
-        dessinerLesIntersections(djikastra.lesIntersections);
-        afficherTrajet(djikastra.meilleurTrajet);
+        //dessinerLesIntersections(djikastra.lesIntersections);
+        //afficherTrajet(djikastra.meilleurTrajet);
     }
 
     private void setCanvas() {

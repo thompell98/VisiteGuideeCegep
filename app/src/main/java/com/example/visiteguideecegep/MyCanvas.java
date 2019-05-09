@@ -77,7 +77,8 @@ public class MyCanvas extends View {
         etageA = Character.toString(no_localA.charAt(2));
         etageB = Character.toString(no_localD.charAt(2));
 
-        djikastra = new Djikastra(3, 7);
+        djikastra = new Djikastra();
+        djikastra.trouverMeilleurTrajet(0, 1, 0, 0);
 
         //  dessinerLesIntersections(djikastra.lesIntersections);
         //     afficherTrajet(djikastra.meilleurTrajet);
@@ -121,18 +122,17 @@ public class MyCanvas extends View {
         Display display = ((Activity)leContext).getWindowManager().getDefaultDisplay();
         Point size = new Point();
         display.getSize(size);
-        int width = size.x;
-        int height = size.y;
-        float widthRatio = width / 1000f;
-        float heightRatio = height / 1000f;
+        double width = size.x;
+        double height = size.y;
+        double widthRatio = width / 10000d;
+        double heightRatio = height / 10000d;
 
-        for (int cpt = 0; cpt < djikastra.lesIntersections.length; cpt++) {
-            canvas.drawCircle(djikastra.lesIntersections[cpt].x * widthRatio, djikastra.lesIntersections[cpt].y * heightRatio, 10, painte);
+        for (int cpt = 0; cpt < djikastra.lesIntersections[0].length; cpt++) {
+            canvas.drawCircle((float) (djikastra.lesIntersections[0][cpt].x * widthRatio), (float) (djikastra.lesIntersections[0][cpt].y * heightRatio), 10, painte);
         }
-        for (int cpt = 0; cpt < djikastra.meilleurTrajet.size() - 1; cpt++) {
-              canvas.drawLine((float) djikastra.meilleurTrajet.get(cpt).x * widthRatio , (float)  djikastra.meilleurTrajet.get(cpt).y * heightRatio , (float)  djikastra.meilleurTrajet.get(cpt + 1).x * widthRatio , (float)  djikastra.meilleurTrajet.get(cpt + 1).y * heightRatio, paintte);
+        for (int cpt = 0; cpt < djikastra.trajetEtagePrincipal.size() - 1; cpt++) {
+              canvas.drawLine((float) (djikastra.trajetEtagePrincipal.get(cpt).x * widthRatio), (float)  (djikastra.trajetEtagePrincipal.get(cpt).y * heightRatio), (float)  (djikastra.trajetEtagePrincipal.get(cpt + 1).x * widthRatio), (float)  (djikastra.trajetEtagePrincipal.get(cpt + 1).y * heightRatio), paintte);
         }
-
 
         int heightt = getHeight() / 20;
         int widthh = getWidth() / 20;

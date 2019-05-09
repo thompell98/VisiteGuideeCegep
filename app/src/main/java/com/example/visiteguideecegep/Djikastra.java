@@ -12,50 +12,71 @@ import java.util.Comparator;
 import java.util.HashMap;
 
 public class Djikastra {
-    Intersection lesIntersections[] = new Intersection[9];
-    ArrayList<Intersection> meilleurTrajet = new ArrayList<>();
+    Intersection[][] lesIntersections;
     Intersection intersectionDepart;
     Intersection intersectionATrouver;
+    ArrayList<Intersection> trajetEtagePrincipal;
+    ArrayList<Intersection> trajetEtageFinal;
+    int etageDepart;
+    int etageVoulu;
 
-    public Djikastra(int numeroIntersectionDepart, int numeroIntersectionATrouver){
+    public Djikastra(){
+        this.lesIntersections = new Intersection[4][9];
+        this.trajetEtagePrincipal = null;
+        this.trajetEtageFinal = null;
+        this.intersectionDepart = null;
+        this.intersectionATrouver = null;
+        this.etageDepart = 0;
+        this.etageVoulu = 0;
         this.ajouterLesIntersections();
-        this.intersectionDepart = lesIntersections[numeroIntersectionDepart];
-        this.intersectionATrouver = lesIntersections[numeroIntersectionATrouver];
-        this.trouverMeilleurChemin();
     }
 
-    public Intersection[] lesIntersections() {
+    public Intersection[][] lesIntersections() {
         return lesIntersections;
     }
 
-    public ArrayList<Intersection> meilleurTrajet() {
-        return meilleurTrajet;
-    }
-
     private void ajouterLesIntersections() {
-
-
-
-        lesIntersections[0] = new Intersection(0, 250, 20, new int[]{1});
-        lesIntersections[1] = new Intersection(1, 250, 70, new int[]{0, 2});
-        lesIntersections[2] = new Intersection(2, 250, 120, new int[]{1, 3});
-        lesIntersections[3] = new Intersection(3, 250, 170, new int[]{2, 4});
-        lesIntersections[4] = new Intersection(4, 250, 220, new int[]{3, 5, 6});
-        lesIntersections[5] = new Intersection(5, 200, 220, new int[]{4, 7});
-        lesIntersections[6] = new Intersection(6, 300, 220, new int[]{4, 8});
-        lesIntersections[7] = new Intersection(7, 150, 220, new int[]{5});
-        lesIntersections[8] = new Intersection(8, 350, 220, new int[]{6});
+        lesIntersections[0][0] = new Intersection(0, 700, 6700, false, new int[]{1});
+        lesIntersections[0][1] = new Intersection(1, 1300, 6700, false, new int[]{0, 2});
+        lesIntersections[0][2] = new Intersection(2, 1300, 7200, false, new int[]{1, 3});
+        lesIntersections[0][3] = new Intersection(3, 1800, 6700, false, new int[]{2, 4});
+        lesIntersections[0][4] = new Intersection(4, 3500, 6700, false, new int[]{3, 5, 6});
+        lesIntersections[0][5] = new Intersection(5, 4200, 6700, false, new int[]{4, 7});
+        lesIntersections[0][6] = new Intersection(6, 4200, 6200, false, new int[]{4, 8});
+        lesIntersections[0][7] = new Intersection(7, 5620, 6700, false, new int[]{5});
+        lesIntersections[0][8] = new Intersection(8, 8000, 6700, false, new int[]{6});
     }
 
     private double calculerDistanceEntreDeuxPoints(Intersection intersection1, Intersection intersection2) {
         return Math.sqrt(Math.pow(intersection2.x - intersection1.x, 2) + Math.pow(intersection2.y - intersection1.y, 2));
     }
 
-    private void trouverMeilleurChemin() {
+    public void trouverMeilleurTrajet(int numeroIntersectionDepart, int numeroIntersectionATrouver, int etageDepart, int etageVoulu){
+        this.intersectionDepart = lesIntersections[etageDepart][numeroIntersectionDepart];
+        this.intersectionATrouver = lesIntersections[etageVoulu][numeroIntersectionATrouver];
+        this.etageDepart = etageDepart;
+        this.etageVoulu = etageVoulu;
+
+        if (this.etageDepart == this.etageVoulu){
+            this.trajetEtagePrincipal = obtenirCheminEtage(etageDepart, intersectionDepart, intersectionATrouver);
+        }
+        else{
+
+        }
+    }
+
+    private ArrayList<Intersection> obtenirCheminEtage(int numeroEtage, Intersection intersectionDepart, Intersection intersectionATrouver) {
         final HashMap<Intersection, Double> distances = new HashMap<>();
         HashMap<Intersection, Intersection> precedent = new HashMap<>();
         ArrayList<Intersection> intersections = new ArrayList<>();
-        intersections.addAll(Arrays.asList(lesIntersections));
+        ArrayList<Intersection> meilleurTrajet = new ArrayList<>();
+        for (Intersection[] array : lesIntersections) {
+            for (int cpt = 0; cpt < array.length; cpt++){
+                if (array[cpt] != null){
+                    intersections.add(array[cpt]);
+                }
+            }
+        }
         for(Intersection intersection : intersections){
             distances.put(intersection, Double.MAX_VALUE);
             precedent.put(intersection, null);
@@ -72,7 +93,7 @@ public class Djikastra {
             Intersection intersectionATraiter = intersections.get(0);
             intersections.remove(intersectionATraiter);
             for(int numeroIntersectionsReliees : intersectionATraiter.numerosIntersectionsReliees){
-                Intersection intersectionDestinationEnTraitement = lesIntersections[numeroIntersectionsReliees];
+                Intersection intersectionDestinationEnTraitement = lesIntersections[numeroEtage][numeroIntersectionsReliees];
                 double distanceCourante = distances.get(intersectionATraiter) +  calculerDistanceEntreDeuxPoints(intersectionDestinationEnTraitement, intersectionATraiter);
                 if (distanceCourante < distances.get(intersectionDestinationEnTraitement)){
                     distances.put(intersectionDestinationEnTraitement, distanceCourante);
@@ -87,6 +108,7 @@ public class Djikastra {
             meilleurTrajet.add(precedent.get(intersectionTrajet));
             intersectionTrajet = precedent.get(intersectionTrajet);
         }
+        return meilleurTrajet;
     }
 }
 
