@@ -107,7 +107,7 @@ public class MyCanvas extends View {
         // paintt.setColor(Color.RED);
         //  paintt.setStyle(Paint.Style.STROKE);
       //  paintt.setStrokeWidth(10);
-                Paint paintte = new Paint();
+        Paint paintte = new Paint();
         paintte.setColor(Color.RED);
         paintte.setStyle(Paint.Style.STROKE);
         paintte.setStrokeWidth(8);
@@ -126,16 +126,11 @@ public class MyCanvas extends View {
         float widthRatio = width / 1000f;
         float heightRatio = height / 1000f;
 
-        int valeur = 50;
-
-        float widthDp = (width / leContext.getResources().getDisplayMetrics().density) / 100;
-        float heightDp = (height / leContext.getResources().getDisplayMetrics().density) / 100;
-
         for (int cpt = 0; cpt < djikastra.lesIntersections.length; cpt++) {
-            canvas.drawCircle(Math.round(djikastra.lesIntersections[cpt].x * widthRatio), Math.round(djikastra.lesIntersections[cpt].y * heightRatio), 10, painte);
+            canvas.drawCircle(djikastra.lesIntersections[cpt].x * widthRatio, djikastra.lesIntersections[cpt].y * heightRatio, 10, painte);
         }
         for (int cpt = 0; cpt < djikastra.meilleurTrajet.size() - 1; cpt++) {
-              canvas.drawLine((float) djikastra.meilleurTrajet.get(cpt).x , (float)  djikastra.meilleurTrajet.get(cpt).y , (float)  djikastra.meilleurTrajet.get(cpt + 1).x , (float)  djikastra.meilleurTrajet.get(cpt + 1).y, paintte);
+              canvas.drawLine((float) djikastra.meilleurTrajet.get(cpt).x * widthRatio , (float)  djikastra.meilleurTrajet.get(cpt).y * heightRatio , (float)  djikastra.meilleurTrajet.get(cpt + 1).x * widthRatio , (float)  djikastra.meilleurTrajet.get(cpt + 1).y * heightRatio, paintte);
         }
 
 
