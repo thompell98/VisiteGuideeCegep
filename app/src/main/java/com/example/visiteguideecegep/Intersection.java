@@ -4,8 +4,8 @@ import java.util.ArrayList;
 
 public class Intersection {
     int numero;
-    double x;
-    double y;
+    float x;
+    float y;
     boolean utilise;
     boolean escalier;
     ArrayList<Integer> numerosIntersectionsReliees = new ArrayList<>();

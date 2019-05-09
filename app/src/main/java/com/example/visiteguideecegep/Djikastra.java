@@ -21,7 +21,7 @@ public class Djikastra {
     int etageVoulu;
 
     public Djikastra(){
-        this.lesIntersections = new Intersection[4][9];
+        this.lesIntersections = new Intersection[4][17];
         this.trajetEtagePrincipal = null;
         this.trajetEtageFinal = null;
         this.intersectionDepart = null;
@@ -36,15 +36,23 @@ public class Djikastra {
     }
 
     private void ajouterLesIntersections() {
-        lesIntersections[0][0] = new Intersection(0, 700, 6700, false, new int[]{1});
-        lesIntersections[0][1] = new Intersection(1, 1300, 6700, false, new int[]{0, 2});
-        lesIntersections[0][2] = new Intersection(2, 1300, 7200, false, new int[]{1, 3});
-        lesIntersections[0][3] = new Intersection(3, 1800, 6700, false, new int[]{2, 4});
-        lesIntersections[0][4] = new Intersection(4, 3500, 6700, false, new int[]{3, 5, 6});
-        lesIntersections[0][5] = new Intersection(5, 4200, 6700, false, new int[]{4, 7});
-        lesIntersections[0][6] = new Intersection(6, 4200, 6200, false, new int[]{4, 8});
-        lesIntersections[0][7] = new Intersection(7, 5620, 6700, false, new int[]{5});
-        lesIntersections[0][8] = new Intersection(8, 8000, 6700, false, new int[]{6});
+        lesIntersections[0][0] = new Intersection(0, 70, 690, false, new int[]{1});
+        lesIntersections[0][1] = new Intersection(1, 130, 690, false, new int[]{0, 2, 3});
+        lesIntersections[0][2] = new Intersection(2, 130, 720, false, new int[]{1});
+        lesIntersections[0][3] = new Intersection(3, 180, 690, false, new int[]{1, 4});
+        lesIntersections[0][4] = new Intersection(4, 350, 690, false, new int[]{3, 5});
+        lesIntersections[0][5] = new Intersection(5, 420, 690, false, new int[]{4, 6, 7});
+        lesIntersections[0][6] = new Intersection(6, 420, 630, false, new int[]{5});
+        lesIntersections[0][7] = new Intersection(7, 562, 690, false, new int[]{5, 8, 10});
+        lesIntersections[0][8] = new Intersection(8, 800, 690, false, new int[]{7, 9});
+        lesIntersections[0][9] = new Intersection(9, 800, 645, false, new int[]{8});
+        lesIntersections[0][10] = new Intersection(10, 562, 600, false, new int[]{7, 11});
+        lesIntersections[0][11] = new Intersection(11, 562, 510, false, new int[]{10, 12});
+        lesIntersections[0][12] = new Intersection(12, 562, 420, false, new int[]{11, 13});
+        lesIntersections[0][13] = new Intersection(13, 562, 280, false, new int[]{12, 14, 15});
+        lesIntersections[0][14] = new Intersection(14, 562, 240, false, new int[]{13});
+        lesIntersections[0][15] = new Intersection(15, 630, 260, false, new int[]{13, 16});
+        lesIntersections[0][16] = new Intersection(16, 800, 250, false, new int[]{15});
     }
 
     private double calculerDistanceEntreDeuxPoints(Intersection intersection1, Intersection intersection2) {

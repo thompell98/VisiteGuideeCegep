@@ -78,7 +78,7 @@ public class MyCanvas extends View {
         etageB = Character.toString(no_localD.charAt(2));
 
         djikastra = new Djikastra();
-        djikastra.trouverMeilleurTrajet(0, 1, 0, 0);
+        djikastra.trouverMeilleurTrajet(0, 16, 0, 0);
 
         //  dessinerLesIntersections(djikastra.lesIntersections);
         //     afficherTrajet(djikastra.meilleurTrajet);
@@ -108,11 +108,6 @@ public class MyCanvas extends View {
         // paintt.setColor(Color.RED);
         //  paintt.setStyle(Paint.Style.STROKE);
       //  paintt.setStrokeWidth(10);
-        Paint paintte = new Paint();
-        paintte.setColor(Color.RED);
-        paintte.setStyle(Paint.Style.STROKE);
-        paintte.setStrokeWidth(8);
-        paintte.setAntiAlias(true);
 //
         int i=0;
         canvas.drawBitmap(Map, null, dest, paint);
@@ -122,16 +117,25 @@ public class MyCanvas extends View {
         Display display = ((Activity)leContext).getWindowManager().getDefaultDisplay();
         Point size = new Point();
         display.getSize(size);
-        double width = size.x;
-        double height = size.y;
-        double widthRatio = width / 10000d;
-        double heightRatio = height / 10000d;
+        float widthRatio = size.x / 1000f;
+        float heightRatio = size.y / 1000f;
+
+        Paint paintte = new Paint();
+        paintte.setColor(Color.RED);
+        paintte.setStyle(Paint.Style.STROKE);
+        paintte.setStrokeWidth(20 * heightRatio);
+        paintte.setAntiAlias(true);
+
+        Paint paintte2 = new Paint();
+        paintte2.setColor(Color.RED);
 
         for (int cpt = 0; cpt < djikastra.lesIntersections[0].length; cpt++) {
-            canvas.drawCircle((float) (djikastra.lesIntersections[0][cpt].x * widthRatio), (float) (djikastra.lesIntersections[0][cpt].y * heightRatio), 10, painte);
+            canvas.drawCircle(djikastra.lesIntersections[0][cpt].x * widthRatio, djikastra.lesIntersections[0][cpt].y * heightRatio, 5 * heightRatio, painte);
         }
         for (int cpt = 0; cpt < djikastra.trajetEtagePrincipal.size() - 1; cpt++) {
-              canvas.drawLine((float) (djikastra.trajetEtagePrincipal.get(cpt).x * widthRatio), (float)  (djikastra.trajetEtagePrincipal.get(cpt).y * heightRatio), (float)  (djikastra.trajetEtagePrincipal.get(cpt + 1).x * widthRatio), (float)  (djikastra.trajetEtagePrincipal.get(cpt + 1).y * heightRatio), paintte);
+            canvas.drawLine(djikastra.trajetEtagePrincipal.get(cpt).x * widthRatio, djikastra.trajetEtagePrincipal.get(cpt).y * heightRatio, djikastra.trajetEtagePrincipal.get(cpt + 1).x * widthRatio, djikastra.trajetEtagePrincipal.get(cpt + 1).y * heightRatio, paintte);
+            canvas.drawCircle(djikastra.trajetEtagePrincipal.get(cpt).x * widthRatio, djikastra.trajetEtagePrincipal.get(cpt).y * heightRatio, 10 * heightRatio, paintte2);
+            canvas.drawCircle(djikastra.trajetEtagePrincipal.get(cpt + 1).x * widthRatio, djikastra.trajetEtagePrincipal.get(cpt + 1).y * heightRatio, 10 * heightRatio, paintte2);
         }
 
         int heightt = getHeight() / 20;
