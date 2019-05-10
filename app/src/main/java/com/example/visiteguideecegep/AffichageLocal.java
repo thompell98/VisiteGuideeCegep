@@ -91,7 +91,6 @@ public class AffichageLocal extends AppCompatActivity {
         textViewNumeroDuLocal = findViewById(R.id.textViewNumeroDuLocal);
         textViewDescriptionDuLocal = findViewById(R.id.textViewDescriptionDuLocal);
         toucher = false;
-        //  videoView = new VideoView(this);
 
         setListener();
         SwipeLeft();
@@ -269,8 +268,8 @@ public class AffichageLocal extends AppCompatActivity {
                     getSupportActionBar().hide();
                     enterFullScreen(videoView);
                 } else {
-                    String gg = lesFichiers.get(cpt);
-                    textView.setText(gg);
+                    String nomVideo = lesFichiers.get(cpt);
+                    textView.setText(nomVideo);
                 }
                 mediaController.setAnchorView(videoView);
                 videoView.setMediaController(mediaController);

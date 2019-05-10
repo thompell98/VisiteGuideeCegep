@@ -4,9 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
-import android.widget.TextView;
 import android.widget.Toast;
-
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -20,12 +18,7 @@ import me.dm7.barcodescanner.zxing.ZXingScannerView;
 
 
 public class ScanActivity extends AppCompatActivity implements ZXingScannerView.ResultHandler {
-    private static final int REQUEST_CAMERA = 1;
-    private ZXingScannerView mScannerView;
-    TextView textView;
-    public static String Text;
     ZXingScannerView scannerView;
-    private static final String TAG = "ConnexionBD";
     FirebaseFirestore db = FirebaseFirestore.getInstance();
     Boolean trajetperdu;
     String local;
