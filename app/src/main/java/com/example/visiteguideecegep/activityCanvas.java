@@ -52,7 +52,7 @@ public class activityCanvas extends AppCompatActivity {
         paint.setStyle(Paint.Style.STROKE);
         paint.setStrokeWidth(8);
         paint.setAntiAlias(true);
-        canvas.drawLine((float) intersection1.x, (float) intersection1.y, (float) intersection2.x, (float) intersection2.y, paint);
+        canvas.drawLine(intersection1.coordonnee.x, intersection1.coordonnee.y, intersection2.coordonnee.x, intersection2.coordonnee.y, paint);
         mImageView.setImageBitmap(bitmap);
     }
 
@@ -70,6 +70,6 @@ public class activityCanvas extends AppCompatActivity {
 
     private void dessinerIntersection(Intersection uneIntersection) {
         Paint paint = new Paint();
-        canvas.drawCircle((float) uneIntersection.x, (float) uneIntersection.y, 10, paint);
+        canvas.drawCircle(uneIntersection.coordonnee.x, uneIntersection.coordonnee.y, 10, paint);
     }
 }

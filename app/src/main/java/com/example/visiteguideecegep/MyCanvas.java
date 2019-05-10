@@ -56,6 +56,11 @@ public class MyCanvas extends View {
     Boolean aa = true;
     String etageA;
     String etageB;
+    int numeroEtageA;
+    int numeroEtageB;
+    int numeroEtageCourant;
+    ArrayList<Intersection> trajetCourant;
+
     int[] images = new int[4];
     Bitmap bitmap;
     Djikastra djikastra;
@@ -76,12 +81,12 @@ public class MyCanvas extends View {
         no_localD = localD;
         etageA = Character.toString(no_localA.charAt(2));
         etageB = Character.toString(no_localD.charAt(2));
-
+        numeroEtageA = Integer.parseInt(etageA) - 1;
+        numeroEtageB = Integer.parseInt(etageB) - 1;
+        numeroEtageCourant = numeroEtageA;
         djikastra = new Djikastra();
-        djikastra.trouverMeilleurTrajet(0, 16, 0, 0);
-
-        //  dessinerLesIntersections(djikastra.lesIntersections);
-        //     afficherTrajet(djikastra.meilleurTrajet);
+        djikastra.trouverMeilleurTrajet(2, 14, numeroEtageA, numeroEtageB);
+        trajetCourant = djikastra.trajetEtagePrincipal;
         init(context);
 
     }
@@ -123,20 +128,24 @@ public class MyCanvas extends View {
         Paint paintte = new Paint();
         paintte.setColor(Color.RED);
         paintte.setStyle(Paint.Style.STROKE);
-        paintte.setStrokeWidth(20 * heightRatio);
+        paintte.setStrokeWidth(20 * widthRatio);
         paintte.setAntiAlias(true);
 
         Paint paintte2 = new Paint();
         paintte2.setColor(Color.RED);
 
-        for (int cpt = 0; cpt < djikastra.lesIntersections[0].length; cpt++) {
-            canvas.drawCircle(djikastra.lesIntersections[0][cpt].x * widthRatio, djikastra.lesIntersections[0][cpt].y * heightRatio, 5 * heightRatio, painte);
+        //for (int cpt = 0; cpt < djikastra.lesIntersections[numeroEtageCourant].length; cpt++) {
+        //    if (djikastra.lesIntersections[numeroEtageCourant][cpt] != null){
+        //        canvas.drawCircle(djikastra.lesIntersections[numeroEtageCourant][cpt].coordonnee.x * widthRatio, djikastra.lesIntersections[numeroEtageCourant][cpt].coordonnee.y * heightRatio, 5 * heightRatio, painte);
+        //    }
+        //}
+
+        for (int cpt = 0; cpt < trajetCourant.size() - 1; cpt++) {
+            canvas.drawLine(trajetCourant.get(cpt).coordonnee.x * widthRatio, trajetCourant.get(cpt).coordonnee.y * heightRatio, trajetCourant.get(cpt + 1).coordonnee.x * widthRatio, trajetCourant.get(cpt + 1).coordonnee.y * heightRatio, paintte);
+            canvas.drawCircle(trajetCourant.get(cpt).coordonnee.x * widthRatio, trajetCourant.get(cpt).coordonnee.y * heightRatio, 10 * widthRatio, paintte2);
+            canvas.drawCircle(trajetCourant.get(cpt + 1).coordonnee.x * widthRatio, trajetCourant.get(cpt + 1).coordonnee.y * heightRatio, 10 * widthRatio, paintte2);
         }
-        for (int cpt = 0; cpt < djikastra.trajetEtagePrincipal.size() - 1; cpt++) {
-            canvas.drawLine(djikastra.trajetEtagePrincipal.get(cpt).x * widthRatio, djikastra.trajetEtagePrincipal.get(cpt).y * heightRatio, djikastra.trajetEtagePrincipal.get(cpt + 1).x * widthRatio, djikastra.trajetEtagePrincipal.get(cpt + 1).y * heightRatio, paintte);
-            canvas.drawCircle(djikastra.trajetEtagePrincipal.get(cpt).x * widthRatio, djikastra.trajetEtagePrincipal.get(cpt).y * heightRatio, 10 * heightRatio, paintte2);
-            canvas.drawCircle(djikastra.trajetEtagePrincipal.get(cpt + 1).x * widthRatio, djikastra.trajetEtagePrincipal.get(cpt + 1).y * heightRatio, 10 * heightRatio, paintte2);
-        }
+
 
         int heightt = getHeight() / 20;
         int widthh = getWidth() / 20;
@@ -191,6 +200,8 @@ public class MyCanvas extends View {
                         for (int i = 1; i < images.length + 1; i++) {
                             if (etageB.equals(String.valueOf(i))) {
                                 Map = BitmapFactory.decodeResource(getResources(), images[i - 1]);
+                                numeroEtageCourant = numeroEtageB;
+                                trajetCourant = djikastra.trajetEtageFinal;
                             }
                         }
                     } else {
@@ -201,6 +212,8 @@ public class MyCanvas extends View {
                         for (int i = 1; i < images.length + 1; i++) {
                             if (etageA.equals(String.valueOf(i))) {
                                 Map = BitmapFactory.decodeResource(getResources(), images[i - 1]);
+                                numeroEtageCourant = numeroEtageA;
+                                trajetCourant = djikastra.trajetEtagePrincipal;
                             }
                         }
                     }

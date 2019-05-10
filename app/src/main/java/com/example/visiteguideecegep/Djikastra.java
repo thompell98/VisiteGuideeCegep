@@ -2,6 +2,7 @@ package com.example.visiteguideecegep;
 
 import android.graphics.Point;
 import android.util.DisplayMetrics;
+import android.util.Log;
 import android.view.Display;
 import android.widget.Toast;
 
@@ -12,7 +13,8 @@ import java.util.Comparator;
 import java.util.HashMap;
 
 public class Djikastra {
-    Intersection[][] lesIntersections;
+    Intersection[][] lesIntersections = new Intersection[5][19];
+    Escalier[]lesEscaliers = new Escalier[4];
     Intersection intersectionDepart;
     Intersection intersectionATrouver;
     ArrayList<Intersection> trajetEtagePrincipal;
@@ -21,7 +23,11 @@ public class Djikastra {
     int etageVoulu;
 
     public Djikastra(){
-        this.lesIntersections = new Intersection[4][17];
+        for (int cpt = 0; cpt < this.lesIntersections.length; cpt++){
+            for (int cpt2 = 0; cpt2 < this.lesIntersections[cpt].length; cpt2++){
+                lesIntersections[cpt][cpt2] = null;
+            }
+        }
         this.trajetEtagePrincipal = null;
         this.trajetEtageFinal = null;
         this.intersectionDepart = null;
@@ -36,27 +42,62 @@ public class Djikastra {
     }
 
     private void ajouterLesIntersections() {
-        lesIntersections[0][0] = new Intersection(0, 70, 690, false, new int[]{1});
-        lesIntersections[0][1] = new Intersection(1, 130, 690, false, new int[]{0, 2, 3});
-        lesIntersections[0][2] = new Intersection(2, 130, 720, false, new int[]{1});
-        lesIntersections[0][3] = new Intersection(3, 180, 690, false, new int[]{1, 4});
-        lesIntersections[0][4] = new Intersection(4, 350, 690, false, new int[]{3, 5});
-        lesIntersections[0][5] = new Intersection(5, 420, 690, false, new int[]{4, 6, 7});
-        lesIntersections[0][6] = new Intersection(6, 420, 630, false, new int[]{5});
-        lesIntersections[0][7] = new Intersection(7, 562, 690, false, new int[]{5, 8, 10});
-        lesIntersections[0][8] = new Intersection(8, 800, 690, false, new int[]{7, 9});
-        lesIntersections[0][9] = new Intersection(9, 800, 645, false, new int[]{8});
-        lesIntersections[0][10] = new Intersection(10, 562, 600, false, new int[]{7, 11});
-        lesIntersections[0][11] = new Intersection(11, 562, 510, false, new int[]{10, 12});
-        lesIntersections[0][12] = new Intersection(12, 562, 420, false, new int[]{11, 13});
-        lesIntersections[0][13] = new Intersection(13, 562, 280, false, new int[]{12, 14, 15});
-        lesIntersections[0][14] = new Intersection(14, 562, 240, false, new int[]{13});
-        lesIntersections[0][15] = new Intersection(15, 630, 260, false, new int[]{13, 16});
-        lesIntersections[0][16] = new Intersection(16, 800, 250, false, new int[]{15});
+        creerLesIntersections();
+        creerLesEscaliers();
+    }
+
+    private void creerLesIntersections(){
+        lesIntersections[0][0] = new Intersection(70, 690, 1, new int[]{1});
+        lesIntersections[0][1] = new Intersection( 130, 690, 1, new int[]{0, 2, 3});
+        lesIntersections[0][2] = new Intersection( 130, 720, 1, new int[]{1});
+        lesIntersections[0][3] = new Intersection( 180, 690, 1, new int[]{1, 4});
+        lesIntersections[0][4] = new Intersection( 350, 690, 2, new int[]{3, 5});
+        lesIntersections[0][5] = new Intersection( 420, 690, 2, new int[]{4, 6, 7});
+        lesIntersections[0][6] = new Intersection( 420, 630, 2, new int[]{5});
+        lesIntersections[0][7] = new Intersection( 562, 690, 2, new int[]{5, 8, 10});
+        lesIntersections[0][8] = new Intersection( 800, 690, 3, new int[]{7, 9});
+        lesIntersections[0][9] = new Intersection( 800, 645, 3, new int[]{8});
+        lesIntersections[0][10] = new Intersection( 562, 600, 2, new int[]{7, 11});
+        lesIntersections[0][11] = new Intersection( 562, 510, 2, new int[]{10, 12});
+        lesIntersections[0][12] = new Intersection( 562, 420, 4, new int[]{11, 13});
+        lesIntersections[0][13] = new Intersection( 562, 280, 4, new int[]{12, 14, 15, 16});
+        lesIntersections[0][14] = new Intersection( 562, 240, 4, new int[]{13});
+        lesIntersections[0][15] = new Intersection( 630, 260, 4, new int[]{13, 16});
+        lesIntersections[0][16] = new Intersection( 800, 250, 4, new int[]{13, 15});
+        lesIntersections[1][0] = new Intersection( 70, 690, 1, new int[]{1});
+        lesIntersections[1][1] = new Intersection( 160, 690, 1, new int[]{0, 2, 5});
+        lesIntersections[1][2] = new Intersection( 160, 580, 1, new int[]{1, 3});
+        lesIntersections[1][3] = new Intersection( 160, 450, 1, new int[]{2, 4});
+        lesIntersections[1][4] = new Intersection( 160, 350, 1, new int[]{3});
+        lesIntersections[1][5] = new Intersection( 500, 690, 2, new int[]{1, 6, 7});
+        lesIntersections[1][6] = new Intersection( 500, 630, 2, new int[]{5, 18});
+        lesIntersections[1][7] = new Intersection( 575, 690, 2, new int[]{5, 8, 18});
+        lesIntersections[1][8] = new Intersection( 800, 690, 3, new int[]{7, 9, 10});
+        lesIntersections[1][9] = new Intersection( 880, 690, 3, new int[]{8});
+        lesIntersections[1][10] = new Intersection( 800, 630, 3, new int[]{8, 18});
+        lesIntersections[1][11] = new Intersection( 575, 510, 2, new int[]{12, 18});
+        lesIntersections[1][12] = new Intersection( 575, 300, 4, new int[]{11, 13, 15});
+        lesIntersections[1][13] = new Intersection( 630, 290, 4, new int[]{12, 14});
+        lesIntersections[1][14] = new Intersection( 720, 265, 4, new int[]{13});
+        lesIntersections[1][15] = new Intersection( 575, 250, 4, new int[]{12, 16});
+        lesIntersections[1][16] = new Intersection( 635, 250, 4, new int[]{15, 17});
+        lesIntersections[1][17] = new Intersection( 635, 250, 4, new int[]{16});
+        lesIntersections[1][18] = new Intersection( 575, 630, 2, new int[]{6, 7, 10, 11});
+    }
+
+    private void creerLesEscaliers(){
+        Intersection[] intersectionsEscalier1 = {lesIntersections[0][0], lesIntersections[1][0]};
+        Intersection[] intersectionsEscalier2 = {lesIntersections[0][6], lesIntersections[1][6]};
+        Intersection[] intersectionsEscalier3 = {lesIntersections[0][9], lesIntersections[1][10]};
+        Intersection[] intersectionsEscalier4 = {lesIntersections[0][15], lesIntersections[1][13]};
+        lesEscaliers[0] = new Escalier(intersectionsEscalier1);
+        lesEscaliers[1] = new Escalier(intersectionsEscalier2);
+        lesEscaliers[2] = new Escalier(intersectionsEscalier3);
+        lesEscaliers[3] = new Escalier(intersectionsEscalier4);
     }
 
     private double calculerDistanceEntreDeuxPoints(Intersection intersection1, Intersection intersection2) {
-        return Math.sqrt(Math.pow(intersection2.x - intersection1.x, 2) + Math.pow(intersection2.y - intersection1.y, 2));
+        return Math.sqrt(Math.pow(intersection2.coordonnee.x - intersection1.coordonnee.x, 2) + Math.pow(intersection2.coordonnee.y - intersection1.coordonnee.y, 2));
     }
 
     public void trouverMeilleurTrajet(int numeroIntersectionDepart, int numeroIntersectionATrouver, int etageDepart, int etageVoulu){
@@ -69,7 +110,10 @@ public class Djikastra {
             this.trajetEtagePrincipal = obtenirCheminEtage(etageDepart, intersectionDepart, intersectionATrouver);
         }
         else{
-
+            Intersection escalierLePlusProcheDepart = lesEscaliers[intersectionATrouver.numeroEscalier - 1].intersections.get(etageDepart);
+            Intersection escalierLePlusProcheArrivee = lesEscaliers[intersectionATrouver.numeroEscalier - 1].intersections.get(etageVoulu);
+            this.trajetEtagePrincipal = obtenirCheminEtage(etageDepart, intersectionDepart, escalierLePlusProcheDepart);
+            this.trajetEtageFinal = obtenirCheminEtage(etageVoulu, escalierLePlusProcheArrivee, intersectionATrouver);
         }
     }
 
@@ -78,11 +122,9 @@ public class Djikastra {
         HashMap<Intersection, Intersection> precedent = new HashMap<>();
         ArrayList<Intersection> intersections = new ArrayList<>();
         ArrayList<Intersection> meilleurTrajet = new ArrayList<>();
-        for (Intersection[] array : lesIntersections) {
-            for (int cpt = 0; cpt < array.length; cpt++){
-                if (array[cpt] != null){
-                    intersections.add(array[cpt]);
-                }
+        for (int cpt = 0; cpt < lesIntersections[numeroEtage].length; cpt++){
+            if (lesIntersections[numeroEtage][cpt] != null){
+                intersections.add(lesIntersections[numeroEtage][cpt]);
             }
         }
         for(Intersection intersection : intersections){

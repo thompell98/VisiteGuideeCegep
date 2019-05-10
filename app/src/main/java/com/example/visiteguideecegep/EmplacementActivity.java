@@ -45,7 +45,7 @@ public class EmplacementActivity extends AppCompatActivity {
       //  localA = i.getStringExtra("numeroLocalActuel");
       //  localD = i.getStringExtra("numeroLocalVoulu");
         localA="A-111";
-                localD="C-260";
+        localD="C-260";
         //   Toast toast = Toast.makeText(getApplicationContext(),local, Toast.LENGTH_LONG);toast.show();
 
         //  description = i.getStringExtra("description");

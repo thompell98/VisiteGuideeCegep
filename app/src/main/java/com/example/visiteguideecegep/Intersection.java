@@ -3,20 +3,15 @@ package com.example.visiteguideecegep;
 import java.util.ArrayList;
 
 public class Intersection {
-    int numero;
-    float x;
-    float y;
+    Coordonnee coordonnee;
     boolean utilise;
-    boolean escalier;
+    int numeroEscalier;
     ArrayList<Integer> numerosIntersectionsReliees = new ArrayList<>();
 
-    public Intersection(int numero, float x, float y, boolean escalier, int[] numerosIntersectionsReliees) {
-        this.numero = numero;
-        this.x = x;
-        this.y = y;
-        this.escalier = escalier;
+    public Intersection( float x, float y, int numeroEscalier, int[] numerosIntersectionsReliees) {
+        this.coordonnee = new Coordonnee(x, y);
         this.utilise = false;
-
+        this.numeroEscalier = numeroEscalier;
         for (int cpt = 0; cpt < numerosIntersectionsReliees.length; cpt++)
         {
             this.numerosIntersectionsReliees.add(numerosIntersectionsReliees[cpt]);
