@@ -118,23 +118,24 @@ public class RechercheLocal extends AppCompatActivity {
                            Intent trajet = new Intent(RechercheLocal.this, AffichageLocal.class);
                            for (QueryDocumentSnapshot document : task.getResult()) {
                                ArrayList<Integer> positionVoulue = (ArrayList<Integer>) document.get("Position");
-                               int intersectionLocalVoulu = document.getLong("Intersection").intValue();
                                trajet.putExtra("numeroLocalActuel", numeroLocalActuel);
                                trajet.putExtra("positionActuelle", positionActuelle);
                                trajet.putExtra("intersectionLocalActuel", intersectionLocalActuel);
                                trajet.putExtra("numeroLocalVoulu", numeroLocalVoulu);
                                trajet.putExtra("positionVoulue", positionVoulue);
-                               trajet.putExtra("intersectionLocalVoulu", intersectionLocalVoulu);
-                           }
-                           if (trajet.getIntegerArrayListExtra("positionVoulue")!=null) {
+                               if (trajet.getIntegerArrayListExtra("positionVoulue")!=null)
+ {
+                                   int intersectionLocalVoulu = document.getLong("Intersection").intValue();
+                                   trajet.putExtra("intersectionLocalVoulu", intersectionLocalVoulu);
+                                   startActivity(trajet);
+                               }
+                               else
+                               {
+                                   Toast.makeText(getApplicationContext(),"local indisponible", Toast.LENGTH_LONG).show();
 
-                               startActivity(trajet);
+                               }
                            }
-                           else
-                           {
-                               Toast.makeText(getApplicationContext(),"local indisponible", Toast.LENGTH_LONG).show();
 
-                           }
                        } else {
                            Toast.makeText(getApplicationContext(), task.getException().toString(), Toast.LENGTH_LONG).show();
                        }

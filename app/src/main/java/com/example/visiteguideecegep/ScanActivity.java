@@ -23,7 +23,7 @@ public class ScanActivity extends AppCompatActivity implements ZXingScannerView.
     Boolean trajetperdu;
     String local;
     ArrayList<Integer> positionVoulue;
-
+int intersectionLocalVoulu;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -31,10 +31,9 @@ public class ScanActivity extends AppCompatActivity implements ZXingScannerView.
         Intent i = getIntent();
         trajetperdu = i.getBooleanExtra("trajetPerdu", true);
         setContentView(scannerView);
-
         local = i.getStringExtra("numeroLocalVoulu");
         positionVoulue = i.getIntegerArrayListExtra("positionVoulue");
-
+        intersectionLocalVoulu=i.getIntExtra("intersectionLocalVoulu",0);
     }
 
 
@@ -54,15 +53,14 @@ public class ScanActivity extends AppCompatActivity implements ZXingScannerView.
                             Intent trajetPerdu = new Intent(ScanActivity.this, EmplacementActivity.class);
 
                             for (QueryDocumentSnapshot document : task.getResult()) {
-                                //       ArrayList<Integer> group = (ArrayList<Integer>) document.get("Position");
                                 trajet.putExtra("numero", document.get("Numero").toString());
-                                ArrayList<Integer> groupe = (ArrayList<Integer>) document.get("Position");
+                                ArrayList<Integer> positionActuelle = (ArrayList<Integer>) document.get("Position");
                                 int intersectionLocalActuel = document.getLong("Intersection").intValue();
-                                trajet.putExtra("positionD", groupe);
+                                trajet.putExtra("positionD", positionActuelle);
                                 trajet.putExtra("intersectionLocalActuel", intersectionLocalActuel);
                                 trajetPerdu.putExtra("numeroLocalActuel", document.get("Numero").toString());
-                                trajetPerdu.putExtra("positionActuelle", groupe);
-
+                                trajetPerdu.putExtra("positionActuelle", positionActuelle);
+                                trajetPerdu.putExtra("intersectionLocalActuel", intersectionLocalActuel);
                             }
                             if (trajetperdu) {
                                 if (trajet.getStringExtra("numero") == null) {
@@ -74,6 +72,7 @@ public class ScanActivity extends AppCompatActivity implements ZXingScannerView.
                                 }
                             } else {
                                 trajetPerdu.putExtra("numeroLocalVoulu", local);
+                                trajetPerdu.putExtra("intersectionLocalVoulu", intersectionLocalVoulu);
                                 trajetPerdu.putExtra("positionVoulue", positionVoulue);
                                 startActivity(trajetPerdu);
                                 finish();

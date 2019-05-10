@@ -360,6 +360,7 @@ public class AffichageLocal extends AppCompatActivity {
             plan.putExtra("trajetPerdu", false);
             plan.putExtra("numeroLocalVoulu", bundle.getString("numeroLocalVoulu"));
             plan.putExtra("positionVoulue", bundle.getIntegerArrayList("positionVoulue"));
+            plan.putExtra("intersectionLocalVoulu", bundle.getInt("intersectionLocalVoulu"));
             startActivity(plan);
         } else {
             Toast toast = Toast.makeText(getApplicationContext(), "Vous êtes déja a cette emplacement", Toast.LENGTH_LONG);

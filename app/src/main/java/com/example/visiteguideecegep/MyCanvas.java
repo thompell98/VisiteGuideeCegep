@@ -47,12 +47,10 @@ public class MyCanvas extends View {
     private float mFocusX = 0.0f;
     private float mFocusY = 0.0f;
 
-    String nom_emplacement;
     String no_localA;
     String no_localD;
     int intersectionLocalA;
     int intersectionLocalB;
-    String Description;
     Rect positionA;
     Rect destination;
     Boolean aa = true;
@@ -63,10 +61,8 @@ public class MyCanvas extends View {
     int numeroEtageCourant;
     ArrayList<Intersection> trajetCourant;
 
-    int[] images = new int[4];
-    Bitmap bitmap;
+    int[] images = new int[5];
     Djikastra djikastra;
-    Canvas canvas;
     Context leContext;
 
 
@@ -78,7 +74,6 @@ public class MyCanvas extends View {
         destination = coordonneDes;
         positionA = coordonneActu;
 
-        //  nom_emplacement = emplacement;
         no_localA = localA;
         no_localD = localD;
         this.intersectionLocalA = intersectionLocalA;
@@ -100,41 +95,28 @@ public class MyCanvas extends View {
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
 
-        //  String text = nom_emplacement +" "+ no_local+" "+Description;
         TextPaint textPaint = new TextPaint();
         textPaint.setAntiAlias(true);
         textPaint.setTextSize(16 * getResources().getDisplayMetrics().density);
         textPaint.setColor(0xFF000000);
 
         canvas.save();
-
         canvas.scale(mScaleFactor, mScaleFactor, mScaleFocusX, mScaleFocusY);
         canvas.translate(mFocusX, mFocusY);
         Rect dest = new Rect(0, 0, getWidth(), getHeight());
         Paint paint = new Paint();
-        // Paint paintt = new Paint();
         paint.setFilterBitmap(true);
-        // paintt.setColor(Color.RED);
-        //  paintt.setStyle(Paint.Style.STROKE);
-      //  paintt.setStrokeWidth(10);
-//
-        int i=0;
         canvas.drawBitmap(Map, null, dest, paint);
-
-        Paint painte = new Paint();
-
-        Display display = ((Activity)leContext).getWindowManager().getDefaultDisplay();
+        Display display = ((Activity) leContext).getWindowManager().getDefaultDisplay();
         Point size = new Point();
         display.getSize(size);
         float widthRatio = size.x / 1000f;
         float heightRatio = size.y / 1000f;
-
-        Paint paintte = new Paint();
-        paintte.setColor(Color.RED);
-        paintte.setStyle(Paint.Style.STROKE);
-        paintte.setStrokeWidth(20 * widthRatio);
-        paintte.setAntiAlias(true);
-
+        Paint ligneTrajet = new Paint();
+        ligneTrajet.setColor(Color.RED);
+        ligneTrajet.setStyle(Paint.Style.STROKE);
+        ligneTrajet.setStrokeWidth(20 * widthRatio);
+        ligneTrajet.setAntiAlias(true);
         Paint paintte2 = new Paint();
         paintte2.setColor(Color.RED);
 
@@ -145,29 +127,19 @@ public class MyCanvas extends View {
         //}
 
         for (int cpt = 0; cpt < trajetCourant.size() - 1; cpt++) {
-            canvas.drawLine(trajetCourant.get(cpt).coordonnee.x * widthRatio, trajetCourant.get(cpt).coordonnee.y * heightRatio, trajetCourant.get(cpt + 1).coordonnee.x * widthRatio, trajetCourant.get(cpt + 1).coordonnee.y * heightRatio, paintte);
+            canvas.drawLine(trajetCourant.get(cpt).coordonnee.x * widthRatio, trajetCourant.get(cpt).coordonnee.y * heightRatio, trajetCourant.get(cpt + 1).coordonnee.x * widthRatio, trajetCourant.get(cpt + 1).coordonnee.y * heightRatio, ligneTrajet);
             canvas.drawCircle(trajetCourant.get(cpt).coordonnee.x * widthRatio, trajetCourant.get(cpt).coordonnee.y * heightRatio, 10 * widthRatio, paintte2);
             canvas.drawCircle(trajetCourant.get(cpt + 1).coordonnee.x * widthRatio, trajetCourant.get(cpt + 1).coordonnee.y * heightRatio, 10 * widthRatio, paintte2);
         }
-
-
         int heightt = getHeight() / 20;
         int widthh = getWidth() / 20;
 
-        //  if (nom_emplacement != null) {
-
-        // canvas.drawLine(getLeft() + widthh * positionA.left, getBottom() - heightt * positionA.bottom, getLeft() + widthh * 11, getBottom() - heightt * 13, paintt);
-        //canvas.drawLine(getLeft() + widthh * 11, getBottom() - heightt * 13, getLeft() + widthh * destination.left, getBottom() - heightt * destination.bottom, paintt);
-        //   canvas.drawBitmap(Pin, null, new Rect(getLeft() + widthh *cordee.left, getTop() + heightt * cordee.top, getRight() - widthh * cordee.right, getBottom() - heightt *cordee.bottom), paint);
         if (Pin != null) {
             canvas.drawBitmap(Pin, null, new Rect(getLeft() + widthh * positionA.left, getTop() + heightt * positionA.top, getRight() - widthh * positionA.right, getBottom() - heightt * positionA.bottom), paint);
         }
         if (Star != null) {
             canvas.drawBitmap(Star, null, new Rect(getLeft() + widthh * destination.left, getTop() + heightt * destination.top, getRight() - widthh * destination.right, getBottom() - heightt * destination.bottom), paint);
         }
-        // canvas.drawBitmap(Pin, null, new Rect(getLeft() + widthh *15, getTop() + heightt * 4, getRight() - widthh * 3, getBottom() - heightt *15), paint);
-
-
         canvas.restore();
 
     }
@@ -184,8 +156,6 @@ public class MyCanvas extends View {
             return true;
 
         }
-
-
     }
 
 
@@ -195,8 +165,7 @@ public class MyCanvas extends View {
 
             try {
                 if (!etageA.equals(etageB)) {
-                    Toast toast = Toast.makeText(getContext(), "Touchez 2 fois pour changer d'étage ", Toast.LENGTH_SHORT);
-                    toast.show();
+
                     if (aa) {
                         Pin = null;
                         aa = false;
@@ -208,6 +177,8 @@ public class MyCanvas extends View {
                                 trajetCourant = djikastra.trajetEtageFinal;
                             }
                         }
+                        Toast toast = Toast.makeText(getContext(), "Touchez 2 fois pour aller à l'étage " + etageA, Toast.LENGTH_LONG);
+                        toast.show();
                     } else {
 
                         aa = true;
@@ -220,8 +191,9 @@ public class MyCanvas extends View {
                                 trajetCourant = djikastra.trajetEtagePrincipal;
                             }
                         }
+                        Toast toast = Toast.makeText(getContext(), "Touchez 2 fois pour aller à l'étage " + etageB, Toast.LENGTH_LONG);
+                        toast.show();
                     }
-
                 }
                 invalidate();
 
@@ -267,9 +239,9 @@ public class MyCanvas extends View {
         images[1] = R.drawable.etage2;
         images[2] = R.drawable.etage3;
         images[3] = R.drawable.etage4;
-        //  images[4] = R.drawable.etage5;
+        images[4] = R.drawable.etage5;
         if (!etageA.equals(etageB)) {
-            Toast toast = Toast.makeText(getContext(), "Touchez 2 fois pour changer d'étage ", Toast.LENGTH_SHORT);
+            Toast toast = Toast.makeText(getContext(), "Touchez 2 fois pour aller à l'étage " + etageB, Toast.LENGTH_SHORT);
             toast.show();
         } else {
             Star = BitmapFactory.decodeResource(getResources(), R.drawable.star);
@@ -288,26 +260,7 @@ public class MyCanvas extends View {
         this.mMoveDetector = new GestureDetector(context, new MoveListener());
 
     }
-//    private void dessinerLigne(Intersection intersection1, Intersection intersection2) {
 
-//    }
-
-//    private void afficherTrajet(ArrayList<Intersection> lesIntersectionsARelier) {
-//        for (int cpt = 0; cpt < lesIntersectionsARelier.size() - 1; cpt++) {
-//            dessinerLigne(lesIntersectionsARelier.get(cpt), lesIntersectionsARelier.get(cpt + 1));
-//        }
-//    }
-
-    //   private void dessinerLesIntersections(Intersection[] lesIntersections) {
-    //      for (int cpt = 0; cpt < lesIntersections.length; cpt++) {
-    //    //     dessinerIntersection(lesIntersections[cpt]);
-    //  }
-    //   }
-
-//    private void dessinerIntersection(Intersection uneIntersection) {
-//        Paint paint = new Paint();
-//        canvas.drawCircle((float) uneIntersection.x, (float) uneIntersection.y, 10, paint);
-//    }
 
 }
 
