@@ -57,9 +57,12 @@ public class ScanActivity extends AppCompatActivity implements ZXingScannerView.
                                 //       ArrayList<Integer> group = (ArrayList<Integer>) document.get("Position");
                                 trajet.putExtra("numero", document.get("Numero").toString());
                                 ArrayList<Integer> groupe = (ArrayList<Integer>) document.get("Position");
+                                int intersectionLocalActuel = document.getLong("Intersection").intValue();
                                 trajet.putExtra("positionD", groupe);
+                                trajet.putExtra("intersectionLocalActuel", intersectionLocalActuel);
                                 trajetPerdu.putExtra("numeroLocalActuel", document.get("Numero").toString());
                                 trajetPerdu.putExtra("positionActuelle", groupe);
+
                             }
                             if (trajetperdu) {
                                 if (trajet.getStringExtra("numero") == null) {

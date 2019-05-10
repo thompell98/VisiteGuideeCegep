@@ -30,54 +30,34 @@ public class EmplacementActivity extends AppCompatActivity {
 
 
     MyCanvas mycanvas;
-   // String Nom_emplacement;
+    // String Nom_emplacement;
     Rect coordonnéesActuel;
     Rect coordonnéesDestination;
     String localA;
     String localD;
-   // String description;
+    int intersectionLocalA;
+    int intersectionLocalB;
+    // String description;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Intent i = getIntent();
-        // Nom_emplacement = i.getStringExtra("nom");
-      //  localA = i.getStringExtra("numeroLocalActuel");
-      //  localD = i.getStringExtra("numeroLocalVoulu");
-        localA="A-111";
-        localD="C-260";
-        //   Toast toast = Toast.makeText(getApplicationContext(),local, Toast.LENGTH_LONG);toast.show();
+        Bundle bundle = getIntent().getExtras();
+        localA = i.getStringExtra("numeroLocalActuel");
+        localD = i.getStringExtra("numeroLocalVoulu");
+        intersectionLocalA = bundle.getInt("intersectionLocalActuel");
+        intersectionLocalB = bundle.getInt("intersectionLocalVoulu");
+        ArrayList<Integer> positionDes = i.getIntegerArrayListExtra("positionVoulue");
+        ArrayList<Integer> positionAct = i.getIntegerArrayListExtra("positionActuelle");
 
-        //  description = i.getStringExtra("description");
+        coordonnéesActuel = new Rect(Integer.parseInt(String.valueOf(positionAct.get(0))), Integer.parseInt(String.valueOf(positionAct.get(1))), Integer.parseInt(String.valueOf(positionAct.get(2))), Integer.parseInt(String.valueOf(positionAct.get(3))));
+        coordonnéesDestination = new Rect(Integer.parseInt(String.valueOf(positionDes.get(0))), Integer.parseInt(String.valueOf(positionDes.get(1))), Integer.parseInt(String.valueOf(positionDes.get(2))), Integer.parseInt(String.valueOf(positionDes.get(3))));
 
-       // ArrayList<Integer> positionDes = i.getIntegerArrayListExtra("positionVoulue");
-     //   ArrayList<Integer> positionAct = i.getIntegerArrayListExtra("positionActuelle");
-       //  if (positionDes != null&&positionAct!=null) {
-
-
-//        Toast toast = Toast.makeText(getApplicationContext(),String.valueOf( positionA.get(1)), Toast.LENGTH_LONG);toast.show();
-
-//        if (Nom_emplacement != null) {
-        coordonnéesActuel=new Rect(13,12,5,7);
-                coordonnéesDestination=new Rect(11,4,6,15);
-         //    coordonnéesActuel = new Rect(Integer.parseInt(String.valueOf(positionAct.get(0))), Integer.parseInt(String.valueOf(positionAct.get(1))), Integer.parseInt(String.valueOf(positionAct.get(2))), Integer.parseInt(String.valueOf(positionAct.get(3))));
-         //    coordonnéesDestination = new Rect(Integer.parseInt(String.valueOf(positionDes.get(0))), Integer.parseInt(String.valueOf(positionDes.get(1))), Integer.parseInt(String.valueOf(positionDes.get(2))), Integer.parseInt(String.valueOf(positionDes.get(3))));
-// } else {
-//            Intent emplacement = new Intent(this, CameraActivity.class);
-//            startActivity(emplacement);
-//        }
-             //  mycanvas = new MyCanvas(this, Nom_emplacement, local, description, coordonnées);
-             mycanvas = new MyCanvas(this, coordonnéesActuel, coordonnéesDestination, localA, localD);
-             mycanvas.setBackgroundColor(Color.WHITE);
-             setContentView(mycanvas);
-         }
-       // else {
-       //    Toast toastt = Toast.makeText(getApplicationContext(), "Numero local incorect", Toast.LENGTH_LONG);
-       //    toastt.show();
-       //      Intent intent = new Intent(this, TrajetActivity.class);
-       //    startActivity(intent);
-       //}
-   // }
+        mycanvas = new MyCanvas(this, coordonnéesActuel, coordonnéesDestination, localA, localD, intersectionLocalA, intersectionLocalB);
+        mycanvas.setBackgroundColor(Color.WHITE);
+        setContentView(mycanvas);
+    }
 
 
 }

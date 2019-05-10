@@ -50,6 +50,8 @@ public class MyCanvas extends View {
     String nom_emplacement;
     String no_localA;
     String no_localD;
+    int intersectionLocalA;
+    int intersectionLocalB;
     String Description;
     Rect positionA;
     Rect destination;
@@ -68,7 +70,7 @@ public class MyCanvas extends View {
     Context leContext;
 
 
-    public MyCanvas(Context context, Rect coordonneActu, Rect coordonneDes, String localA, String localD) {
+    public MyCanvas(Context context, Rect coordonneActu, Rect coordonneDes, String localA, String localD, int intersectionLocalA, int intersectionLocalB) {
         super(context);
         leContext = context;
         Toast toast = Toast.makeText(getContext(), "Perdu? Revenez en arrière et appuiyez sur 'Perdu en chemin'", Toast.LENGTH_LONG);
@@ -79,13 +81,15 @@ public class MyCanvas extends View {
         //  nom_emplacement = emplacement;
         no_localA = localA;
         no_localD = localD;
+        this.intersectionLocalA = intersectionLocalA;
+        this.intersectionLocalB = intersectionLocalB;
         etageA = Character.toString(no_localA.charAt(2));
         etageB = Character.toString(no_localD.charAt(2));
         numeroEtageA = Integer.parseInt(etageA) - 1;
         numeroEtageB = Integer.parseInt(etageB) - 1;
         numeroEtageCourant = numeroEtageA;
         djikastra = new Djikastra();
-        djikastra.trouverMeilleurTrajet(2, 14, numeroEtageA, numeroEtageB);
+        djikastra.trouverMeilleurTrajet(intersectionLocalA, intersectionLocalB, numeroEtageA, numeroEtageB);
         trajetCourant = djikastra.trajetEtagePrincipal;
         init(context);
 

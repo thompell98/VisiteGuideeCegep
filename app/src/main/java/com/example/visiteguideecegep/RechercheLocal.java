@@ -31,6 +31,7 @@ public class RechercheLocal extends AppCompatActivity {
     String numeroLocalActuel = null;
     String numeroLocalVoulu = null;
     ArrayList<Integer> positionActuelle = null;
+    int intersectionLocalActuel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,6 +59,7 @@ public class RechercheLocal extends AppCompatActivity {
         if (bundle.getString("numero") != null) {
             numeroLocalActuel = bundle.getString("numero");
             positionActuelle = bundle.getIntegerArrayList("positionD");
+            intersectionLocalActuel = bundle.getInt("intersectionLocalActuel");
         }
     }
 
@@ -116,10 +118,13 @@ public class RechercheLocal extends AppCompatActivity {
                            Intent trajet = new Intent(RechercheLocal.this, AffichageLocal.class);
                            for (QueryDocumentSnapshot document : task.getResult()) {
                                ArrayList<Integer> positionVoulue = (ArrayList<Integer>) document.get("Position");
+                               int intersectionLocalVoulu = document.getLong("Intersection").intValue();
                                trajet.putExtra("numeroLocalActuel", numeroLocalActuel);
                                trajet.putExtra("positionActuelle", positionActuelle);
+                               trajet.putExtra("intersectionLocalActuel", intersectionLocalActuel);
                                trajet.putExtra("numeroLocalVoulu", numeroLocalVoulu);
                                trajet.putExtra("positionVoulue", positionVoulue);
+                               trajet.putExtra("intersectionLocalVoulu", intersectionLocalVoulu);
                            }
                            if (trajet.getIntegerArrayListExtra("positionVoulue")!=null) {
 

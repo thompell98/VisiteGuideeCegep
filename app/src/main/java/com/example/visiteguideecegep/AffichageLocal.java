@@ -129,8 +129,10 @@ public class AffichageLocal extends AppCompatActivity {
 
             plan.putExtra("numeroLocalActuel", bundle.getString("numeroLocalActuel"));
             plan.putExtra("positionActuelle", bundle.getIntegerArrayList("positionActuelle"));
+            plan.putExtra("intersectionLocalActuel", bundle.getInt("intersectionLocalActuel"));
             plan.putExtra("numeroLocalVoulu", bundle.getString("numeroLocalVoulu"));
             plan.putExtra("positionVoulue", bundle.getIntegerArrayList("positionVoulue"));
+            plan.putExtra("intersectionLocalVoulu", bundle.getInt("intersectionLocalVoulu"));
             startActivity(plan);
 
         } else {
