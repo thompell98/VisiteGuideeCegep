@@ -1,24 +1,33 @@
 package com.example.visiteguideecegep;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
+import android.graphics.Point;
 import android.graphics.Rect;
 import android.os.Build;
 import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.annotation.RequiresApi;
 import android.text.TextPaint;
+import android.util.DisplayMetrics;
+import android.util.TypedValue;
+import android.view.Display;
 import android.view.GestureDetector;
 import android.view.KeyEvent;
 import android.view.MotionEvent;
 import android.view.ScaleGestureDetector;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.Toast;
+
+import java.util.ArrayList;
 
 public class MyCanvas extends View {
 
@@ -47,11 +56,21 @@ public class MyCanvas extends View {
     Boolean aa = true;
     String etageA;
     String etageB;
+    int numeroEtageA;
+    int numeroEtageB;
+    int numeroEtageCourant;
+    ArrayList<Intersection> trajetCourant;
+
     int[] images = new int[4];
+    Bitmap bitmap;
+    Djikastra djikastra;
+    Canvas canvas;
+    Context leContext;
 
 
     public MyCanvas(Context context, Rect coordonneActu, Rect coordonneDes, String localA, String localD) {
         super(context);
+        leContext = context;
         Toast toast = Toast.makeText(getContext(), "Perdu? Revenez en arrière et appuiyez sur 'Perdu en chemin'", Toast.LENGTH_LONG);
         toast.show();
         destination = coordonneDes;
@@ -62,7 +81,12 @@ public class MyCanvas extends View {
         no_localD = localD;
         etageA = Character.toString(no_localA.charAt(2));
         etageB = Character.toString(no_localD.charAt(2));
-
+        numeroEtageA = Integer.parseInt(etageA) - 1;
+        numeroEtageB = Integer.parseInt(etageB) - 1;
+        numeroEtageCourant = numeroEtageA;
+        djikastra = new Djikastra();
+        djikastra.trouverMeilleurTrajet(2, 14, numeroEtageA, numeroEtageB);
+        trajetCourant = djikastra.trajetEtagePrincipal;
         init(context);
 
     }
@@ -88,8 +112,40 @@ public class MyCanvas extends View {
         paint.setFilterBitmap(true);
         // paintt.setColor(Color.RED);
         //  paintt.setStyle(Paint.Style.STROKE);
-        //paintt.setStrokeWidth(10);
+      //  paintt.setStrokeWidth(10);
+//
+        int i=0;
         canvas.drawBitmap(Map, null, dest, paint);
+
+        Paint painte = new Paint();
+
+        Display display = ((Activity)leContext).getWindowManager().getDefaultDisplay();
+        Point size = new Point();
+        display.getSize(size);
+        float widthRatio = size.x / 1000f;
+        float heightRatio = size.y / 1000f;
+
+        Paint paintte = new Paint();
+        paintte.setColor(Color.RED);
+        paintte.setStyle(Paint.Style.STROKE);
+        paintte.setStrokeWidth(20 * widthRatio);
+        paintte.setAntiAlias(true);
+
+        Paint paintte2 = new Paint();
+        paintte2.setColor(Color.RED);
+
+        //for (int cpt = 0; cpt < djikastra.lesIntersections[numeroEtageCourant].length; cpt++) {
+        //    if (djikastra.lesIntersections[numeroEtageCourant][cpt] != null){
+        //        canvas.drawCircle(djikastra.lesIntersections[numeroEtageCourant][cpt].coordonnee.x * widthRatio, djikastra.lesIntersections[numeroEtageCourant][cpt].coordonnee.y * heightRatio, 5 * heightRatio, painte);
+        //    }
+        //}
+
+        for (int cpt = 0; cpt < trajetCourant.size() - 1; cpt++) {
+            canvas.drawLine(trajetCourant.get(cpt).coordonnee.x * widthRatio, trajetCourant.get(cpt).coordonnee.y * heightRatio, trajetCourant.get(cpt + 1).coordonnee.x * widthRatio, trajetCourant.get(cpt + 1).coordonnee.y * heightRatio, paintte);
+            canvas.drawCircle(trajetCourant.get(cpt).coordonnee.x * widthRatio, trajetCourant.get(cpt).coordonnee.y * heightRatio, 10 * widthRatio, paintte2);
+            canvas.drawCircle(trajetCourant.get(cpt + 1).coordonnee.x * widthRatio, trajetCourant.get(cpt + 1).coordonnee.y * heightRatio, 10 * widthRatio, paintte2);
+        }
+
 
         int heightt = getHeight() / 20;
         int widthh = getWidth() / 20;
@@ -144,6 +200,8 @@ public class MyCanvas extends View {
                         for (int i = 1; i < images.length + 1; i++) {
                             if (etageB.equals(String.valueOf(i))) {
                                 Map = BitmapFactory.decodeResource(getResources(), images[i - 1]);
+                                numeroEtageCourant = numeroEtageB;
+                                trajetCourant = djikastra.trajetEtageFinal;
                             }
                         }
                     } else {
@@ -154,6 +212,8 @@ public class MyCanvas extends View {
                         for (int i = 1; i < images.length + 1; i++) {
                             if (etageA.equals(String.valueOf(i))) {
                                 Map = BitmapFactory.decodeResource(getResources(), images[i - 1]);
+                                numeroEtageCourant = numeroEtageA;
+                                trajetCourant = djikastra.trajetEtagePrincipal;
                             }
                         }
                     }
@@ -213,8 +273,8 @@ public class MyCanvas extends View {
         Pin = BitmapFactory.decodeResource(getResources(), R.drawable.pin);
         for (int i = 1; i < images.length + 1; i++) {
             if (etageA.equals(String.valueOf(i))) {
-                Map=null;
-                Map = BitmapFactory.decodeResource(getResources(), images[i-1]);
+                Map = null;
+                Map = BitmapFactory.decodeResource(getResources(), images[i - 1]);
             }
         }
 
@@ -224,7 +284,26 @@ public class MyCanvas extends View {
         this.mMoveDetector = new GestureDetector(context, new MoveListener());
 
     }
+//    private void dessinerLigne(Intersection intersection1, Intersection intersection2) {
 
+//    }
+
+//    private void afficherTrajet(ArrayList<Intersection> lesIntersectionsARelier) {
+//        for (int cpt = 0; cpt < lesIntersectionsARelier.size() - 1; cpt++) {
+//            dessinerLigne(lesIntersectionsARelier.get(cpt), lesIntersectionsARelier.get(cpt + 1));
+//        }
+//    }
+
+    //   private void dessinerLesIntersections(Intersection[] lesIntersections) {
+    //      for (int cpt = 0; cpt < lesIntersections.length; cpt++) {
+    //    //     dessinerIntersection(lesIntersections[cpt]);
+    //  }
+    //   }
+
+//    private void dessinerIntersection(Intersection uneIntersection) {
+//        Paint paint = new Paint();
+//        canvas.drawCircle((float) uneIntersection.x, (float) uneIntersection.y, 10, paint);
+//    }
 
 }
 

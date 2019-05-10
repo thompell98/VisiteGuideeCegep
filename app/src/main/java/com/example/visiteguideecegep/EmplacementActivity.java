@@ -42,22 +42,26 @@ public class EmplacementActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         Intent i = getIntent();
         // Nom_emplacement = i.getStringExtra("nom");
-        localA = i.getStringExtra("numeroLocalActuel");
-        localD = i.getStringExtra("numeroLocalVoulu");
+      //  localA = i.getStringExtra("numeroLocalActuel");
+      //  localD = i.getStringExtra("numeroLocalVoulu");
+        localA="A-111";
+        localD="C-260";
         //   Toast toast = Toast.makeText(getApplicationContext(),local, Toast.LENGTH_LONG);toast.show();
 
         //  description = i.getStringExtra("description");
 
-        ArrayList<Integer> positionDes = i.getIntegerArrayListExtra("positionVoulue");
-        ArrayList<Integer> positionAct = i.getIntegerArrayListExtra("positionActuelle");
+       // ArrayList<Integer> positionDes = i.getIntegerArrayListExtra("positionVoulue");
+     //   ArrayList<Integer> positionAct = i.getIntegerArrayListExtra("positionActuelle");
        //  if (positionDes != null&&positionAct!=null) {
 
 
 //        Toast toast = Toast.makeText(getApplicationContext(),String.valueOf( positionA.get(1)), Toast.LENGTH_LONG);toast.show();
 
 //        if (Nom_emplacement != null) {
-             coordonnéesActuel = new Rect(Integer.parseInt(String.valueOf(positionAct.get(0))), Integer.parseInt(String.valueOf(positionAct.get(1))), Integer.parseInt(String.valueOf(positionAct.get(2))), Integer.parseInt(String.valueOf(positionAct.get(3))));
-             coordonnéesDestination = new Rect(Integer.parseInt(String.valueOf(positionDes.get(0))), Integer.parseInt(String.valueOf(positionDes.get(1))), Integer.parseInt(String.valueOf(positionDes.get(2))), Integer.parseInt(String.valueOf(positionDes.get(3))));
+        coordonnéesActuel=new Rect(13,12,5,7);
+                coordonnéesDestination=new Rect(11,4,6,15);
+         //    coordonnéesActuel = new Rect(Integer.parseInt(String.valueOf(positionAct.get(0))), Integer.parseInt(String.valueOf(positionAct.get(1))), Integer.parseInt(String.valueOf(positionAct.get(2))), Integer.parseInt(String.valueOf(positionAct.get(3))));
+         //    coordonnéesDestination = new Rect(Integer.parseInt(String.valueOf(positionDes.get(0))), Integer.parseInt(String.valueOf(positionDes.get(1))), Integer.parseInt(String.valueOf(positionDes.get(2))), Integer.parseInt(String.valueOf(positionDes.get(3))));
 // } else {
 //            Intent emplacement = new Intent(this, CameraActivity.class);
 //            startActivity(emplacement);
