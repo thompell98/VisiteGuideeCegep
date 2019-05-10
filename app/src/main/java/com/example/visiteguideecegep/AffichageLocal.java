@@ -141,7 +141,7 @@ public class AffichageLocal extends AppCompatActivity {
     }
 
     private void retournerDebut() {
-        Intent scan = new Intent(this, TrajetActivity.class);
+        Intent scan = new Intent(this, MainActivity.class);
         startActivity(scan);
     }
 
@@ -239,7 +239,6 @@ public class AffichageLocal extends AppCompatActivity {
     private void displayVideos(String numeroLocal, List<String> lesFichiers) {
         MediaController mediaController = new MediaController(this);
         mediaController = new FullScreenMediaController(this);
-
         for (int cpt = 0; cpt < lesFichiers.size(); cpt++) {
             if (lesFichiers.get(cpt).endsWith("mp4") || lesFichiers.get(cpt).endsWith("mp3")) {
                 LinearLayout linearLayout = findViewById(R.id.linearLayout);
@@ -251,10 +250,8 @@ public class AffichageLocal extends AppCompatActivity {
                 int dpHeightInPx = (int) (250 * scale);
                 LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(dpWidthInPx, dpHeightInPx);
                 layoutParams.setMargins(0, 100, 0, 8);
-
                 LinearLayout.LayoutParams layoutParamss = new LinearLayout.LayoutParams(dpWidthInPx, dpHeightInPx);
                 layoutParamss.setMargins(0, 0, 0, 8);
-
                 relativeLayout.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
                 setScrollListener(mediaController);
                 videoView.setLayoutParams(layoutParams);
@@ -265,24 +262,18 @@ public class AffichageLocal extends AppCompatActivity {
                 relativeLayout.addView(textView);
                 linearLayout.addView(relativeLayout);
                 downloadVideoOrAudio(numeroLocal, lesFichiers.get(cpt), videoView);
-                String fullScreen =  getIntent().getStringExtra("fullScreenInd");
-                //  String fullScreen =  getIntent().getStringExtra("fullScreenInd");
-                //  onPause();
-                if("y".equals(fullScreen)){
-                    //  onPause();
+                String fullScreen = getIntent().getStringExtra("fullScreenInd");
+                if ("y".equals(fullScreen)) {
                     getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
                             WindowManager.LayoutParams.FLAG_FULLSCREEN);
                     getSupportActionBar().hide();
                     enterFullScreen(videoView);
-                }
-                else
-                {
-                    String gg=lesFichiers.get(cpt);
+                } else {
+                    String gg = lesFichiers.get(cpt);
                     textView.setText(gg);
                 }
                 mediaController.setAnchorView(videoView);
                 videoView.setMediaController(mediaController);
-                // videoView.start();
             }
         }
     }
@@ -350,8 +341,6 @@ public class AffichageLocal extends AppCompatActivity {
                 videoView.setVisibility(View.VISIBLE);
                 videoView.requestFocus();
                 videoView.seekTo(1);
-
-                //videoView.start();
             }
         }).addOnFailureListener(new OnFailureListener() {
             @Override
@@ -367,7 +356,7 @@ public class AffichageLocal extends AppCompatActivity {
         Intent plan = new Intent(this, ScanActivity.class);
         if (!bundle.getString("numeroLocalActuel").equals(bundle.getString("numeroLocalVoulu"))) {
 
-            plan.putExtra("bool", false);
+            plan.putExtra("trajetPerdu", false);
             plan.putExtra("numeroLocalVoulu", bundle.getString("numeroLocalVoulu"));
             plan.putExtra("positionVoulue", bundle.getIntegerArrayList("positionVoulue"));
             startActivity(plan);
@@ -387,7 +376,7 @@ public class AffichageLocal extends AppCompatActivity {
         int width = size.x;
         int height = size.y;
         params.width = width;
-        params.height=height;
+        params.height = height;
         params.setMargins(0, 0, 0, 0);
         videoView.setLayoutParams(params);
 

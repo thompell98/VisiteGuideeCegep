@@ -4,51 +4,38 @@ import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.graphics.Rect;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
-import android.widget.ArrayAdapter;
-import android.widget.AutoCompleteTextView;
-import android.widget.EditText;
-import android.widget.TextView;
 import android.widget.Toast;
 
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.QueryDocumentSnapshot;
-import com.google.firebase.firestore.QuerySnapshot;
 
-import java.util.ArrayList;
+import java.io.IOException;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.URL;
 
 public class MainActivity extends AppCompatActivity {
     private static final int CAMERA_PERMISSION = 1;
     String local;
-    private static final String TAG = "ConnexionBD";
-    FirebaseFirestore db = FirebaseFirestore.getInstance();
+    //   private static final String TAG = "ConnexionBD";
+    // FirebaseFirestore db = FirebaseFirestore.getInstance();
     Boolean connected = false;
 
-
-    //   ArrayList<Integer>  group;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.trajet_activity);
+        setContentView(R.layout.activity_main);
         Intent i = getIntent();
         local = i.getStringExtra("numero");
         verifierConnexion();
         setListener();
-//        if (actuel.getText().toString().equals(""))
-//        {
-//            Toast toast = Toast.makeText(getApplicationContext(), "Local inexistant", Toast.LENGTH_LONG);toast.show();
-//
-//        }
+
     }
 
     private void setListener() {
@@ -56,7 +43,18 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 if (connected) {
-                    redirectionCamera();
+                    try {
+                        if (isConnected()) {
+                            redirectionCamera();
+
+                        } else {
+                            Toast.makeText(getApplicationContext(), "Veuillez vérifier votre connexion", Toast.LENGTH_SHORT).show();
+                        }
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
 
                 } else {
                     Toast.makeText(getApplicationContext(), "Veuillez vérifier votre connexion", Toast.LENGTH_SHORT).show();
@@ -73,14 +71,8 @@ public class MainActivity extends AppCompatActivity {
                     new String[]{Manifest.permission.CAMERA}, CAMERA_PERMISSION);
         } else {
             Intent intent = new Intent(this, ScanActivity.class);
-            intent.putExtra("allo", false);
             startActivity(intent);
         }
-
-
-//        Intent scan = new Intent(this, ScanActivity.class);
-//        scan.putExtra("allo", false);
-//        startActivity(scan);
 
     }
 
@@ -89,11 +81,8 @@ public class MainActivity extends AppCompatActivity {
         switch (requestCode) {
             case CAMERA_PERMISSION:
                 if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                    //if (MainActivity.class != null) {
                     Intent intent = new Intent(this, ScanActivity.class);
-                    intent.putExtra("allo", false);
                     startActivity(intent);
-                    //  }
                 } else {
                     Toast.makeText(this, "Veuillez autoriser l'utilisation de la caméra", Toast.LENGTH_SHORT).show();
                 }
@@ -105,6 +94,12 @@ public class MainActivity extends AppCompatActivity {
         ConnectivityManager connectivityManager = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
         connected = connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_MOBILE).getState() == NetworkInfo.State.CONNECTED ||
                 connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_WIFI).getState() == NetworkInfo.State.CONNECTED;
+    }
+
+
+    public boolean isConnected() throws InterruptedException, IOException {
+        final String command = "ping -c 1 google.com";
+        return Runtime.getRuntime().exec(command).waitFor() == 0;
     }
 }
 

@@ -16,7 +16,7 @@ public class FullScreenMediaController extends MediaController {
     private ImageButton fullScreen;
     private String isFullScreen;
 
-    // private String local;
+
     public FullScreenMediaController(Context context) {
         super(context);
     }
@@ -25,18 +25,12 @@ public class FullScreenMediaController extends MediaController {
     public void setAnchorView(View view) {
 
         super.setAnchorView(view);
-
-        //image button for full screen to be added to media controller
         fullScreen = new ImageButton(super.getContext());
-
         FrameLayout.LayoutParams params = new FrameLayout.LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
         params.gravity = Gravity.RIGHT;
         params.rightMargin = 80;
         addView(fullScreen, params);
-
-        //fullscreen indicator from intent
         isFullScreen = ((Activity) getContext()).getIntent().getStringExtra("fullScreenInd");
-
         final String localA = ((Activity) getContext()).getIntent().getStringExtra("numeroLocalActuel");
         final ArrayList<Integer> posA = ((Activity) getContext()).getIntent().getIntegerArrayListExtra("positionActuelle");
         final String localV = ((Activity) getContext()).getIntent().getStringExtra("numeroLocalVoulu");
@@ -49,7 +43,6 @@ public class FullScreenMediaController extends MediaController {
             fullScreen.setImageResource(R.drawable.fullscreen);
         }
 
-        //add listener to image button to handle full screen and exit full screen events
         fullScreen.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -58,7 +51,6 @@ public class FullScreenMediaController extends MediaController {
 
                 if ("y".equals(isFullScreen)) {
                     intent.putExtra("fullScreenInd", "");
-
                     intent.putExtra("numeroLocalActuel", localA);
                     intent.putExtra("positionActuelle", posA);
                     intent.putExtra("numeroLocalVoulu", localV);
@@ -66,14 +58,13 @@ public class FullScreenMediaController extends MediaController {
 
                 } else {
                     intent.putExtra("fullScreenInd", "y");
-
                     intent.putExtra("numeroLocalActuel", localA);
                     intent.putExtra("positionActuelle", posA);
                     intent.putExtra("numeroLocalVoulu", localV);
                     intent.putExtra("positionVoulue", posV);
 
                 }
-                ((Activity) getContext()).startActivity(intent);
+                (getContext()).startActivity(intent);
             }
         });
     }

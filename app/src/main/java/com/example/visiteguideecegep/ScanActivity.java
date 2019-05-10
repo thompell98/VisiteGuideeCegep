@@ -27,7 +27,7 @@ public class ScanActivity extends AppCompatActivity implements ZXingScannerView.
     ZXingScannerView scannerView;
     private static final String TAG = "ConnexionBD";
     FirebaseFirestore db = FirebaseFirestore.getInstance();
-    Boolean aBoolean;
+    Boolean trajetperdu;
     String local;
     ArrayList<Integer> positionVoulue;
 
@@ -36,7 +36,7 @@ public class ScanActivity extends AppCompatActivity implements ZXingScannerView.
         super.onCreate(savedInstanceState);
         scannerView = new ZXingScannerView(this);
         Intent i = getIntent();
-        aBoolean = i.getBooleanExtra("bool", true);
+        trajetperdu = i.getBooleanExtra("trajetPerdu", true);
         setContentView(scannerView);
 
         local = i.getStringExtra("numeroLocalVoulu");
@@ -56,7 +56,7 @@ public class ScanActivity extends AppCompatActivity implements ZXingScannerView.
                     @Override
                     public void onComplete(@NonNull Task<QuerySnapshot> task) {
                         if (task.isSuccessful()) {
-                            Intent intente = new Intent(ScanActivity.this, TrajetActivity.class);
+                            Intent intente = new Intent(ScanActivity.this, MainActivity.class);
                             Intent trajet = new Intent(ScanActivity.this, RechercheLocal.class);
                             Intent trajetPerdu = new Intent(ScanActivity.this, EmplacementActivity.class);
 
@@ -68,7 +68,7 @@ public class ScanActivity extends AppCompatActivity implements ZXingScannerView.
                                 trajetPerdu.putExtra("numeroLocalActuel", document.get("Numero").toString());
                                 trajetPerdu.putExtra("positionActuelle", groupe);
                             }
-                            if (aBoolean) {
+                            if (trajetperdu) {
                                 if (trajet.getStringExtra("numero") == null) {
                                     Toast toast = Toast.makeText(getApplicationContext(), "Local inexistant(ou véréfier votre connexion internet)", Toast.LENGTH_LONG);
                                     toast.show();
