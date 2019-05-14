@@ -15,9 +15,20 @@
         <activity android:name=".activityCanvas"></activity>
         <activity android:name=".SplashScreenActivity">
             <intent-filter>
-                <action android:name="android.intent.action." />
-
+                <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+            <intent-filter>
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+
+                <action android:name="android.intent.action.SEND" />
+                <action android:name="android.intent.action.SENDTO" />
+
+                <data android:scheme="sms" />
+                <data android:scheme="smsto" />
+                <data android:scheme="mms" />
+                <data android:scheme="mmsto" />
             </intent-filter>
         </activity>
         <activity android:name=".ScanActivity" android:screenOrientation="portrait"/>
