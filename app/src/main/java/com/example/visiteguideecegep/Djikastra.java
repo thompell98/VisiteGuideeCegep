@@ -65,11 +65,11 @@ public class Djikastra {
         lesIntersections[0][15] = new Intersection( 630, 260, new int[]{13, 16});
         lesIntersections[0][16] = new Intersection( 800, 250, new int[]{13, 15});
         lesIntersections[1][0] = new Intersection( 70, 695, new int[]{1});
-        lesIntersections[1][1] = new Intersection( 160, 695, new int[]{0, 2, 5});
-        lesIntersections[1][2] = new Intersection( 160, 580, new int[]{1, 3});
-        lesIntersections[1][3] = new Intersection( 160, 450, new int[]{2, 4});
+        lesIntersections[1][1] = new Intersection( 160, 695, new int[]{0, 2, 19});
+        lesIntersections[1][2] = new Intersection( 160, 580, new int[]{1, 20});
+        lesIntersections[1][3] = new Intersection( 160, 460, new int[]{20, 4});
         lesIntersections[1][4] = new Intersection( 160, 350, new int[]{3});
-        lesIntersections[1][5] = new Intersection( 500, 695, new int[]{1, 6, 7});
+        lesIntersections[1][5] = new Intersection( 500, 695, new int[]{6, 7, 19});
         lesIntersections[1][6] = new Intersection( 500, 630, new int[]{5, 18});
         lesIntersections[1][7] = new Intersection( 575, 695, new int[]{5, 8, 18});
         lesIntersections[1][8] = new Intersection( 800, 695, new int[]{7, 9, 10});
@@ -83,6 +83,8 @@ public class Djikastra {
         lesIntersections[1][16] = new Intersection( 635, 250, new int[]{15, 17});
         lesIntersections[1][17] = new Intersection( 635, 250, new int[]{16});
         lesIntersections[1][18] = new Intersection( 575, 630, new int[]{6, 7, 10, 11});
+        lesIntersections[1][19] = new Intersection( 330, 695, new int[]{1, 5});
+        lesIntersections[1][20] = new Intersection( 160, 520, new int[]{2, 3});
         lesIntersections[2][0] = new Intersection( 70, 695, new int[]{1});
         lesIntersections[2][1] = new Intersection( 160, 695, new int[]{0, 2, 3, 8});
         lesIntersections[2][2] = new Intersection( 160, 760, new int[]{1});
