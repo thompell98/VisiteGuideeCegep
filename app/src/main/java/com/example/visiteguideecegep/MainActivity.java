@@ -23,8 +23,6 @@ import java.net.URL;
 public class MainActivity extends AppCompatActivity {
     private static final int CAMERA_PERMISSION = 1;
     String local;
-    //   private static final String TAG = "ConnexionBD";
-    // FirebaseFirestore db = FirebaseFirestore.getInstance();
     Boolean connected = false;
 
     @Override
@@ -35,7 +33,6 @@ public class MainActivity extends AppCompatActivity {
         local = i.getStringExtra("numero");
         verifierConnexion();
         setListener();
-
     }
 
     private void setListener() {
@@ -46,7 +43,6 @@ public class MainActivity extends AppCompatActivity {
                     try {
                         if (isConnected()) {
                             redirectionCamera();
-
                         } else {
                             Toast.makeText(getApplicationContext(), "Veuillez vérifier votre connexion", Toast.LENGTH_SHORT).show();
                         }
@@ -55,7 +51,6 @@ public class MainActivity extends AppCompatActivity {
                     } catch (IOException e) {
                         e.printStackTrace();
                     }
-
                 } else {
                     Toast.makeText(getApplicationContext(), "Veuillez vérifier votre connexion", Toast.LENGTH_SHORT).show();
                     verifierConnexion();
@@ -86,7 +81,6 @@ public class MainActivity extends AppCompatActivity {
                 } else {
                     Toast.makeText(this, "Veuillez autoriser l'utilisation de la caméra", Toast.LENGTH_SHORT).show();
                 }
-
         }
     }
 

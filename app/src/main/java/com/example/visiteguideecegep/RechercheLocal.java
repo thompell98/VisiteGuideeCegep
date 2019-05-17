@@ -146,7 +146,7 @@ public class RechercheLocal extends AppCompatActivity {
     private void chargerFirestoreEnMemoire() {
         String[] ailes = new String[]{"A", "B", "C", "D", "E", "G", "N"};
         CollectionReference etagesRef = db.collection("Étages");
-        for (int cpt = 0; cpt < 5; cpt++) {
+        for (int cpt = 1; cpt < 6; cpt++) {
             CollectionReference ailesRef = etagesRef.document("Étage " + String.valueOf(cpt)).collection("Ailes");
             for (int cpt2 = 0; cpt2 < 7; cpt2++) {
                 CollectionReference locauxRef = ailesRef.document("Aile " + ailes[cpt2]).collection("Locaux");

@@ -120,10 +120,12 @@ public class MyCanvas extends View {
         Paint paintte2 = new Paint();
         paintte2.setColor(Color.RED);
 
+        //permet de dessiner les intersections afin de les voir si besoin
+        //Paint painte = new Paint();
         //for (int cpt = 0; cpt < djikastra.lesIntersections[numeroEtageCourant].length; cpt++) {
         //    if (djikastra.lesIntersections[numeroEtageCourant][cpt] != null){
         //        canvas.drawCircle(djikastra.lesIntersections[numeroEtageCourant][cpt].coordonnee.x * widthRatio, djikastra.lesIntersections[numeroEtageCourant][cpt].coordonnee.y * heightRatio, 5 * heightRatio, painte);
-        //    }
+        //}
         //}
 
         for (int cpt = 0; cpt < trajetCourant.size() - 1; cpt++) {
