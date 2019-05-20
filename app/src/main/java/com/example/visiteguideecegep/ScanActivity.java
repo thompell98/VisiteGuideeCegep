@@ -64,7 +64,7 @@ int intersectionLocalVoulu;
                             }
                             if (trajetperdu) {
                                 if (trajet.getStringExtra("numero") == null) {
-                                    Toast toast = Toast.makeText(getApplicationContext(), "Local inexistant(ou véréfier votre connexion internet)", Toast.LENGTH_LONG);
+                                    Toast toast = Toast.makeText(getApplicationContext(), "Local inexistant(ou vérifier votre connexion internet)", Toast.LENGTH_LONG);
                                     toast.show();
                                     startActivity(intente);
                                 } else {
