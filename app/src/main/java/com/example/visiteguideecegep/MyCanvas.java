@@ -53,7 +53,7 @@ public class MyCanvas extends View {
     int intersectionLocalB;
     Rect positionA;
     Rect destination;
-    Boolean aa = true;
+    Boolean etage = true;
     String etageA;
     String etageB;
     int numeroEtageA;
@@ -168,9 +168,9 @@ public class MyCanvas extends View {
             try {
                 if (!etageA.equals(etageB)) {
 
-                    if (aa) {
+                    if (etage) {
                         Pin = null;
-                        aa = false;
+                        etage = false;
                         Star = BitmapFactory.decodeResource(getResources(), R.drawable.star);
                         for (int i = 1; i < images.length + 1; i++) {
                             if (etageB.equals(String.valueOf(i))) {
@@ -183,7 +183,7 @@ public class MyCanvas extends View {
                         toast.show();
                     } else {
 
-                        aa = true;
+                        etage = true;
                         Star = null;
                         Pin = BitmapFactory.decodeResource(getResources(), R.drawable.pin);
                         for (int i = 1; i < images.length + 1; i++) {
