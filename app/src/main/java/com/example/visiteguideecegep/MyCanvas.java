@@ -212,8 +212,8 @@ public class MyCanvas extends View {
         @Override
         public boolean onScroll(MotionEvent e1, MotionEvent e2, float distanceX, float distanceY) {
             scrollBy((int) distanceX, (int) distanceY);
-            mFocusX += -distanceX;
-            mFocusY += -distanceY;
+            mFocusX += -distanceX/mScaleFactor;
+            mFocusY += -distanceY/mScaleFactor;
             return true;
         }
 
